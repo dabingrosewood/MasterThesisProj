@@ -1,0 +1,4 @@
+modification_log:
+22-04-2019:
+	PonyGE2:
+	+replaced fitness function by C-implemented Fitness function for (string_match problem, regression problem and classification problems) 
