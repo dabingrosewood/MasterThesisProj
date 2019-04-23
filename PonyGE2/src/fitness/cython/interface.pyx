@@ -38,7 +38,6 @@ def testf(data1,data2):
 def fitness_rmse(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None):
     result = rmse(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
     return result
-fitness_rmse.maximise = False
 
 
 def edit_dis(string1,string2):
