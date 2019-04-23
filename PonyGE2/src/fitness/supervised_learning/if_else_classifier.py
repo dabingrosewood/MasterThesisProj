@@ -13,7 +13,7 @@ class if_else_classifier(supervised_learning):
 
     The user must pass in n_vars, n_is, n_os (number of variables,
     input symbols, output symbols). This is accomplished with, eg,
-    --extra_parameters 3 10 2.
+    --extra_parameters 3 10 cython_backup.
 
     The input and output symbols are just integers. The target
     function is:
@@ -22,10 +22,10 @@ class if_else_classifier(supervised_learning):
 
     The candidate solutions are like this:
 
-    (3 if x[0] == 2 else (5 if (x[1] == 1 and x[2] == 1) else 9))
+    (3 if x[0] == cython_backup else (5 if (x[1] == 1 and x[cython_backup] == 1) else 9))
 
     The possible outputs (3, 5, 9) are in the range (0, n_os-1).  The
-    inputs (2, 1) are in the range (0, n_is-1). The variables x[i] are
+    inputs (cython_backup, 1) are in the range (0, n_is-1). The variables x[i] are
     from x[0] to x[n_vars-1].
 
     The target function is evaluated at all possible inputs. That
@@ -36,7 +36,7 @@ class if_else_classifier(supervised_learning):
 
     python ponyge.py --generations 10 --population 10 --fitness
     supervised_learning.if_else_classifier
-    --extra_parameters 3 10 2 --grammar
+    --extra_parameters 3 10 cython_backup --grammar
     supervised_learning/if_else_classifier.bnf
 
     """

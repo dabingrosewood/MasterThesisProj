@@ -1640,7 +1640,6 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_array(void); /*proto*/
 /* Module declarations from 'interface' */
 static PyObject *__pyx_f_9interface__bstring(PyObject *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
-static __Pyx_TypeInfo __Pyx_TypeInfo_long = { "long", NULL, sizeof(long), { 0 }, 0, IS_UNSIGNED(long) ? 'U' : 'I', IS_UNSIGNED(long), 0 };
 static __Pyx_TypeInfo __Pyx_TypeInfo_int = { "int", NULL, sizeof(int), { 0 }, 0, IS_UNSIGNED(int) ? 'U' : 'I', IS_UNSIGNED(int), 0 };
 #define __Pyx_MODULE_NAME "interface"
 extern int __pyx_module_is_main_interface;
@@ -2306,7 +2305,7 @@ static PyObject *__pyx_pf_9interface_4edit_dis(CYTHON_UNUSED PyObject *__pyx_sel
  *     s2=_bstring(string2)
  *     return editDistance(s1,s2)             # <<<<<<<<<<<<<<
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
  */
   __Pyx_XDECREF(__pyx_r);
   if (unlikely(__pyx_v_s1 == Py_None)) {
@@ -2349,8 +2348,8 @@ static PyObject *__pyx_pf_9interface_4edit_dis(CYTHON_UNUSED PyObject *__pyx_sel
 /* "interface.pyx":48
  *     return editDistance(s1,s2)
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
  *     return result
  */
 
@@ -2460,12 +2459,12 @@ static PyObject *__pyx_pf_9interface_6eval_f1_score(CYTHON_UNUSED PyObject *__py
   __pyx_pybuffernd_length.rcbuffer = &__pyx_pybuffer_length;
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 48, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_y.rcbuffer->pybuffer, (PyObject*)__pyx_v_y, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 48, __pyx_L1_error)
   }
   __pyx_pybuffernd_y.diminfo[0].strides = __pyx_pybuffernd_y.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_y.diminfo[0].shape = __pyx_pybuffernd_y.rcbuffer->pybuffer.shape[0];
   {
     __Pyx_BufFmt_StackElem __pyx_stack[1];
-    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_yhat.rcbuffer->pybuffer, (PyObject*)__pyx_v_yhat, &__Pyx_TypeInfo_long, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 48, __pyx_L1_error)
+    if (unlikely(__Pyx_GetBufferAndValidate(&__pyx_pybuffernd_yhat.rcbuffer->pybuffer, (PyObject*)__pyx_v_yhat, &__Pyx_TypeInfo_double, PyBUF_FORMAT| PyBUF_C_CONTIGUOUS, 1, 0, __pyx_stack) == -1)) __PYX_ERR(0, 48, __pyx_L1_error)
   }
   __pyx_pybuffernd_yhat.diminfo[0].strides = __pyx_pybuffernd_yhat.rcbuffer->pybuffer.strides[0]; __pyx_pybuffernd_yhat.diminfo[0].shape = __pyx_pybuffernd_yhat.rcbuffer->pybuffer.shape[0];
   {
@@ -2476,16 +2475,16 @@ static PyObject *__pyx_pf_9interface_6eval_f1_score(CYTHON_UNUSED PyObject *__py
 
   /* "interface.pyx":49
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])             # <<<<<<<<<<<<<<
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])             # <<<<<<<<<<<<<<
  *     return result
  * 
  */
-  __pyx_v_result = f1_score(((long *)PyArray_DATA(((PyArrayObject *)__pyx_v_y))), ((long *)PyArray_DATA(((PyArrayObject *)__pyx_v_yhat))), (__pyx_v_y->dimensions[0]));
+  __pyx_v_result = f1_score(((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_y))), ((double *)PyArray_DATA(((PyArrayObject *)__pyx_v_yhat))), (__pyx_v_y->dimensions[0]));
 
   /* "interface.pyx":50
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
  *     return result             # <<<<<<<<<<<<<<
  * 
  * def eval_multiplexer(phenotype,problem_size):
@@ -2500,8 +2499,8 @@ static PyObject *__pyx_pf_9interface_6eval_f1_score(CYTHON_UNUSED PyObject *__py
   /* "interface.pyx":48
  *     return editDistance(s1,s2)
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
  *     return result
  */
 
@@ -5373,8 +5372,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "interface.pyx":48
  *     return editDistance(s1,s2)
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
  *     return result
  */
   __pyx_tuple__15 = PyTuple_Pack(4, __pyx_n_s_y, __pyx_n_s_yhat, __pyx_n_s_length, __pyx_n_s_result); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(0, 48, __pyx_L1_error)
@@ -5770,8 +5769,8 @@ if (!__Pyx_RefNanny) {
   /* "interface.pyx":48
  *     return editDistance(s1,s2)
  * 
- * def eval_f1_score(np.ndarray[long, ndim=1, mode="c"] y not None, np.ndarray[long, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
- *     result=f1_score(<long*> np.PyArray_DATA(y),<long*> np.PyArray_DATA(yhat),y.shape[0])
+ * def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):             # <<<<<<<<<<<<<<
+ *     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
  *     return result
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9interface_7eval_f1_score, NULL, __pyx_n_s_interface); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)

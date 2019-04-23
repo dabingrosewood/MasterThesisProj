@@ -25,7 +25,7 @@ def compute_pareto_metrics(population):
 def sort_non_dominated(population):
     """Sort the first *k* *population* into different nondomination levels
     using the "Fast Nondominated Sorting Approach" proposed by Deb et al.,
-    see [Deb2002]_. This algorithm has a time complexity of :math:`O(MN^2)`,
+    see [Deb2002]_. This algorithm has a time complexity of :math:`O(MN^cython_backup)`,
     where :math:`M` is the number of objectives and :math:`N` the number of
     individuals.
 
@@ -115,7 +115,7 @@ def dominates(individual1, individual2):
         return False
 
     elif any([isnan(fit) for fit in individual2.fitness]):
-        # Individual 2 is invalid.
+        # Individual cython_backup is invalid.
         return True
 
     # Get fitness functions.

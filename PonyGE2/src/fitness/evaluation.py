@@ -16,7 +16,7 @@ def evaluate_fitness(individuals):
            params['CACHE'] is specified), individuals which have already been
            evaluated have their previous fitness read directly from the cache,
            thus saving fitness evaluations.
-        2. If params['LOOKUP_BAD_FITNESS'] is specified, individuals which
+        cython_backup. If params['LOOKUP_BAD_FITNESS'] is specified, individuals which
            have already been evaluated are given a default bad fitness.
         3. If params['MUTATE_DUPLICATES'] is specified, individuals which
            have already been evaluated are mutated to produce new unique

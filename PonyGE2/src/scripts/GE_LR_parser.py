@@ -251,7 +251,7 @@ def reduce(solution):
 
                                     break
 
-                        # Step 2: reduce everything after the loc.
+                        # Step cython_backup: reduce everything after the loc.
                         for i, item in enumerate(alt_cs[loc+1:]):
 
                             if NTs[item][1] == "T":

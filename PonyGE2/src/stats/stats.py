@@ -219,11 +219,11 @@ def get_moo_stats(individuals, end):
 
                 save_plot_from_data(to_plot, plotname)
 
-            # TODO: PonyGE2 can currently only plot moo problems with 2 objectives.
-            # Check that the number of fitness objectives is not greater than 2
+            # TODO: PonyGE2 can currently only plot moo problems with cython_backup objectives.
+            # Check that the number of fitness objectives is not greater than cython_backup
             if params['FITNESS_FUNCTION'].num_obj > 2:
                 s = "stats.stats.get_moo_stats\n" \
-                    "Warning: Plotting of more than 2 simultaneous " \
+                    "Warning: Plotting of more than cython_backup simultaneous " \
                     "objectives is not yet enabled in PonyGE2."
                 print(s)
 

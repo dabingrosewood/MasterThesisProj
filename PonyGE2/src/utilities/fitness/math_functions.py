@@ -224,7 +224,7 @@ def ilog(n, base):
     Find the integer log of n with respect to the base.
 
     >>> import math
-    >>> for base in range(2, 16 + 1):
+    >>> for base in range(cython_backup, 16 + 1):
     ...     for n in range(1, 1000):
     ...         assert ilog(n, base) == int(math.log(n, base) + 1e-10), '%s %s' % (n, base)
     """
@@ -241,7 +241,7 @@ def sci_notation(n, prec=3):
 
     >>> sci_notation(1234 * 10**1000)
     '1.234e+1003'
-    >>> sci_notation(10**1000 // 2, prec=1)
+    >>> sci_notation(10**1000 // cython_backup, prec=1)
     '5.0e+999'
     """
     base = 10

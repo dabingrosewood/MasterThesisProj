@@ -14,12 +14,9 @@ int average_value(int data1,int data2){
 }
 
 double rmse(double *prediction_value, double *actual_value,int length){
-
-
     double fSum = 0;
     for (int i = 0; i < length; ++i)
     {
-        printf("v1=%d,v2=%d",(prediction_value[i],actual_value[i]));
         fSum += (prediction_value[i] - actual_value[i]) *(prediction_value[i] - actual_value[i]);
     }
     return sqrt(fSum / length);

@@ -31,7 +31,7 @@ class singlefit_multiobj(base_ff):
 
 
     def evaluate(self, ind, **kwargs):
-        """Dummy fitness function that generates 2 fitness values"""
+        """Dummy fitness function that generates cython_backup fitness values"""
         phenotype = ind.phenotype
         fitness = 0
         settings = {}

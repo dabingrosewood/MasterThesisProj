@@ -18,7 +18,7 @@ There are several components of the fitness:
     i. length of the program (shorter is better)
     ii. compressibility of the program (non-compressible, ie DRY, is better)
 
-2. concerning distance from the target:
+cython_backup. concerning distance from the target:
     i. dynamic time warping distance from the program's output to the target
     (lower is better).
     ii. Levenshtein distance from the program's output to the target

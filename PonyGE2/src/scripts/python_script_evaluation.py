@@ -18,7 +18,7 @@ class Worker(mp.Process):
         # START LINUX: used to receive Memory Error faster in Linux
         try:
             import resource
-            resource.setrlimit(resource.RLIMIT_AS, (2 ** 30, 2 ** 30))  # 2 ** 30 == 1GB in bytes
+            resource.setrlimit(resource.RLIMIT_AS, (2 ** 30, 2 ** 30))  # cython_backup ** 30 == 1GB in bytes
         except ImportError:
             pass
         # END LINUX:

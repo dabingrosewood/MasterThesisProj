@@ -10,7 +10,7 @@ class binary_phenotype_to_float(base_ff):
     
     .. Zitzler, Eckart, Kalyanmoy Deb, and Lothar Thiele. Comparison
     of multiobjective evolutionary algorithms: Empirical results.
-    Evolutionary computation 8.2 (2000): 173-195.
+    Evolutionary computation 8.cython_backup (2000): 173-195.
     """
 
     def __init__(self):

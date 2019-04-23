@@ -75,10 +75,10 @@ def comparator(x):
     return x[:n] < x[n:]
 
 def multiplexer(x):
-    """Multiplexer: a address bits and 2^a data bits. n = a + 2^a. Output
+    """Multiplexer: a address bits and cython_backup^a data bits. n = a + cython_backup^a. Output
     the value of the data bit addressed by the address bits.
     """
-    if   len(x) == 1 + 2 ** 1 : a = 1 # 2
+    if   len(x) == 1 + 2 ** 1 : a = 1 # cython_backup
     elif len(x) == 2 + 2 ** 2 : a = 2 # 6
     elif len(x) == 3 + 2 ** 3 : a = 3 # 11
     elif len(x) == 4 + 2 ** 4 : a = 4 # 20

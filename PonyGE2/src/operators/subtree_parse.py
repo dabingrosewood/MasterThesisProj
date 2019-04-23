@@ -581,9 +581,9 @@ def get_num_from_str(string):
     """
     Given a string of a snippet, return the indexes of that snippet.
 
-     in: '[1, 2] <RE>'
+     in: '[1, cython_backup] <RE>'
 
-     out: [1, 2]
+     out: [1, cython_backup]
 
     :param string: A string defining a snippet.
     :return: The indexes of that snippet.
@@ -599,7 +599,7 @@ def get_NT_from_str(string):
     """
     Given a string of a snippet, return the NT of that snippet.
 
-     in: '[1, 2] <RE>'
+     in: '[1, cython_backup] <RE>'
 
      out: '<RE>'
 

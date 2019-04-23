@@ -1,4 +1,9 @@
 modification_log:
 22-04-2019:
 	PonyGE2:
-	+replaced fitness function by C-implemented Fitness function for (string_match problem, regression problem and classification problems) 
+	    +replaced fitness function by C-implemented Fitness function for (string_match problem, regression problem and classification problems)
+
+23-04-2019:
+    Global:
+       +research project(hyper-parameter tuning part)
+       +standard of adding new probelm(fitness function) into test suite
