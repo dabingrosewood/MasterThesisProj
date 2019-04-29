@@ -11,3 +11,6 @@ modification_log:
 29-04-2019:
     Global:
         +(on work)Data extracter
+        +bug fixed on hyper-parameter-tuning.py
+            --the minimize_problem bug
+            todo: Name of Output still have bug

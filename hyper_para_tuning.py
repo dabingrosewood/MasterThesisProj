@@ -10,6 +10,7 @@
 from pdb import set_trace
 
 import numpy as np
+import datetime
 import re,os,traceback
 from datetime import datetime
 from BayesOpt import BO
@@ -21,6 +22,7 @@ from multiprocessing import Pool
 
 
 def runGE(cmd):
+    # run PonyGE2 system
     try:
         p = os.popen(cmd)
         std_out = p.read()
@@ -40,7 +42,6 @@ def build_cmd(x,parameter_name,cmd):
 def obj_func(x):
 
     # print("currently dealing with probelm ",problem,'\n')
-    # print(str(x['CROSSOVER_PROBABILITY']))
 
     cmd = 'python3 ponyge.py --parameters '+problem+'.txt'
 
@@ -102,7 +103,7 @@ def obj_func(x):
 if __name__ == "__main__":
     np.random.seed(67)
 
-    n_step = 1 # iteration number
+    n_step = 20 # iteration number
     n_init_sample = 5
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
@@ -110,14 +111,17 @@ if __name__ == "__main__":
 
     os.chdir("PonyGE2/src/")
 
-    problem_set = ['classification', 'regression', 'string_match', 'pymax']
+    # problem_set = ['classification', 'regression', 'string_match', 'pymax']
+    problem_set = [ 'string_match']
     # the problem you are going to test
 
     for problem in problem_set:
         minimize_problem = True
         # by default, it will be a minimize problem.
-        if problem == 'classification' or 'pymax':
+
+        if problem in ['classification','pymax']:
             minimize_problem = False
+
 
         # all shared hyper-parameters
         INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
@@ -158,8 +162,11 @@ if __name__ == "__main__":
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
+        # problem here,
 
-        f = open("out.txt", 'w+')
+
+        f = open("out_"+str(datetime.now())+".txt", 'w+')
+        # bug here !
 
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)
