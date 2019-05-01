@@ -7,6 +7,7 @@ from utilities.fitness.math_functions import *
 from utilities.fitness.optimize_constants import optimize_constants
 
 from fitness.base_ff_classes.base_ff import base_ff
+from utilities.stats.eval_counter import eval_counter
 
 
 class supervised_learning(base_ff):
@@ -40,6 +41,7 @@ class supervised_learning(base_ff):
         if params['DATASET_TEST']:
             self.training_test = True
 
+    @eval_counter
     def evaluate(self, ind, **kwargs):
         """
         Note that math functions used in the solutions are imported from either

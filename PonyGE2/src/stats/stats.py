@@ -11,7 +11,7 @@ from utilities.stats.save_plots import save_plot_from_data, \
     save_pareto_fitness_plot
 from utilities.stats.file_io import save_stats_to_file, save_stats_headers, \
     save_best_ind_to_file, save_first_front_to_file
-
+from utilities.stats.eval_counter import eval_counter
 
 """Algorithm statistics"""
 stats = {
@@ -327,6 +327,7 @@ def update_stats(individuals, end):
     stats['ave_tree_nodes'] = np.nanmean(nodes)
     stats['min_tree_nodes'] = np.nanmin(nodes)
 
+
     if not hasattr(params['FITNESS_FUNCTION'], 'multi_objective'):
         # Fitness Stats
         fitnesses = [i.fitness for i in individuals]
@@ -376,6 +377,11 @@ def print_final_stats():
     print("  Phenotype:", trackers.best_ever.phenotype)
     print("  Genome:", trackers.best_ever.genome)
     print_generation_stats()
+
+    @eval_counter
+    def print_eval_num():
+        pass
+    print_eval_num()
 
 
 def print_final_moo_stats():

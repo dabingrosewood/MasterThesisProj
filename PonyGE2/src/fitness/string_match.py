@@ -1,5 +1,6 @@
 from algorithm.parameters import params
 from fitness.base_ff_classes.base_ff import base_ff
+from utilities.stats.eval_counter import eval_counter
 
 from fitness.cython.interface import edit_dis
 
@@ -33,7 +34,7 @@ class string_match(base_ff):
     #             # Imperfect match, find ASCII distance to match.
     #             fitness -= 1 / (1 + (abs(ord(t_p) - ord(g_p))))
     #     return fitness
-
+    @eval_counter
     def evaluate(self, ind, **kwargs):
 
         guess = ind.phenotype

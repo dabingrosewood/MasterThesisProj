@@ -14,3 +14,22 @@ modification_log:
         +bug fixed on hyper-parameter-tuning.py
             --the minimize_problem bug
             todo: Name of Output still have bug
+
+01-05-2019:
++todo:Add the MAX_BUDGET to control the eval_num of fitness func
+    (idea from Hao: to add a counter on base-level[C]?)
+
+    Global:
+
+
+    PonyGE2:
+        +added one decorater in from 'utilities.stats.eval_counter' to record eval_num.
+        connected:
+            +from utilities.stats.eval_counter import eval_counter
+            +@eval_counter
+            in files:
+            ~fitness/base_ff.py
+            ~fitness/supervised_leaning.py
+            ~fitness/base_ff.py
+
+

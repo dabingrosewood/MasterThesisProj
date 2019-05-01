@@ -16,8 +16,8 @@ class classification(supervised_learning):
 
         # Set error metric if it's not set already.
         if params['ERROR_METRIC'] is None:
-            params['ERROR_METRIC'] = f1_score
-            # params['ERROR_METRIC'] = eval_f1_score
+            # params['ERROR_METRIC'] = f1_score
+            params['ERROR_METRIC'] = eval_f1_score
 
         # self.maximise = params['ERROR_METRIC'].maximise
         self.maximise = True

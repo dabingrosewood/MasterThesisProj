@@ -32,6 +32,14 @@ def runGE(cmd):
         fitness=np.nan
         print("error, fitness got value='NAN' ")
 
+    try:
+        unused_eval=re.search(r'(gen)\s+:\s+(\d+)', std_out)
+        print("eval_num=",eval_num)
+    except:
+        print("didnt get")
+
+
+
     return fitness
 
 def build_cmd(x,parameter_name,cmd):
@@ -107,6 +115,7 @@ if __name__ == "__main__":
     n_init_sample = 5
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
+    max_eval=100000
     # iteration = 0
 
     os.chdir("PonyGE2/src/")
@@ -143,6 +152,7 @@ if __name__ == "__main__":
         MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
         TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
         POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
+        GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
 
         if minimize_problem == True:
             search_space = INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + TOURNAMENT_SIZE + POPULATION_SIZE
@@ -165,8 +175,7 @@ if __name__ == "__main__":
         # problem here,
 
 
-        f = open("out_"+str(datetime.now())+".txt", 'w+')
-        # bug here !
+        f = open("out_"+problem+".txt", 'w+')
 
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)

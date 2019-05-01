@@ -2,6 +2,7 @@ import numpy as np
 
 np.seterr(all="raise")
 
+from utilities.stats.eval_counter import eval_counter
 
 class base_ff:
     """
@@ -51,7 +52,7 @@ class base_ff:
             raise
                 
         return fitness
-
+    @eval_counter
     def evaluate(self, ind, **kwargs):
         """
         Default fitness execution call for all fitness functions. When
@@ -65,6 +66,7 @@ class base_ff:
         """
 
         # Evaluate the fitness of the phenotype
+        print("i was here")
         fitness = eval(ind.phenotype)
 
         return fitness
