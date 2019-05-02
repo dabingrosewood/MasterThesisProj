@@ -28,21 +28,26 @@ def runGE(cmd):
         std_out = p.read()
         fitness = re.search(r'(\d+(\.\d+)?)([\n\s]*Phenotype)', std_out).group(1)
         print('current parameter has the fitness of ', fitness)
-    except :
+    except:
         fitness=np.nan
         print("error, fitness got value='NAN' ")
 
     try:
-        unused_eval=re.search(r'(gen)\s+:\s+(\d+)', std_out)
-        print("eval_num=",eval_num)
+        used_eval=re.search(r'Eval_count\s+=\s+(\d+)', std_out).group(1)
+        print("used eval_num=",used_eval)
     except:
-        print("didnt get")
+        print("didnt get eval num, will used the estimation value to replace this.")
+        used_eval = 50 * re.search(r'(--POPULATION_SIZE)\s*(\d+)',cmd).group(1)
+
+        # 50 is the default number of iteration in Ponyge2 system.
+        # in the case of the system cannot got the eval_num, this value will be set to the iteration_num*pop_size
 
 
 
     return fitness
 
 def build_cmd(x,parameter_name,cmd):
+    # used in obj_func()
     if x.get(parameter_name):
         cmd=cmd+('  --'+parameter_name+' ').lower()+str(x[parameter_name])
     return cmd
@@ -77,6 +82,7 @@ def obj_func(x):
     cmd = build_cmd(x, 'MAX_TREE_DEPTH', cmd)
 
     print("command inputed is ", cmd)
+    # check the command inputed here
 
     tmp=0
     err=0
@@ -88,6 +94,7 @@ def obj_func(x):
     # pool.join()
     for i in result:
         fitness = i.get()
+
         # print('fitness=',fitness)
         if fitness==np.nan:
             err+=1
@@ -172,7 +179,6 @@ if __name__ == "__main__":
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
-        # problem here,
 
 
         f = open("out_"+problem+".txt", 'w+')
