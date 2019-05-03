@@ -33,4 +33,14 @@ modification_log:
     PonyGE2:
         +eval_count func(src/utilities/stats/eval_counter.py)
 
+    Global:
+        functionized the hyper-parameter part.
 
+
+03-05-2019:
+    Ponyge2:
+        + /log to record logfiles
+    Global:
+        +logfile located at PonyGE2/log/
+            logfile 'out_probelm_time_machine.txt' includes the best-found parameter-settings  and corresponded fitness
+            logfile 'summary_of_PROBLEM.log' includes all tested result
