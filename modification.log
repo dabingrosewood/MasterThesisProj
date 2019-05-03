@@ -44,3 +44,4 @@ modification_log:
         +logfile located at PonyGE2/log/
             logfile 'out_probelm_time_machine.txt' includes the best-found parameter-settings  and corresponded fitness
             logfile 'summary_of_PROBLEM.log' includes all tested result
+        + modified .gitignore
