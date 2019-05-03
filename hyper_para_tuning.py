@@ -185,8 +185,8 @@ if __name__ == "__main__":
     M = 21  # maximal length of grammar, to make the problem more linear
     max_eval_each=100000
     # os.chdir("PonyGE2/src/")
-    # problem_set = ['classification', 'regression', 'string_match', 'pymax']
-    problem_set = [ 'string_match']
+    problem_set = ['classification', 'regression', 'string_match', 'pymax']
+    # problem_set = [ 'string_match']
     # the problem you are going to test
 
     # for problem in problem_set:
