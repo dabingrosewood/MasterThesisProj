@@ -178,11 +178,11 @@ def hyper_parameter_tuning(n_step,n_init_sample,eval_type, max_eval_each=100000,
 if __name__ == "__main__":
     np.random.seed(67)
 
-    n_step = 1 # iteration number
-    n_init_sample = 1
+    n_step = 100 # iteration number
+    n_init_sample = 5
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
-    max_eval_each=100000
+    max_eval_each=1000000
     # os.chdir("PonyGE2/src/")
     problem_set = ['classification', 'regression', 'string_match', 'pymax']
     # problem_set = [ 'string_match']
