@@ -32,12 +32,12 @@ def runGE(cmd):
         fitness=np.nan
         print("error, fitness got value='NAN' ")
 
-    try:
-        used_eval=re.search(r'Eval_count\s+=\s+(\d+)', std_out).group(1)
-        print("used eval_num=",used_eval)
-    except:
-        print("didnt get eval num, will used the estimation value to replace this.")
-        used_eval = 50 * re.search(r'(--POPULATION_SIZE)\s*(\d+)',cmd).group(1)
+    # try:
+    #     used_eval=re.search(r'Eval_count\s+=\s+(\d+)', std_out).group(1)
+    #     print("used eval_num=",used_eval)
+    # except:
+    #     print("didnt get eval num, will used the estimation value to replace this.")
+    #     used_eval = 50 * re.search(r'(--POPULATION_SIZE)\s*(\d+)',cmd).group(1)
 
         # 50 is the default number of iteration in Ponyge2 system.
         # in the case of the system cannot got the eval_num, this value will be set to the iteration_num*pop_size
