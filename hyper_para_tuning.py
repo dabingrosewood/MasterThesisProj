@@ -43,7 +43,6 @@ def runGE(cmd):
         # in the case of the system cannot got the eval_num, this value will be set to the iteration_num*pop_size
 
 
-
     return fitness
 
 def build_cmd(x,parameter_name,cmd):
