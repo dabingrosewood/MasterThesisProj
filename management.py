@@ -1,7 +1,8 @@
 import sys,os
 
 from shutil import copytree, ignore_patterns,rmtree
-
+import hyper_para_tuning
+import numpy as np
 
 def exec_cmd(cmd):
     output = os.popen(cmd)
@@ -34,4 +35,31 @@ def clear_ponyge_result():
 # os.chdir("PonyGE2/src/")
 # exec_cmd("python3 ponyge.py --parameter classification.txt")
 
-clear_ponyge_result()
+if __name__ == "__main__":
+
+    # clear previous Ponyge result
+    clear_ponyge_result()
+
+
+    # copy the interface into src/fitness
+    # cpy_interface()
+
+
+    build_cmd="python3 setup.py build_ext --inplace"
+    exec_cmd(build_cmd)
+
+
+    ########################################################################
+    # test PonyGE2
+
+    # parameter setting
+    np.random.seed(67)
+    n_step = 100  # iteration number
+    n_init_sample = 5
+    eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
+    M = 21  # maximal length of grammar, to make the problem more linear
+    max_eval_each = 1000000
+    problem_set = ['classification', 'regression', 'string_match', 'pymax']
+
+    hyper_para_tuning.hyper_parameter_tuning(n_step, n_init_sample, eval_type, max_eval_each, problem_set, M)
+    ##########################################################################

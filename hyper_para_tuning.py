@@ -110,11 +110,8 @@ def obj_func(x):
 
     return f
 
-def hyper_parameter_tuning(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match']):
+def hyper_parameter_tuning(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],M=21):
     np.random.seed(67)
-
-    M = 21  # maximal length of grammar, to make the problem more linear
-
 
     os.chdir("PonyGE2/src/")
 
@@ -141,20 +138,20 @@ def hyper_parameter_tuning(n_step,n_init_sample,eval_type, max_eval_each=100000,
 
         SELECTION_PROPORTION = ContinuousSpace([0, 1], 'SELECTION_PROPORTION')
         SELECTION = NominalSpace(['tournament', 'truncation'], 'SELECTION')
+        TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
 
         CODON_SIZE = OrdinalSpace([10 * M, 100 * M], 'CODON_SIZE')
         MAX_GENOME_LENGTH = OrdinalSpace([100, 1000], 'MAX_GENOME_LENGTH')
         MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
         MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
-        TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
         POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
         GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
 
         if minimize_problem == True:
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + TOURNAMENT_SIZE + POPULATION_SIZE
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + CODON_SIZE + MAX_GENOME_LENGTH + TOURNAMENT_SIZE + POPULATION_SIZE
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH +  POPULATION_SIZE
 
         model = RandomForest(levels=search_space.levels)
 
@@ -246,4 +243,4 @@ if __name__ == "__main__":
     #     print('stop criteria: {}'.format(stop_dict), file=f)
     #     f.close()
 
-    hyper_parameter_tuning(n_step, n_init_sample, eval_type, max_eval_each, problem_set)
+    hyper_parameter_tuning(n_step, n_init_sample, eval_type, max_eval_each, problem_set,M)

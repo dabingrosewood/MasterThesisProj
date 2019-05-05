@@ -105,3 +105,7 @@ venv.bak/
 
 
 #.local.txt
+.local.txt
+
+#result
+result/
