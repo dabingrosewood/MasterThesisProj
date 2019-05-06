@@ -178,7 +178,7 @@ static int execute_ant(char *symbol)
 
 //    printf("executing %s\n",symbol );
     if (symbol == NULL) {
-        fprintf(stderr, "Premature end to expressionxx!\n");
+//        fprintf(stderr, "Premature end to expressionxx!\n");
         return -1;
         // exit(-1);
     }

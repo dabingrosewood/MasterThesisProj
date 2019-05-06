@@ -13,7 +13,6 @@ modification_log:
         +(on work)Data extracter
         +bug fixed on hyper-parameter-tuning.py
             --the minimize_problem bug
-            todo: Name of Output still have bug
 
 01-05-2019:
 +todo:Add the MAX_BUDGET to control the eval_num of fitness func
@@ -50,8 +49,17 @@ modification_log:
             some modification to control the whole test, but still untested.
 
     "Test On Das-5 node113-118 72H preserved"
-    todo: data extracter
 
 05-05-2019:
     Global:
         +added log_analyzer to csv
+
+06-05-2019:
+    PonyGE2:
+        +add ant problem for test(not passed yet)   todo: test this, and remove the uncessary part in fitness.ant("premature mark")
+    Global:
+        +makes the PonyGE2 tester into class.
+        +add util/ folder, stores functions for universal usage
+        + generally finished management.py interface (at least for PonyGE2 sys)
+            bug:ignore_pattern doesn't work
+        +

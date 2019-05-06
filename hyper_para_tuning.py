@@ -110,7 +110,7 @@ def obj_func(x):
 
     return f
 
-def hyper_parameter_tuning(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],M=21):
+def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],M=21):
     np.random.seed(67)
 
     os.chdir("PonyGE2/src/")
@@ -243,4 +243,4 @@ if __name__ == "__main__":
     #     print('stop criteria: {}'.format(stop_dict), file=f)
     #     f.close()
 
-    hyper_parameter_tuning(n_step, n_init_sample, eval_type, max_eval_each, problem_set,M)
+    hyper_parameter_tuning_ponyge2(n_step, n_init_sample, eval_type, max_eval_each, problem_set,M)

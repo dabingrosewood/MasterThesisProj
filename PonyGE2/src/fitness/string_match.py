@@ -34,6 +34,7 @@ class string_match(base_ff):
     #             # Imperfect match, find ASCII distance to match.
     #             fitness -= 1 / (1 + (abs(ord(t_p) - ord(g_p))))
     #     return fitness
+
     @eval_counter
     def evaluate(self, ind, **kwargs):
 
