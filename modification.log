@@ -62,4 +62,6 @@ modification_log:
         +add util/ folder, stores functions for universal usage
         + generally finished management.py interface (at least for PonyGE2 sys)
             bug:ignore_pattern doesn't work
-        +
+
+07-05-2019:
+    NOTE: the math func should be uniformed! which is the prerequisite of use same grammar to evaluate

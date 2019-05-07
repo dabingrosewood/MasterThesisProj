@@ -94,6 +94,8 @@ class supervised_learning(base_ff):
 
         else:
             # phenotype won't refer to C
+            print(ind.phenotype)
+            print(eval(ind.phenotype))
             yhat = eval(ind.phenotype)
             assert np.isrealobj(yhat)
 

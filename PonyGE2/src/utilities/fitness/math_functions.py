@@ -248,3 +248,5 @@ def sci_notation(n, prec=3):
     exponent = ilog(n, base)
     mantissa = n / base**exponent
     return '{0:.{1}f}e{2:+d}'.format(mantissa, prec, exponent)
+
+

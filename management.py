@@ -67,6 +67,17 @@ class Tester_PONYGE2:
         hyper_para_tuning.hyper_parameter_tuning_ponyge2(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
                                                          self.M)
 
+    def make_problem(self):
+        # used to add new problem from testsuite into PonyGE2
+        # 1. bnf
+        # 2. fitness
+        # 3. parameter.txt
+
+        pass
+
+
+
+
 if __name__ == "__main__":
 
     # Test PonyGE2
