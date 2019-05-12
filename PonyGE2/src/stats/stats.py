@@ -11,7 +11,7 @@ from utilities.stats.save_plots import save_plot_from_data, \
     save_pareto_fitness_plot
 from utilities.stats.file_io import save_stats_to_file, save_stats_headers, \
     save_best_ind_to_file, save_first_front_to_file
-from utilities.stats.eval_counter import eval_counter
+from utilities.stats.eval_counter import eval_counter,eval_getter
 
 """Algorithm statistics"""
 stats = {
@@ -378,10 +378,8 @@ def print_final_stats():
     print("  Genome:", trackers.best_ever.genome)
     print_generation_stats()
 
-    @eval_counter
-    def print_eval_num():
-        pass
-    print_eval_num()
+
+    # print("fitness func called times: ",eval_getter())
 
 
 def print_final_moo_stats():

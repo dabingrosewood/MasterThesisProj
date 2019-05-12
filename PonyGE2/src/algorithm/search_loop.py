@@ -5,6 +5,8 @@ from stats.stats import stats, get_stats
 from utilities.stats import trackers
 from operators.initialisation import initialisation
 from utilities.algorithm.initialise_run import pool_init
+from utilities.stats.eval_counter import eval_getter
+from algorithm.parameters import params
 
 def search_loop():
     """
@@ -31,10 +33,14 @@ def search_loop():
 
     # Traditional GE
     for generation in range(1, (params['GENERATIONS']+1)):
-        stats['gen'] = generation
+        if eval_getter() >= params['EVAL_BUDGET']:
+            print('maximize evaluation budget reached. Evolution process will be terminated soon......')
+            break
+        else:
+            stats['gen'] = generation
 
-        # New generation
-        individuals = params['STEP'](individuals)
+            # New generation
+            individuals = params['STEP'](individuals)
 
     if params['MULTICORE']:
         # Close the workers pool (otherwise they'll live on forever).

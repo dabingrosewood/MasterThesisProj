@@ -6,7 +6,7 @@ import csv
 import pandas as pd
 import matplotlib.pyplot as plt
 
-lable=["PROBLEM","INITIALISATION","CROSSOVER_PROBABILITY","CROSSOVER","MUTATION","MUTATION_PROBABILITY","MUTATION_EVENT_SUBTREE","MUTATION_EVENT_FlIP","SELECTION_PROPORTION","SELECTION","CODON_SIZE","MAX_GENOME_LENGTH","MAX_INIT_TREE_DEPTH","MAX_TREE_DEPTH","TOURNAMENT_SIZE","POPULATION_SIZE"]
+lable=["PROBLEM","EVAL_BUDGET","INITIALISATION","CROSSOVER_PROBABILITY","CROSSOVER","MUTATION","MUTATION_PROBABILITY","MUTATION_EVENT_SUBTREE","MUTATION_EVENT_FlIP","SELECTION_PROPORTION","SELECTION","CODON_SIZE","MAX_GENOME_LENGTH","MAX_INIT_TREE_DEPTH","MAX_TREE_DEPTH","TOURNAMENT_SIZE","POPULATION_SIZE"]
 result_classification = []
 result_pymax = []
 result_string_match = []
@@ -88,9 +88,9 @@ def generator(problem):
                     # print("para_list=", para_list)
 
                     if para_list[0]==problem:
-                        if len(para_list) == 16:
+                        if len(para_list) == 17:
                             returne_value.append(para_list)
-                        elif len(para_list) == 14:
+                        elif len(para_list) == 15:
                             para_list.insert(-3, 0)
                             para_list.insert(-4, 0)
                             returne_value.append(para_list)

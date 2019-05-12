@@ -10,3 +10,11 @@ def eval_counter(original_function):
             print("Eval_count = ", num[0]-1,'\n')
         return original_function(*args, **kwargs)
     return wrapper
+
+# def eval_getter(original_function):
+#     def wrapper():
+#         return num[0]
+#     return wrapper()
+
+def eval_getter():
+    return num[0]

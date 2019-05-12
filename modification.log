@@ -65,3 +65,14 @@ modification_log:
 
 07-05-2019:
     NOTE: the math func should be uniformed! which is the prerequisite of use same grammar to evaluate
+
+12-05-2019:
+   PonyGE2:
+        added eval_budget limitaion in src/algorithm/search_loop.py to control the call number of fitness function.
+        added eval_getter in utilities.stats.eval_counter to return the current eval_num.
+        commented the print(eval_num) in src/stat/stat/print_final_stats
+        modified src/utilities/algorithm/command_line_praser, to add new argument eval_budget
+        default eval_budget was set to 100000
+   Global:
+        hyper-parameter-tunign:
+            New search space to pass eval_budget to Ponyge2

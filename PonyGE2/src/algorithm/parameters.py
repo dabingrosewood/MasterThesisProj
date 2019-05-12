@@ -186,7 +186,9 @@ params = {
         
         # OTHER
         # Set machine name (useful for doing multiple runs)
-        'MACHINE': machine_name
+        'MACHINE': machine_name,
+
+        'EVAL_BUDGET': 1000000
 }
 
 

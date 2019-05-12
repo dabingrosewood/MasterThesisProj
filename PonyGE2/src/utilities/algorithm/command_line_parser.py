@@ -491,6 +491,11 @@ def parse_cmd_args(arguments):
                              ' other nearby agents in the environment. By default'
                              ' 0.5 probability is used. Higher the probability the time'
                              ' to find the solution would be reduced')
+    parser.add_argument('--eval_budget',
+                        dest='EVAL_BUDGET',
+                        type=int,
+                        help='Specifies the eval budget number for this Evolution process')
+
 
     # CACHING
     class CachingAction(argparse.Action):

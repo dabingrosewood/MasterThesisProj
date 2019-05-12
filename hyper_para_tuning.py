@@ -56,6 +56,7 @@ def obj_func(x):
     # print("currently dealing with probelm ",problem,'\n')
 
     cmd = 'python3 ponyge.py --parameters '+str(x['PROBLEM'])+'.txt'
+    cmd = build_cmd(x, 'EVAL_BUDGET', cmd)
 
     cmd = cmd + '  --CROSSOVER_PROBABILITY  '.lower() + str(x['CROSSOVER_PROBABILITY'])
     cmd = cmd + '  --INITIALISATION  '.lower() + str(x['INITIALISATION'])
@@ -79,6 +80,8 @@ def obj_func(x):
 
     cmd = build_cmd(x, 'MAX_INIT_TREE_DEPTH', cmd)
     cmd = build_cmd(x, 'MAX_TREE_DEPTH', cmd)
+
+
 
     print("command inputed is ", cmd)
     # check the command inputed here
@@ -125,7 +128,6 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
             minimize_problem = False
 
         # all shared hyper-parameters
-        PROBLEM=NominalSpace([problem],'PROBLEM')
         INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
         CROSSOVER = NominalSpace(['variable_onepoint', 'variable_twopoint', 'fixed_twopoint', 'fixed_onepoint'],
                                  'CROSSOVER')
@@ -145,13 +147,19 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
         MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
         POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
-        GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
+
+        # Others
+        # GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
+
+        PROBLEM=NominalSpace([problem],'PROBLEM')
+        EVAL_BUDGET = OrdinalSpace([max_eval_each,max_eval_each+1],'EVAL_BUDGET')
+
 
         if minimize_problem == True:
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE
+            search_space = PROBLEM + EVAL_BUDGET +INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE + EVAL_BUDGET
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE
+            search_space = PROBLEM + EVAL_BUDGET + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 
@@ -179,68 +187,9 @@ if __name__ == "__main__":
     n_init_sample = 5
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
-    max_eval_each=1000000
+    max_eval_each=1000
     # os.chdir("PonyGE2/src/")
     problem_set = ['classification', 'regression', 'string_match', 'pymax']
-    # problem_set = [ 'string_match']
+
     # the problem you are going to test
-
-    # for problem in problem_set:
-    #     minimize_problem = True
-    #     # by default, it will be a minimize problem.
-    #
-    #     if problem in ['classification','pymax']:
-    #         minimize_problem = False
-    #
-    #
-    #     # all shared hyper-parameters
-    #     INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
-    #     CROSSOVER = NominalSpace(['variable_onepoint', 'variable_twopoint', 'fixed_twopoint', 'fixed_onepoint'],
-    #                              'CROSSOVER')
-    #     CROSSOVER_PROBABILITY = ContinuousSpace([0, 1], 'CROSSOVER_PROBABILITY')
-    #
-    #     MUTATION = NominalSpace(['int_flip_per_codon', 'subtree', 'int_flip_per_ind'], 'MUTATION')
-    #     MUTATION_PROBABILITY = ContinuousSpace([0, 1], 'MUTATION_PROBABILITY')
-    #     MUTATION_EVENT_SUBTREE = OrdinalSpace([1, 5], 'MUTATION_EVENT_SUBSTREE')
-    #     MUTATION_EVENT_FlIP = OrdinalSpace([1, 100], 'MUTATION_EVENT_FlIP')
-    #
-    #     SELECTION_PROPORTION = ContinuousSpace([0, 1], 'SELECTION_PROPORTION')
-    #     SELECTION = NominalSpace(['tournament', 'truncation'], 'SELECTION')
-    #
-    #     CODON_SIZE = OrdinalSpace([10 * M, 100 * M], 'CODON_SIZE')
-    #     MAX_GENOME_LENGTH = OrdinalSpace([100, 1000], 'MAX_GENOME_LENGTH')
-    #     MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
-    #     MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
-    #     TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
-    #     POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
-    #     GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
-    #
-    #     if minimize_problem == True:
-    #         search_space = INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + TOURNAMENT_SIZE + POPULATION_SIZE
-    #     else:
-    #         # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
-    #         search_space = INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + CODON_SIZE + MAX_GENOME_LENGTH + TOURNAMENT_SIZE + POPULATION_SIZE
-    #
-    #     model = RandomForest(levels=search_space.levels)
-    #
-    #     opt = BO(search_space, obj_func, model, max_iter=n_step,
-    #              n_init_sample=n_init_sample,
-    #              n_point=1,  # number of the candidate solution proposed in each iteration
-    #              n_job=1,  # number of processes for the parallel execution
-    #              minimize=minimize_problem,
-    #              eval_type=eval_type,  # use this parameter to control the type of evaluation
-    #              verbose=True,  # turn this off, if you prefer no output
-    #              optimizer='MIES')
-    #
-    #     xopt, fitness, stop_dict = opt.run()
-    #
-    #
-    #
-    #     f = open("out_"+problem+'_'+str(int(time.time()))+".txt", 'w+')
-    #     print('parameters: {}'.format(search_space), file=f)
-    #     print('xopt: {}'.format(xopt), file=f)
-    #     print('fopt: {}'.format(fitness), file=f)
-    #     print('stop criteria: {}'.format(stop_dict), file=f)
-    #     f.close()
-
     hyper_parameter_tuning_ponyge2(n_step, n_init_sample, eval_type, max_eval_each, problem_set,M)

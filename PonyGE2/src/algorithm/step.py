@@ -35,6 +35,7 @@ def step(individuals):
 
     # Generate statistics for run so far
     get_stats(individuals)
+
     
     return individuals
 

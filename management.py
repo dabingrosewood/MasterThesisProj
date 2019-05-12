@@ -84,7 +84,7 @@ if __name__ == "__main__":
     tester=Tester_PONYGE2(n_step = 20,
                      n_init_sample = 5,
                      eval_type = 'dict',
-                     max_eval_each=100000,
+                     max_eval_each=50000,
                      M=21,)
     tester.give_problem(['ant'])
     # tester.give_problem(['ant','classification', 'regression', 'string_match', 'pymax'])
