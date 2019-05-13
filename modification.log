@@ -76,3 +76,8 @@ modification_log:
    Global:
         hyper-parameter-tunign:
             New search space to pass eval_budget to Ponyge2
+
+13-05-2019:
+    Global:
+        Post_test/log_analyze:
+            plotter of parallel coordinate, !!fig looks not beautiful enough!!
