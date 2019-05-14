@@ -81,3 +81,8 @@ modification_log:
     Global:
         Post_test/log_analyze:
             plotter of parallel coordinate, !!fig looks not beautiful enough!!
+
+
+14-05-2019:
+    !Start to deal with SGE(python2)
+        vadality check
