@@ -45,7 +45,7 @@ def edit_dis(string1,string2):
     s2=_bstring(string2)
     return editDistance(s1,s2)
 
-def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None, np.ndarray[int,ndim=1,mode="c"] length not None):
+def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None):
     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
     return result
 
