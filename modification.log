@@ -86,4 +86,11 @@ modification_log:
 14-05-2019:
     !Start to deal with SGE(python2)
         vadality check
-    !BUG FOUND IN interface.eval_f1_score
+    !todo: BUG FOUND IN interface.eval_f1_score
+
+
+16-05-2019
+    RE-implement SGE in python3!? seems trivial, then continously use python2
+    sge:
+        merged py2-implemented sge into playground.
+
