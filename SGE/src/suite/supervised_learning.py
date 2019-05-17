@@ -3,7 +3,7 @@ from util.math_func import *
 import numpy as np
 from util.get_data import *
 
-dataset_path = '../resources/Vladislavleva4/'
+# dataset_path = '../resources/Vladislavleva4/'
 
 
 class Supervised_learning():
@@ -13,13 +13,14 @@ class Supervised_learning():
         self.__test_set = []
         self.__invalid_fitness = np.nan
         self.__run = run
-
         self.test_set_size = len(self.__test_set)
         self.training_in, self.training_exp, self.test_in, self.test_exp = \
             get_data('Vladislavleva4/Train.txt', 'Vladislavleva4/Test.txt')
 
         # Find number of variables.
         self.n_vars = np.shape(self.training_in)[0]
+
+
 
     def evaluate(self, individual):
         # print "individual= %s" %(individual)
@@ -77,12 +78,6 @@ class Supervised_learning():
 
         test_error = fitness_rmse(y,yhat)
 
-        # error = self.get_error(individual, self.__train_set)
-        # error = _sqrt_( error /self.__RRSE_train_denominator);
-        # test_error = self.get_error(individual, self.__test_set)
-        # test_error = _sqrt_( test_error / float(self.__RRSE_test_denominator))
-        # return (1,{'generation':0, "evals" : 1, "test_error" : 1})
-
         return (error, {'generation': 0, "evals": 1, "test_error": test_error})
 
     def __str__(self):
@@ -100,6 +95,6 @@ if __name__ == "__main__":
     from configs.standard import RUN
 
     experience_name = "Supervised_learning_test/"
-    grammar = grammar.Grammar("../grammars/Vladislavleva4.bnf", 6)
+    grammar = grammar.Grammar("../grammars/Vladislavleva4.bnf", 8)
     evaluation_function = Supervised_learning(RUN)
     core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)

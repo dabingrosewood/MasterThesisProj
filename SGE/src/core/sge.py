@@ -82,7 +82,14 @@ def mutate(p):
 
 
 def prepare_dumps(experience_name):
-    os.makedirs('dumps/%s/run_%d' % (experience_name, RUN))
+    try:
+
+        os.makedirs('dumps/%s/run_%d' % (experience_name, RUN))
+    except (OSError) as e:
+
+        import shutil
+        shutil.rmtree('dumps/%s/run_%d' % (experience_name, RUN))
+        os.makedirs('dumps/%s/run_%d' % (experience_name, RUN))
 
 
 def save(population, it, experience_name):

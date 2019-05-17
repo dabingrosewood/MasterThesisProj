@@ -1,3 +1,13 @@
+todo:
+    ~The pipeline from management.py to sge template(suite/supervised_learning.py)
+        !never use python to call, use cmd
+    ~BUG in interface_f1_score
+
+
+--------------------------------------------------spilt line------------------------------------------------------------
+--------------------------------------------------spilt line------------------------------------------------------------
+--------------------------------------------------spilt line------------------------------------------------------------
+
 modification_log:
 22-04-2019:
 	PonyGE2:
@@ -15,7 +25,6 @@ modification_log:
             --the minimize_problem bug
 
 01-05-2019:
-+todo:Add the MAX_BUDGET to control the eval_num of fitness func
 
     PonyGE2:
         +added one decorater in from 'utilities.stats.eval_counter' to record eval_num.
@@ -86,11 +95,15 @@ modification_log:
 14-05-2019:
     !Start to deal with SGE(python2)
         vadality check
-    !todo: BUG FOUND IN interface.eval_f1_score
 
 
 16-05-2019
     RE-implement SGE in python3!? seems trivial, then continously use python2
     sge:
         merged py2-implemented sge into playground.
+    global:
+        Initialization of Tester_sge in management.py
+
+
+
 
