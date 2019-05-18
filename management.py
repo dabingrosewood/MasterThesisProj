@@ -1,6 +1,6 @@
 import sys,os
 from shutil import copytree, ignore_patterns,rmtree
-import hyper_para_tuning
+import hyper_para_tuning,hyper_para_tuning_sge
 import numpy as np
 
 from util.exec_cmd import exec_cmd

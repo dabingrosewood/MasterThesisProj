@@ -1,6 +1,9 @@
 todo:
+    ~json reader for importing hyper-parameters
     ~The pipeline from management.py to sge template(suite/supervised_learning.py)
         !never use python to call, use cmd
+        ! config.standard directly imported to core.sge. modify standard.py directly?
+
     ~BUG in interface_f1_score
 
 
@@ -103,6 +106,14 @@ modification_log:
         merged py2-implemented sge into playground.
     global:
         Initialization of Tester_sge in management.py
+
+17-05-2019:
+    Global:
+        add hyper-para_tuning_sge.py
+
+19-05-2019
+    Global:
+        make the pipeline to call sge
 
 
 

@@ -154,4 +154,6 @@ def evolutionary_algorithm(grammar = "", exp_name = "", eval_func = ""):
             ni = mutate(ni)
             new_population.append(ni)
         population = new_population
+
+    print 'final fitness=%f' %(best['fitness'])
     save_progress_report(progress_report, experience_name)

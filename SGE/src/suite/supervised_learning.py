@@ -1,3 +1,7 @@
+import sys,os
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
+
 from util.interface.interface import fitness_rmse
 from util.math_func import *
 import numpy as np
@@ -95,6 +99,6 @@ if __name__ == "__main__":
     from configs.standard import RUN
 
     experience_name = "Supervised_learning_test/"
-    grammar = grammar.Grammar("../grammars/Vladislavleva4.bnf", 8)
+    grammar = grammar.Grammar("../grammars/Vladislavleva4.bnf", 5)
     evaluation_function = Supervised_learning(RUN)
     core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)
