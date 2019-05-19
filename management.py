@@ -120,7 +120,7 @@ class Tester_SGE:
 
 if __name__ == "__main__":
 
-    # Test PonyGE2
+    # ****Test PonyGE2*****
     # tester=Tester_PONYGE2(n_step = 20,
     #                  n_init_sample = 5,
     #                  eval_type = 'dict',
@@ -135,7 +135,7 @@ if __name__ == "__main__":
     # tester.run_PonyGE2()
 
 
-
+    # *****Test SGE*****
     tester2=Tester_SGE(n_step = 5,
                      n_init_sample = 5,
                      eval_type = 'dict',

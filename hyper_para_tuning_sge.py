@@ -68,7 +68,7 @@ def obj_func(x):
 
     # test part
     os.chdir('suite')
-    cmd='python supervised_learning.py'
+    cmd='python '+x['PROBLEM']+'.py'
     print("command inputed is ", cmd)
     # check the command inputed here
 
