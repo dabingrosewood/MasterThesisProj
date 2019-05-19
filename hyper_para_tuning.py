@@ -19,7 +19,8 @@ from BayesOpt.SearchSpace import ContinuousSpace, NominalSpace, OrdinalSpace
 from multiprocessing import Pool
 import platform
 import time
-
+import json
+from util.para_list_reader import get_space
 
 def runGE(cmd):
     # run PonyGE2 system
@@ -106,15 +107,16 @@ def obj_func(x):
     pool.close()
     f=tmp/(5-err)
 
-    file= open(r"../log/summary_of_"+str(x['PROBLEM'])+platform.uname()[1]+".log", 'a+')
+    file= open(r"../log/summary_of_ponyge2_"+str(x['PROBLEM'])+platform.uname()[1]+".log", 'a+')
     file.writelines("cmd inputed is ["+cmd+"]\n")
     file.writelines("fitness="+str(f)+'\n')
     file.close()
 
     return f
 
-def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],M=21):
+def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],para_list='/util/hyper_para_list_PonyGE2.json'):
     np.random.seed(67)
+    root_dir=os.getcwd()
 
     os.chdir("PonyGE2/src/")
 
@@ -127,26 +129,52 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         if problem in ['classification', 'pymax']:
             minimize_problem = False
 
+
+
+        #replacement
+        filename = root_dir + para_list
+        system_name='PonyGE2'
+
+        INITIALISATION = get_space('INITIALISATION',filename=filename,system_name=system_name)
+        CROSSOVER = get_space('CROSSOVER',filename=filename,system_name=system_name)
+        CROSSOVER_PROBABILITY = get_space('CROSSOVER_PROBABILITY',filename=filename,system_name=system_name)
+
+        MUTATION = get_space('MUTATION',filename=filename,system_name=system_name)
+        MUTATION_PROBABILITY = get_space('MUTATION_PROBABILITY',filename=filename,system_name=system_name)
+        MUTATION_EVENT_SUBTREE = get_space('MUTATION_EVENT_SUBTREE',filename=filename,system_name=system_name)
+        MUTATION_EVENT_FlIP = get_space('MUTATION_EVENT_FlIP',filename=filename,system_name=system_name)
+
+        SELECTION_PROPORTION = get_space('SELECTION_PROPORTION',filename=filename,system_name=system_name)
+        SELECTION = get_space('SELECTION',filename=filename,system_name=system_name)
+        TOURNAMENT_SIZE = get_space('TOURNAMENT_SIZE',filename=filename,system_name=system_name)
+
+        CODON_SIZE = get_space('CODON_SIZE',filename=filename,system_name=system_name)
+        MAX_GENOME_LENGTH = get_space('MAX_GENOME_LENGTH',filename=filename,system_name=system_name)
+        MAX_INIT_TREE_DEPTH = get_space('MAX_INIT_TREE_DEPTH',filename=filename,system_name=system_name)
+        MAX_TREE_DEPTH = get_space('MAX_TREE_DEPTH',filename=filename,system_name=system_name)
+        POPULATION_SIZE = get_space('POPULATION_SIZE',filename=filename,system_name=system_name)
+
+
         # all shared hyper-parameters
-        INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
-        CROSSOVER = NominalSpace(['variable_onepoint', 'variable_twopoint', 'fixed_twopoint', 'fixed_onepoint'],
-                                 'CROSSOVER')
-        CROSSOVER_PROBABILITY = ContinuousSpace([0, 1], 'CROSSOVER_PROBABILITY')
-
-        MUTATION = NominalSpace(['int_flip_per_codon', 'subtree', 'int_flip_per_ind'], 'MUTATION')
-        MUTATION_PROBABILITY = ContinuousSpace([0, 1], 'MUTATION_PROBABILITY')
-        MUTATION_EVENT_SUBTREE = OrdinalSpace([1, 5], 'MUTATION_EVENT_SUBSTREE')
-        MUTATION_EVENT_FlIP = OrdinalSpace([1, 100], 'MUTATION_EVENT_FlIP')
-
-        SELECTION_PROPORTION = ContinuousSpace([0, 1], 'SELECTION_PROPORTION')
-        SELECTION = NominalSpace(['tournament', 'truncation'], 'SELECTION')
-        TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
-
-        CODON_SIZE = OrdinalSpace([10 * M, 100 * M], 'CODON_SIZE')
-        MAX_GENOME_LENGTH = OrdinalSpace([100, 1000], 'MAX_GENOME_LENGTH')
-        MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
-        MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
-        POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
+        # INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
+        # CROSSOVER = NominalSpace(['variable_onepoint', 'variable_twopoint', 'fixed_twopoint', 'fixed_onepoint'],
+        #                          'CROSSOVER')
+        # CROSSOVER_PROBABILITY = ContinuousSpace([0, 1], 'CROSSOVER_PROBABILITY')
+        #
+        # MUTATION = NominalSpace(['int_flip_per_codon', 'subtree', 'int_flip_per_ind'], 'MUTATION')
+        # MUTATION_PROBABILITY = ContinuousSpace([0, 1], 'MUTATION_PROBABILITY')
+        # MUTATION_EVENT_SUBTREE = OrdinalSpace([1, 5], 'MUTATION_EVENT_SUBSTREE')
+        # MUTATION_EVENT_FlIP = OrdinalSpace([1, 100], 'MUTATION_EVENT_FlIP')
+        #
+        # SELECTION_PROPORTION = ContinuousSpace([0, 1], 'SELECTION_PROPORTION')
+        # SELECTION = NominalSpace(['tournament', 'truncation'], 'SELECTION')
+        # TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
+        #
+        # CODON_SIZE = OrdinalSpace([10 * M, 100 * M], 'CODON_SIZE')
+        # MAX_GENOME_LENGTH = OrdinalSpace([100, 1000], 'MAX_GENOME_LENGTH')
+        # MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
+        # MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
+        # POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
 
         # Others
         # GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
@@ -173,7 +201,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
-        f = open(r"../log/out_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
+        f = open(r"../log/out_ponyge2_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
         print('parameters: {}'.format(search_space.name), file=f)
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)

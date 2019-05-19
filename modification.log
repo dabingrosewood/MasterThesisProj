@@ -1,6 +1,6 @@
 todo:
-    ~json reader for importing hyper-parameters
-    ~The pipeline from management.py to sge template(suite/supervised_learning.py)
+    ~json reader for importing hyper-parameters(Done)
+    ~The pipeline from management.py to sge template(suite/supervised_learning.py) (Done)
         !never use python to call, use cmd
         ! config.standard directly imported to core.sge. modify standard.py directly?
 
@@ -114,6 +114,8 @@ modification_log:
 19-05-2019
     Global:
         make the pipeline to call sge
+        +json reader in util/
+        the pipelien between management to sge is ok
 
 
 

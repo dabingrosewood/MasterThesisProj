@@ -1,0 +1,65 @@
+[{
+  "name": "INITIALISATION",
+  "type": "NominalSpace",
+  "options": ["PI_grow", "rhh", "uniform_tree"]
+
+},{
+  "name": "CROSSOVER",
+  "type": "NominalSpace",
+  "options": ["variable_onepoint", "variable_twopoint", "fixed_twopoint", "fixed_onepoint"]
+
+},{
+  "name": "CROSSOVER_PROBABILITY",
+  "type": "ContinuousSpace",
+  "range": [0,1]
+
+},{
+  "name": "MUTATION",
+  "type": "NominalSpace",
+  "options": ["int_flip_per_codon", "subtree", "int_flip_per_ind"]
+},{
+  "name": "MUTATION_PROBABILITY",
+  "type": "ContinuousSpace",
+  "range": [0,1]
+},{
+  "name": "MUTATION_EVENT_SUBTREE",
+  "type": "OrdinalSpace",
+  "range": [1,5]
+},{
+  "name": "MUTATION_EVENT_FlIP",
+  "type": "OrdinalSpace",
+  "range": [1,100]
+},{
+  "name": "SELECTION_PROPORTION",
+  "type": "ContinuousSpace",
+  "range": [0,1]
+},{
+  "name": "SELECTION",
+  "type": "NominalSpace",
+  "options": ["tournament", "truncation"]
+},{
+  "name": "TOURNAMENT_SIZE",
+  "type": "OrdinalSpace",
+  "range": [1,50]
+},{
+  "name": "CODON_SIZE",
+  "type": "OrdinalSpace",
+  "range": [200,2000]
+},{
+  "name": "MAX_GENOME_LENGTH",
+  "type": "OrdinalSpace",
+  "range": [100,1000]
+},{
+  "name": "MAX_INIT_TREE_DEPTH",
+  "type": "OrdinalSpace",
+  "range": [10,25]
+},{
+  "name": "MAX_TREE_DEPTH",
+  "type": "OrdinalSpace",
+  "range": [20,100]
+},{
+  "name": "POPULATION_SIZE",
+  "type": "OrdinalSpace",
+  "range": [100,500]
+}
+]
