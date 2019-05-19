@@ -124,7 +124,7 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         PROBLEM = NominalSpace([problem], 'PROBLEM')
         NUMBER_OF_ITERATIONS=OrdinalSpace([n_step, n_step + 1], 'NUMBER_OF_ITERATIONS')
 
-        search_space = POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION +EVAL_BUDGET+PROBLEM+NUMBER_OF_ITERATIONS
+        search_space = POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + EVAL_BUDGET + PROBLEM + NUMBER_OF_ITERATIONS
 
         model = RandomForest(levels=search_space.levels)
 

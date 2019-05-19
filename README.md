@@ -28,6 +28,13 @@ todo before the test:
 2. add a parameter text file
 3. add a bnf file
 
+
+
+#for SGE system
+todo before test:
+for each probem you are going to test, you need to write a scirpt python file. 
+`src/suite/supervised_learning.py` is a good template to start with.
+
 #实际流程(TODO)
 
 1.定义测试类,management.py
