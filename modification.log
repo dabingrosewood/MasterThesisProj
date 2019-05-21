@@ -4,7 +4,11 @@ todo:
         !never use python to call, use cmd
         ! config.standard directly imported to core.sge. modify standard.py directly?
 
+
+
     ~BUG in interface_f1_score
+    ~Ant problem need to be rewrite (the diff between logic-oriented and order-oriented)
+    ~SGE need eval_counter
 
 
 --------------------------------------------------spilt line------------------------------------------------------------
