@@ -1,0 +1,4 @@
+parameters: [None, None, None, None, None, None, None, None]
+xopt: [1889, 136, 31, 0.9822016885562111, 0.09377966973241258, 50000, 'string_match', 20]
+fopt: 19.0
+stop criteria: {'max_iter': True, 'n_eval': 10, 'n_iter': 5}

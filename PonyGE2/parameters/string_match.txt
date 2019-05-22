@@ -3,7 +3,7 @@ CODON_SIZE:             100000
 CROSSOVER:              variable_onepoint
 CROSSOVER_PROBABILITY:  0.75
 DEBUG:                  False
-GENERATIONS:            500
+GENERATIONS:            50
 MAX_GENOME_LENGTH:      500
 GRAMMAR_FILE:           letter.bnf
 INITIALISATION:         PI_grow
@@ -15,6 +15,6 @@ POPULATION_SIZE:        500
 FITNESS_FUNCTION:       string_match
 REPLACEMENT:            generational
 SELECTION:              tournament
-TARGET:                 Hello world!
+TARGET:                 Hello world! I am testing GE.
 TOURNAMENT_SIZE:        2
 VERBOSE:                False

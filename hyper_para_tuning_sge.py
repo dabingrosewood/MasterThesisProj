@@ -122,7 +122,7 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         #others
         EVAL_BUDGET = OrdinalSpace([max_eval_each, max_eval_each + 1], 'EVAL_BUDGET')
         PROBLEM = NominalSpace([problem], 'PROBLEM')
-        NUMBER_OF_ITERATIONS=OrdinalSpace([n_step, n_step + 1], 'NUMBER_OF_ITERATIONS')
+        NUMBER_OF_ITERATIONS=OrdinalSpace([20, 20 + 1], 'NUMBER_OF_ITERATIONS')
 
         search_space = POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + EVAL_BUDGET + PROBLEM + NUMBER_OF_ITERATIONS
 
