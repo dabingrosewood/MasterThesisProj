@@ -6,9 +6,10 @@ todo:
 
 
     ~BUG when two tester run on the same time(dir error, cannot get out of PONYGE2 after task finished)
-    ~BUG in interface_f1_score
+    ~BUG in interface_f1_score and Ant
     ~Ant problem need to be rewrite (the diff between logic-oriented and order-oriented)
     ~SGE need eval_counter
+    ~THE DIFFERENCE between grammar: Sge need <start> tag
 
 
 --------------------------------------------------spilt line------------------------------------------------------------
@@ -124,6 +125,7 @@ modification_log:
 22-05-2019:
     Global:
         the target of stringm_match problem is moved to 'Hello world! I am testing GE.'
+        multiplexer fitness verified. for "   ( ( ( s2 ) or ( ( i1 ) or ( s1 ) ) ) and ( ( ( i3 ) or ( s2 ) ) and ( ( ( i4 ) or ( ( s0 ) or ( s1 ) ) ) and ( ( ( i3 ) or ( s2 ) ) and ( ( not ( ( s1 ) and ( s2 ) ) ) or ( i6 ) ) ) ) ) ) and ( ( i5 ) or ( ( i5 ) or ( ( ( i1 ) and ( s2 ) ) or ( ( not ( not ( s1 ) ) ) or ( i1 ) ) ) ) )" both fitness value is 544.
     PonyGE2:
         +Vladislavleva4.txt parameters files
     SGE:
@@ -131,5 +133,7 @@ modification_log:
         +string_match problem
 
 
-
+23-05-2019:
+    GLobal:
+        add ant.c, remove ant.h. Problem with ant problem fixed.
 

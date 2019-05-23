@@ -1,0 +1,22 @@
+[{
+  "name": "POPULATION_SIZE",
+  "type": "OrdinalSpace",
+  "range": [100,2000]
+},{
+  "name": "ELITISM",
+  "type": "OrdinalSpace",
+  "range": [50,200]
+},{
+  "name": "TOURNAMENT",
+  "type": "OrdinalSpace",
+  "range": [5,50]
+},{
+  "name": "PROB_CROSSOVER",
+  "type": "ContinuousSpace",
+  "range": [0,1]
+},{
+  "name": "PROB_MUTATION",
+  "type": "ContinuousSpace",
+  "range": [0,1]
+}
+]

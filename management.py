@@ -121,34 +121,35 @@ class Tester_SGE:
 if __name__ == "__main__":
 
     #shared parameter
+    full_problem_set=['string_match','Vladislavleva4','mux11']
     n_step=5
     n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
 
-    # # ****Test PonyGE2*****
-    # tester=Tester_PONYGE2(n_step = n_step,
-    #                  n_init_sample = n_init_sample,
-    #                  eval_type = eval_type,
-    #                  max_eval_each=max_eval_each,
-    #                  para_list='/util/hyper_para_list_PonyGE2.json'
-    #                  )
-    # tester.give_problem(['string_match'])
-    # # tester.give_problem(['ant','classification', 'regression', 'string_match', 'pymax'])
-    # tester.clear_log()
-    # # tester.make_interface()
-    # # tester.refresh_interface()
-    # tester.run_PonyGE2()
-
-
-    # *****Test SGE*****
-    tester2=Tester_SGE(n_step = n_step,
+    # ****Test PonyGE2*****
+    tester=Tester_PONYGE2(n_step = n_step,
                      n_init_sample = n_init_sample,
                      eval_type = eval_type,
                      max_eval_each=max_eval_each,
-                    para_list='/util/hyper_para_list_sge.json')
-    tester2.give_problem(['string_match'])
-    tester2.run_sge()
+                     para_list='/util/hyper_para_list_PonyGE2.json'
+                     )
+    tester.give_problem(['ant'])
+    # tester.give_problem(['ant','classification', 'regression', 'string_match', 'pymax'])
+    tester.clear_log()
+    # tester.make_interface()
+    tester.refresh_interface()
+    tester.run_PonyGE2()
+
+
+    # # *****Test SGE*****
+    # tester2=Tester_SGE(n_step = n_step,
+    #                  n_init_sample = n_init_sample,
+    #                  eval_type = eval_type,
+    #                  max_eval_each=max_eval_each,
+    #                 para_list='/util/hyper_para_list_sge.json')
+    # tester2.give_problem(['string_match'])
+    # tester2.run_sge()
 
 
 

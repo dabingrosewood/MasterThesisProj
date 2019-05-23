@@ -64,6 +64,7 @@ def prog2(out1, out2):
     return partial(progn,out1,out2)
 
 def prog3(out1, out2, out3):
+    print("used")
     return partial(progn,out1,out2,out3)
 
 def progN(*args):
