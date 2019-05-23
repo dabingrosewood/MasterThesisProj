@@ -15,23 +15,55 @@
 #    License along with DEAP. If not, see <http://www.gnu.org/licenses/>.
 """
 
-from util.interface.interface import eval_multiplexer
+MUX_SELECT_LINES = 3
+MUX_IN_LINES = 2 ** MUX_SELECT_LINES
+MUX_TOTAL_LINES = MUX_SELECT_LINES + MUX_IN_LINES
+
+input_names = ['s0', 's1', 's2', 'i0', 'i1', 'i2', 'i3', 'i4', 'i5', 'i6', 'i7']
+inputs = [[0] * MUX_TOTAL_LINES for i in range(2 ** MUX_TOTAL_LINES)]
+outputs = [None] * (2 ** MUX_TOTAL_LINES)
+
+for i in range(2 ** MUX_TOTAL_LINES):
+    value = i
+    divisor = 2 ** MUX_TOTAL_LINES
+    # Fill the input bits
+    for j in range(MUX_TOTAL_LINES):
+        divisor /= 2
+        if value >= divisor:
+            inputs[i][j] = 1
+            value -= divisor
+    # Determine the corresponding output
+    # The Select most valuable bit is s2
+    indexOutput = MUX_SELECT_LINES
+    for j, k in enumerate(inputs[i][:MUX_SELECT_LINES]):
+        indexOutput += k * 2 ** j
+    outputs[i] = inputs[i][indexOutput]
+
+    to_evaluate = [dict(zip(input_names, i)) for i in inputs]
+
 
 class Multiplexer_11:
     def evaluate(self, individual):
         """
-
-        SOLUTION="( i3 and ( not i2 ) and ( not i1 ) and ( not i0 ) ) or ( i4 and ( not i2 ) and ( not i1 ) and ( i0 ) ) or ( i5 and ( not i2 ) and ( i1 ) and ( not i0 )) or ( i6 and ( not i2 ) and ( i1 ) and ( i0 ) ) or ( i7 and i2 and not( i1 ) and not ( i0 ) ) or ( i8 and i2 and ( not i1 ) and i0 ) or ( i9 and i2 and i1 and ( not i0 ) ) or ( i10 and i2 and i1 and i0 )"
+        SOLUTION = "(i0 and (not s2) and (not s1) and (not s0)) or (i1 and (not s2) and (not s1) and (s0)) or (i2 and (not s2) and (s1) and (not s0)) or (i3 and (not s2) and (s1) and (s0)) or (i4 and s2 and not(s1) and not(s0)) or (i5 and s2 and (not s1) and s0) or (i6 and s2 and s1 and (not s0)) or (i7 and s2 and s1 and s0)"
         """
-        error=eval_multiplexer(individual,3)
 
+        error = len(inputs)
+        program = compile("res = " + individual, '<string>', 'exec')
+        for i, variables in enumerate(to_evaluate):
+            exec program in variables
+            res = variables['res']
+            if res == outputs[i]:
+                error -= 1
         return (error, {})
 
 
 if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
+    import os
+
     experience_name = "Mux11/"
-    grammar = grammar.Grammar("../grammars/mux11.bnf", 5)
-    evaluation_function = Multiplexer_11() 
-    core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
+    grammar = grammar.Grammar("../grammars/mux11_grammar.txt", 5)
+    evaluation_function = Multiplexer_11()
+    core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)

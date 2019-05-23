@@ -2,7 +2,7 @@ import sys,os
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
 
-from util.interface.interface import fitness_rmse
+from util.cython.interface import fitness_rmse
 from util.math_func import *
 import numpy as np
 from util.get_data import *

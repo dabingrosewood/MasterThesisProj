@@ -1,13 +1,13 @@
 todo:
-    ~json reader for importing hyper-parameters(Done)
-    ~The pipeline from management.py to sge template(suite/supervised_learning.py) (Done)
+    !DONE ~json reader for importing hyper-parameters(Done)
+    !DONE ~The pipeline from management.py to sge template(suite/supervised_learning.py) (Done)
         !never use python to call, use cmd
         ! config.standard directly imported to core.sge. modify standard.py directly?
 
 
-    ~BUG when two tester run on the same time(dir error, cannot get out of PONYGE2 after task finished)
+    !DONE ~BUG when two tester run on the same time(dir error, cannot get out of PONYGE2 after task finished)
     ~BUG in interface_f1_score and Ant
-    ~Ant problem need to be rewrite (the diff between logic-oriented and order-oriented)
+    !DONE~Ant problem need to be rewrite (the diff between logic-oriented and order-oriented)
     ~SGE need eval_counter
     ~THE DIFFERENCE between grammar: Sge need <start> tag
 
@@ -136,4 +136,5 @@ modification_log:
 23-05-2019:
     GLobal:
         add ant.c, remove ant.h. Problem with ant problem fixed.
+        fix the bug in TESTER SGE class, which is releated to interface making.
 

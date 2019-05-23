@@ -26,7 +26,7 @@ print(y,yhat)
 #
 #
 # # test casse for artificial ant problem
-ant_sample="ifa begin  mv  mv mv end begin  tr end"
+ant_sample="mv mv mv tr mv "
 
 ant_ebst="ifa begin  mv  end begin  tl ifa begin  mv end begin  tr  end  tr ifa begin mv end begin  tl  end mv   end"
 res_ant=interface.eval_ant(ant_sample)

@@ -5,9 +5,9 @@
 ## library. However, the structure of the non-terminals and production
 ## rules is unchanged, so the search space is the same (just the
 ## syntactic sugar has changed a little)
-<prog>      ::= 'begin ' <code> ' end'
-<code>      ::= <line> | <code> ' ' <line>
+<prog>      ::= begin  <code>  end
+<code>      ::= <line> | <code>   <line>
 <line>      ::= <condition> | <op>
-<condition> ::= 'ifa begin ' <opcode> ' end begin ' <opcode> ' end'
-<opcode>    ::= <op> | <opcode> ' ' <op>
-<op>        ::= 'tl' | 'tr' | 'mv'
+<condition> ::= ifa begin  <opcode>  end begin  <opcode>  end
+<opcode>    ::= <op> | <opcode>   <op>
+<op>        ::= tl | tr | mv

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
-static int NUM_STEPS = 600;
+static int NUM_STEPS = 543;
 
 enum orientation { NORTH, EAST, SOUTH, WEST };
 
