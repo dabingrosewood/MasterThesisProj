@@ -44,11 +44,11 @@
 },{
   "name": "CODON_SIZE",
   "type": "OrdinalSpace",
-  "range": [200,2000]
+  "range": [200,1000]
 },{
   "name": "MAX_GENOME_LENGTH",
   "type": "OrdinalSpace",
-  "range": [100,1000]
+  "range": [100,500]
 },{
   "name": "MAX_INIT_TREE_DEPTH",
   "type": "OrdinalSpace",
@@ -56,7 +56,7 @@
 },{
   "name": "MAX_TREE_DEPTH",
   "type": "OrdinalSpace",
-  "range": [20,50]
+  "range": [10,50]
 },{
   "name": "POPULATION_SIZE",
   "type": "OrdinalSpace",

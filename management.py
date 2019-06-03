@@ -123,8 +123,10 @@ if __name__ == "__main__":
 
     base=os.getcwd()
 
+    #here to define the problem for the comparison
+    full_problem_set=['ant','string_match','Vladislavleva4']
+
     #shared parameter
-    full_problem_set=['string_match','Vladislavleva4','mux11','ant']
     n_step=1
     n_init_sample=1
     eval_type='dict'
@@ -137,7 +139,6 @@ if __name__ == "__main__":
                      max_eval_each=max_eval_each,
                      para_list='/util/hyper_para_list_PonyGE2.json'
                      )
-    # tester.give_problem(['ant'])
     tester.give_problem(full_problem_set)
     # tester.clear_log()
     tester.make_interface()
@@ -152,8 +153,7 @@ if __name__ == "__main__":
                      n_init_sample = n_init_sample,
                      eval_type = eval_type,
                      max_eval_each=max_eval_each,
-                    para_list='/util/hyper_para_list_sge.json')
-    # tester2.give_problem(['ant'])
+                     para_list='/util/hyper_para_list_sge.json')
     tester2.give_problem(full_problem_set)
     tester2.make_interface()
     # tester2.refresh_interface()
