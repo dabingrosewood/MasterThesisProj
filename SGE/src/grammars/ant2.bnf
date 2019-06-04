@@ -1,0 +1,5 @@
+#core
+<start> ::= <code>
+<code> ::= <line>|<code> <line>
+<line> ::= ifa begin <op> end begin  <op>  end|<op>
+<op> ::= tl | tr | mv
