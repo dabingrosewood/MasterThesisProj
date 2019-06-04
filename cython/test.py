@@ -26,8 +26,14 @@ print(y,yhat)
 #
 #
 # # test casse for artificial ant problem
-ant_sample="mv mv mv tr mv "
+# ant_sample="mv mv mv tr mv "
+#
+# ant_ebst="ifa begin  mv  end begin  tl ifa begin  mv end begin  tr  end  tr ifa begin mv end begin  tl  end mv   end"
+# res_ant=interface.eval_ant(ant_sample)
+# print("res_ant=",res_ant)
 
-ant_ebst="ifa begin  mv  end begin  tl ifa begin  mv end begin  tr  end  tr ifa begin mv end begin  tl  end mv   end"
-res_ant=interface.eval_ant(ant_sample)
-print("res_ant=",res_ant)
+
+y=np.array([1.,-1.,1.,-1.,1.],dtype=np.double)
+yhat=np.array([0.1,1.,1.,-1.,-1.],dtype=np.double)
+f1_score=interface.fit_f1_score(y,yhat)
+print(f1_score)

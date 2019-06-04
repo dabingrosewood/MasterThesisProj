@@ -120,6 +120,7 @@ class supervised_learning(base_ff):
             y = y.copy(order='C')
             yhat = yhat.copy(order='C')
 
+            # print(y,yhat)
             # print("fit=",params['ERROR_METRIC'](y, yhat))
 
             return params['ERROR_METRIC'](y, yhat)

@@ -90,6 +90,7 @@ def obj_func(x):
     tmp=0
     err=0
     result=[]
+    valid_result=[]
 
     pool = Pool(processes=5)
     for i in range(5):
@@ -102,10 +103,12 @@ def obj_func(x):
         if fitness==np.nan:
             err+=1
         else:
-            tmp += float(fitness)
+            valid_result.append(float(fitness))
 
     pool.close()
-    f=tmp/(5-err)
+    f=np.average(valid_result)
+    print("std_dev=",np.std(valid_result))
+    print("avg=",f)
 
     file= open(r"../log/summary_of_ponyge2_"+str(x['PROBLEM'])+platform.uname()[1]+".log", 'a+')
     file.writelines("cmd inputed is ["+cmd+"]\n")
@@ -154,28 +157,6 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         MAX_TREE_DEPTH = get_space('MAX_TREE_DEPTH',filename=filename,system_name=system_name)
         POPULATION_SIZE = get_space('POPULATION_SIZE',filename=filename,system_name=system_name)
 
-
-        # all shared hyper-parameters
-        # INITIALISATION = NominalSpace(['PI_grow', 'rhh', 'uniform_tree'], 'INITIALISATION')
-        # CROSSOVER = NominalSpace(['variable_onepoint', 'variable_twopoint', 'fixed_twopoint', 'fixed_onepoint'],
-        #                          'CROSSOVER')
-        # CROSSOVER_PROBABILITY = ContinuousSpace([0, 1], 'CROSSOVER_PROBABILITY')
-        #
-        # MUTATION = NominalSpace(['int_flip_per_codon', 'subtree', 'int_flip_per_ind'], 'MUTATION')
-        # MUTATION_PROBABILITY = ContinuousSpace([0, 1], 'MUTATION_PROBABILITY')
-        # MUTATION_EVENT_SUBTREE = OrdinalSpace([1, 5], 'MUTATION_EVENT_SUBSTREE')
-        # MUTATION_EVENT_FlIP = OrdinalSpace([1, 100], 'MUTATION_EVENT_FlIP')
-        #
-        # SELECTION_PROPORTION = ContinuousSpace([0, 1], 'SELECTION_PROPORTION')
-        # SELECTION = NominalSpace(['tournament', 'truncation'], 'SELECTION')
-        # TOURNAMENT_SIZE = OrdinalSpace([1, 50], 'TOURNAMENT_SIZE')
-        #
-        # CODON_SIZE = OrdinalSpace([10 * M, 100 * M], 'CODON_SIZE')
-        # MAX_GENOME_LENGTH = OrdinalSpace([100, 1000], 'MAX_GENOME_LENGTH')
-        # MAX_INIT_TREE_DEPTH = OrdinalSpace([5, 25], 'MAX_INIT_TREE_DEPTH')
-        # MAX_TREE_DEPTH = OrdinalSpace([20, 100], 'MAX_TREE_DEPTH')
-        # POPULATION_SIZE = OrdinalSpace([100, 500], 'POPULATION_SIZE')
-
         # Others
         # GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
 
@@ -183,7 +164,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         EVAL_BUDGET = OrdinalSpace([max_eval_each,max_eval_each+1],'EVAL_BUDGET')
 
 
-        if minimize_problem == True:
+        if minimize_problem == False:
             search_space = PROBLEM + EVAL_BUDGET +INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE + EVAL_BUDGET
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
@@ -201,7 +182,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
-        f = open(r"../log/out_ponyge2_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
+        f = open(r"../../log/out_ponyge2_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
         print('parameters: {}'.format(search_space.name), file=f)
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)

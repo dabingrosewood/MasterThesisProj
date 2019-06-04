@@ -61,13 +61,15 @@ double  f1_score(double *data_pred, double *data_real,int length){
     double FP=0;
 
     for (int i = 0; i < length ; ++i) {
-        if (data_pred[i] == 1 & data_real[i]==1){TP+=1;}
-        else if(data_pred[i] == 0 & data_real[i]==0){TN+=1;}
-        else if(data_pred[i] == 1 & data_real[i]==0){FP+=1;}
-        else if(data_pred[i] == 0 & data_real[i]==1){FN+=1;}
+        if (data_pred[i]==data_real[i] && data_pred[i]>0 ){TP+=1;}
+        else if(data_pred[i]==data_real[i] && data_pred[i]<=0){TN+=1;}
+        else if(data_pred[i]>0 && data_real[i]<=0){FP+=1;}
+        else if(data_pred[i]<=0 && data_real[i]>0){FN+=1;}
     }
 
     double f1=2*TP/(2*TP+FN+FP);
+//    printf("TP=%f,FN=%f,TN=%f,FP=%f",TP,FN,TN,FP);
+//    printf("f1=%f", f1);
     return f1;
 }
 

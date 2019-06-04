@@ -1,13 +1,5 @@
 todo:
-    !DONE ~json reader for importing hyper-parameters(Done)
-    !DONE ~The pipeline from management.py to sge template(suite/supervised_learning.py) (Done)
-        !never use python to call, use cmd
-        ! config.standard directly imported to core.sge. modify standard.py directly?
-
-
-    !DONE ~BUG when two tester run on the same time(dir error, cannot get out of PONYGE2 after task finished)
-    ~BUG in interface_f1_score and Ant
-    !DONE~Ant problem need to be rewrite (the diff between logic-oriented and order-oriented)
+    ~BUG in interface_f1_score! How to deal with not regular prediction values??(such as 1.14123423e-12)
     ~SGE need eval_counter
     ~THE DIFFERENCE between grammar: Sge need <start> tag
 
@@ -140,3 +132,9 @@ modification_log:
 
 03-06-2019:
     return to work
+    for bi-classification problem still need to use sklearn.f1_score was temporately replaceed in interface.
+
+
+04-06-2019:
+    Global:
+        for safety test, disabled two hyper-parameter in PonyGE2(max_init_tree_depth and MAX_TREE_DEPTH)

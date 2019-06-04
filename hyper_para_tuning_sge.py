@@ -75,6 +75,7 @@ def obj_func(x):
     tmp = 0
     err = 0
     result = []
+    valid_result=[]
 
     pool = Pool(processes=5)
     for i in range(5):
@@ -87,15 +88,20 @@ def obj_func(x):
         if fitness == np.nan:
             err += 1
         else:
-            tmp += float(fitness)
+            valid_result.append(float(fitness))
 
     pool.close()
-    f = tmp / (5 - err)
+
+    f = np.average(valid_result)
+    dev=np.std(valid_result)
+    print("std_dev=",dev)
+    print("avg=",f)
+
     os.chdir('../')
-    # file = open(r"../log/summary_of_sge_" + str(x['PROBLEM']) + platform.uname()[1] + ".log", 'a+')
-    # file.writelines("cmd inputed is [" + cmd + "]\n")
-    # file.writelines("fitness=" + str(f) + '\n')
-    # file.close()
+    file = open(r"../log/summary_of_sge_" + str(x['PROBLEM']) + platform.uname()[1] + ".log", 'a+')
+    file.writelines("cmd inputed is [" + cmd + "]\n")
+    file.writelines("fitness=" + str(f) + '\n')
+    file.close()
 
     return f
 
@@ -138,7 +144,7 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
-        f = open(r"../log/out_sge_" + problem + '_' + str(int(time.time())) + platform.uname()[1] + ".txt", 'w+')
+        f = open(r"../../log/out_sge_" + problem + '_' + str(int(time.time())) + platform.uname()[1] + ".txt", 'w+')
         print('parameters: {}'.format(search_space.name), file=f)
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)

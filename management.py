@@ -23,6 +23,11 @@ def cpy_interface(target_dir_relative='/PonyGE2/src/fitness/cython'):
     copytree(source_dir,target_dir,ignore_patterns('*.so',"*.c","build/*"))
     print("copying is finished")
 
+def global_log_cleaner(log_dir='log/'):
+    try:
+        rmtree(log_dir)
+    except (FileNotFoundError,NotADirectoryError):
+        print("no log need to be cleaned")
 
 class Tester_PONYGE2:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_PonyGE2.json'):
@@ -75,6 +80,7 @@ class Tester_PONYGE2:
 
 
 
+
 class Tester_SGE:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_sge.json'):
         self.n_step = n_step
@@ -123,12 +129,17 @@ if __name__ == "__main__":
 
     base=os.getcwd()
 
+    # clean previous test result
+    global_log_cleaner
+
+
     #here to define the problem for the comparison
+    full_problem_set=['mux11','ant','string_match','Vladislavleva4']
     full_problem_set=['ant','string_match','Vladislavleva4']
 
     #shared parameter
-    n_step=1
-    n_init_sample=1
+    n_step=2
+    n_init_sample=2
     eval_type='dict'
     max_eval_each=50000
 
@@ -141,7 +152,7 @@ if __name__ == "__main__":
                      )
     tester.give_problem(full_problem_set)
     # tester.clear_log()
-    tester.make_interface()
+    # tester.make_interface()
     # tester.refresh_interface()
     tester.run_PonyGE2()
 

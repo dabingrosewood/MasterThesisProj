@@ -1,4 +1,0 @@
-parameters: [None, None, None, None, None, None, None, None]
-xopt: [1966, 135, 16, 0.3041235922979706, 0.026466880991757424, 50000, 'string_match', 20]
-fopt: 16.0
-stop criteria: {'max_iter': True, 'n_eval': 10, 'n_iter': 5}

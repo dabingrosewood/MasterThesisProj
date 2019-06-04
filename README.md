@@ -45,3 +45,9 @@ for each probem you are going to test, you need to write a scirpt python file.
     def analyze()                       数据分析
         
     
+2. log's information
+    under the `log/` directory, there are 2 kinds of different log files
+    
+    The first type is like `summary_of_SYSTEM_PROBLEM_MACHINENAME.log`, which includes all tested command and corresponeding  average fitness value and std_dev.
+    
+    The second type is like `out_SYSTEM_PROBLEM_UNIXTIME_MACHINE.txt`, every file follows this shape is the best_founded hyperparameter setting for one hyper-parameter tuning test.

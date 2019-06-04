@@ -50,6 +50,14 @@
   "type": "OrdinalSpace",
   "range": [100,500]
 },{
+  "name": "MAX_INIT_TREE_DEPTH",
+  "type": "OrdinalSpace",
+  "range": [5,20]
+},{
+  "name": "MAX_TREE_DEPTH",
+  "type": "OrdinalSpace",
+  "range": [10,50]
+},{
   "name": "POPULATION_SIZE",
   "type": "OrdinalSpace",
   "range": [100,500]
