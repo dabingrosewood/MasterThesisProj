@@ -28,6 +28,7 @@ def global_log_cleaner(log_dir='log/'):
         rmtree(log_dir)
     except (FileNotFoundError,NotADirectoryError):
         print("no log need to be cleaned")
+        os.system('mkdir'+log_dir)
 
 class Tester_PONYGE2:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_PonyGE2.json'):
