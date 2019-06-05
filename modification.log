@@ -138,3 +138,8 @@ modification_log:
 04-06-2019:
     Global:
         for safety test, disabled two hyper-parameter in PonyGE2(max_init_tree_depth and MAX_TREE_DEPTH)
+
+05-06-2019:
+    Global:
+        On DAS-5. it's ok to test for three problem(Ant, Mux11, StringMatch)
+        Under no PYTHONPATH, No module python2,7,13 added.
