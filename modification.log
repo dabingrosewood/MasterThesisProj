@@ -143,3 +143,5 @@ modification_log:
     Global:
         On DAS-5. it's ok to test for three problem(Ant, Mux11, StringMatch)
         Under no PYTHONPATH, No module python2,7,13 added.
+        Test info:
+            05-06 ~ 15-06 Node111-node116 Three task for each node.
