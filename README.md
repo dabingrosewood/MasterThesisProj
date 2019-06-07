@@ -3,7 +3,7 @@
 ## Introdution
 This project is the thesis project for my master degrees at Leiden University, which is supervised by Prof. Dr. Thomas bäck and Dr. H. Wang.
 The main aim of this project is to compare the performance over different GE and GE-variant system.
-Until now, systems include PonyGE2(py3) and SGE(py2). Most of the codes are based on the original code of these systems are modified. 
+Until now, systems include PonyGE2(py3) and SGE(py2). Most of the codes are based on the original code of these systems, and they are modified according to need of this program. For the detail of modifications, please refer to modification.log.  
 
 Every GE system asks for several 'hyper-parameter' to manage the evolving process in the GE system. In order to compare different system about their peak performance, here we use MIP-EGO method to do the hyper-parameter tuning. This module will find the best-suited hyper-parameter setting for each GE system.
 
