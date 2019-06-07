@@ -1,53 +1,86 @@
-# introdution
-My thesis project is aim to compare different GE and GE-variant system.
-The systems be compared includes: PonyGE2(python), SGE(to be continued). Most of codes are based on the the original code of these system and be modified. Detailed information can be found in modification_log files.
+# Benchmark for Grammatical Evolution(GE) system
+
+## Introdution
+This project is the thesis project for my master degrees at Leiden University, which is supervised by Prof. Dr. Thomas bäck and Dr. H. Wang.
+The main aim of this project is to compare the performance over different GE and GE-variant system.
+Until now, systems include PonyGE2(py3) and SGE(py2). Most of the codes are based on the original code of these systems are modified. 
+
+Every GE system asks for several 'hyper-parameter' to manage the evolving process in the GE system. In order to compare different system about their peak performance, here we use MIP-EGO method to do the hyper-parameter tuning. This module will find the best-suited hyper-parameter setting for each GE system.
+
+## Structure
+![image](http://assets.processon.com/chart_image/5c9b935be4b0630a45dc0ca5.png)
+In this project, Every tested system will be seen as a independent module. Their hyper
+
+## Usage
+The main program of this project is `management.py` in the root directory. Run with `python3 management.py`
+The variable `full_problem_set` represents what problem you are going to test with.
+
+## prerequisite
+```
+    numpy
+    sklearn
+    pathos
+    cython
+    (to be continued...)
+
+```
 
 
-# Procedure to add new problem
-(Fitness funntion)
-1. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#include_ your `problem.h` in `cython/fitness.h`.
 
-2. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :`
-    
-3. Add the interface function for python program, folling the shape of `eval_[problem](argv[])`
-       
+##How to add new problem and run the test
+### 1. write your own fitness function
+I. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#include_ your `problem.c` in `cython/fitness.h`.
 
+II. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :`
+
+III. Add the interface function for python program, following the shape of `eval_[problem](argv[])`
+
+example:
 ```diff
 + cdef extern from "fitness.h" :
 +     double rmse(double *prediction_value, double *actual_value,int length);
-    
+
 + def fitness_rmse(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None):
 +     result = rmse(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
 +     return result
 ```
 
 
-# for PonyGE2 sys
-todo before the test: 
-1. add a fitness class
-2. add a parameter text file
-3. add a bnf file
+### 2. add new problem for PonyGE2 sys
+To run your own problem in PonyGE2 system, you still need to
+1. add a fitness class under `PonyGE2/src/fitness`, following the schema of 
+```python
+class problem_name(base_ff):
+
+    def __init__(self):
+        super().__init__()
+
+    @eval_counter
+    def evaluate(self, ind, **kwargs):
+        return your_fitness_function(**kwargs)
+```
+2. add a parameter text file under `PonyGE2/src/parameters`
+3. copy the BNF file of your problem into `PonyGE2/src/grammars`
 
 
-
-#for SGE system
-todo before test:
-for each probem you are going to test, you need to write a scirpt python file. 
+### 3. add new problemfor SGE system
+To run your own problem in SGE system,you need to write a scirpt python file for each problem you are going to test.
 `src/suite/supervised_learning.py` is a good template to start with.
 
-#实际流程(TODO)
+
+##Appelndix. (TODO)
 
 1.定义测试类,management.py
-     
+
     def init()                          初始化类属性，测试环境，将Cython内容覆盖到系统测fitness文件夹，并build
     def prepare(problem_set)            读取参数List
     def run()                           calling 针对不同系统的hyper_parameter_tuning, record 参数表和best_fitness
     def analyze()                       数据分析
-        
-    
+
+
 2. log's information
     under the `log/` directory, there are 2 kinds of different log files
-    
+
     The first type is like `summary_of_SYSTEM_PROBLEM_MACHINENAME.log`, which includes all tested command and corresponeding  average fitness value and std_dev.
-    
+
     The second type is like `out_SYSTEM_PROBLEM_UNIXTIME_MACHINE.txt`, every file follows this shape is the best_founded hyperparameter setting for one hyper-parameter tuning test.

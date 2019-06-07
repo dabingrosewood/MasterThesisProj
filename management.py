@@ -16,7 +16,7 @@ def cpy_interface(target_dir_relative='/PonyGE2/src/fitness/cython'):
 
     if os.path.exists(target_dir):
         if os.path.exists(target_dir):
-            print("原有文件夹将被删除")
+            print("original dir will be removed.")
             rmtree(target_dir)
         print("start copying")
         os.system('mkdir '+target_dir)

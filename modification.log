@@ -1,8 +1,20 @@
+HIGH LEVEL WORK:
+    • You implementation of the benchmarking suite is cleaned and documented,
+    • The planned experiment is completely in a thorough manner,
+    • The results are analysed,
+    • A well-written master thesis, which you can start to work on now :)
+--------------------------------------------------spilt line------------------------------------------------------------
+--------------------------------------------------spilt line------------------------------------------------------------
+--------------------------------------------------spilt line------------------------------------------------------------
+
 todo:
     ~BUG in interface_f1_score! How to deal with not regular prediction values??(such as 1.14123423e-12)
     ~SGE need eval_counter
     ~THE DIFFERENCE between grammar: Sge need <start> tag
 
+#   make the pipeline and confirm it works
+##  doc on how to add new problem, as a criteria of benchmark.
+### add more problem which can fit step 2
 
 --------------------------------------------------spilt line------------------------------------------------------------
 --------------------------------------------------spilt line------------------------------------------------------------
@@ -145,3 +157,7 @@ modification_log:
         Under no PYTHONPATH, No module python2,7,13 added.
         Test info:
             05-06 ~ 15-06 Node111-node116 Three task for each node.
+
+07-06-2019:
+    Benchmark:
+        Each problem will have one dir, which includes the bnf file, eval_fun name and training data/test data in  one sub-dir if that's a supervised learning problem.

@@ -19,7 +19,8 @@ cdef extern from "fitness.h" :
     int average_value(int data1,int data2);
 
     int evaluate_multiplexer(char *solution, int input_size);
-    int evaluate_ant(char *cmd_line)
+    int evaluate_ant(char *cmd_line);
+
 
 cdef bytes _bstring(s):
     # functino to convert string to bytes, which is only acceptabel for cython(py3).
@@ -76,3 +77,9 @@ def eval_f1_score(y, yhat):
         # return 0. We can ignore that warning and happily return 0.
         warnings.simplefilter("ignore")
         return sklearn_f1_score(y, yhat, average="weighted")
+
+def test_only(input):
+    return np.random.randn()+1
+
+
+def eval_quartic(individual):

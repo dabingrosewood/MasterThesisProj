@@ -23,8 +23,6 @@ class String_match():
         # Find number of variables.
 
 
-
-
     # def evaluate(self,individual):
     #     # print "individual= %s" % (individual)
     #     guess = individual
