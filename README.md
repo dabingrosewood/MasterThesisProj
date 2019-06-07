@@ -9,7 +9,8 @@ Every GE system asks for several 'hyper-parameter' to manage the evolving proces
 
 ## Structure
 ![image](http://assets.processon.com/chart_image/5c9b935be4b0630a45dc0ca5.png)
-In this project, Every tested system will be seen as a independent module. Their hyper
+In this project, Every tested system will be seen as a independent module. Their hyper-parameter(such like evolutionary settings) are managed  by `management.py` and tuned by calling `MIP-EGO` module. All tuned hyper-parameters are automatically feed into testing systems.
+On the other side, all fitness functions for every problem in this test is calling C-implemented Test Suite, with their corresponded interface to different coding languagess. Until now, interfaces of py3 to C and py2 to c are provided.
 
 ## Usage
 The main program of this project is `management.py` in the root directory. Run with `python3 management.py`
@@ -65,7 +66,22 @@ class problem_name(base_ff):
 
 ### 3. add new problemfor SGE system
 To run your own problem in SGE system,you need to write a scirpt python file for each problem you are going to test.
-`src/suite/supervised_learning.py` is a good template to start with.
+Following code is a good template to start with.
+```python
+class PROBLEM_NAME:
+    def evaluate(self, individual):
+        error=your_fitness_function(**kwargs)
+        return (error, {})
+
+
+if __name__ == "__main__":
+    import core.grammar as grammar
+    import core.sge
+    experience_name = "Mux11/"
+    grammar = grammar.Grammar("../grammars/BNF_NAME", 5)
+    evaluation_function = PROBLEM_NAME()
+    core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
+```
 
 
 ##Appelndix. (TODO)
