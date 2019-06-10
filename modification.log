@@ -7,8 +7,9 @@ HIGH LEVEL WORK:
 --------------------------------------------------spilt line------------------------------------------------------------
 --------------------------------------------------spilt line------------------------------------------------------------
 
+Warning : please modify the the sequence of hyper-paramter before next test
 todo: eval counter for SGE system to limit the maximize calling of fitness function.
-todo:
+todo: document all fucntions.
     ~BUG in interface_f1_score! How to deal with not regular prediction values??(such as 1.14123423e-12)
     ~SGE need eval_counter
     ~THE DIFFERENCE between grammar: Sge need <start> tag
@@ -165,3 +166,8 @@ modification_log:
 
 10-06-2019：
     todo:log-analyzer(for output*, build a compairson between different system. For out_, build csv to accumulate all hyper-parameter settings.)
+
+    ~!Warning : please modify the the sequence of hyper-paramter before next test
+    Global:
+        change the name of sge to SGE
+        result_analyzer--extractor

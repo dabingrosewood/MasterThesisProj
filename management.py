@@ -83,7 +83,7 @@ class Tester_PONYGE2:
 
 
 class Tester_SGE:
-    def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_sge.json'):
+    def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_SGE.json'):
         self.n_step = n_step
         self.n_init_sample = n_init_sample
         self.eval_type = eval_type
@@ -92,22 +92,22 @@ class Tester_SGE:
 
     def make_interface(self):
         #problem here  and add __init__.py
-        if not os.path.exists(os.getcwd() + "/sge/src/util/cython"):
-            cpy_interface('/sge/src/util/cython')
+        if not os.path.exists(os.getcwd() + "/SGE/src/util/cython"):
+            cpy_interface('/SGE/src/util/cython')
             build_cmd = "python setup.py build_ext --inplace"
-            cd_cmd = 'cd ' + os.getcwd() + "/sge/src/util/cython"
+            cd_cmd = 'cd ' + os.getcwd() + "/SGE/src/util/cython"
             exec_cmd(cd_cmd, build_cmd,)
-            open(os.getcwd() + "/sge/src/util/cython/" + "__init__.py", 'a').close()
+            open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py", 'a').close()
         else:
             print('interface alrady exist. Pass. IF NOT, delete the folder then retry or use refresh_interface.\n')
 
     def refresh_interface(self):
-        rmtree(os.getcwd()+"/sge/src/util/cython")
-        cpy_interface('/sge/src/util/cython')
+        rmtree(os.getcwd()+"/SGE/src/util/cython")
+        cpy_interface('/SGE/src/util/cython')
         build_cmd = "python setup.py build_ext --inplace"
-        cd_cmd='cd '+os.getcwd()+"/sge/src/util/cython"
+        cd_cmd='cd '+os.getcwd()+"/SGE/src/util/cython"
         exec_cmd(cd_cmd, build_cmd)
-        open(os.getcwd() + "/sge/src/util/cython/" + "__init__.py",'a').close()
+        open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py",'a').close()
 
 
     def give_problem(self,problem_set):
@@ -136,7 +136,7 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','Vladislavleva4']
-    full_problem_set=['ant','string_match','Vladislavleva4']
+    full_problem_set=['Vladislavleva4']
 
     #shared parameter
     n_step=2
@@ -165,7 +165,7 @@ if __name__ == "__main__":
                      n_init_sample = n_init_sample,
                      eval_type = eval_type,
                      max_eval_each=max_eval_each,
-                     para_list='/util/hyper_para_list_sge.json')
+                     para_list='/util/hyper_para_list_SGE.json')
     tester2.give_problem(full_problem_set)
     tester2.make_interface()
     # tester2.refresh_interface()

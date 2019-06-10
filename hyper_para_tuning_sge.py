@@ -106,17 +106,17 @@ def obj_func(x):
     return f
 
 
-def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_each=100000, problem_set=['supervised_learning'],para_list='/util/hyper_para_list_sge.json'):
+def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_each=100000, problem_set=['supervised_learning'],para_list='/util/hyper_para_list_SGE.json'):
 
     root_dir=os.getcwd()
-    os.chdir("sge/src/")
+    os.chdir("SGE/src/")
 
     for problem in problem_set:
         minimize_problem=True
         # by default, it will be a minimize problem.
 
         paralist_filename = root_dir + para_list
-        system_name = 'sge'
+        system_name = 'SGE'
 
         #main parameter
         POPULATION_SIZE = get_space('POPULATION_SIZE', filename=paralist_filename, system_name=system_name)
