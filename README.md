@@ -51,6 +51,8 @@ example:
 To run your own problem in PonyGE2 system, you still need to
 1. add a fitness class under `PonyGE2/src/fitness`, following the schema of 
 ```python
+from fitness.base_ff_classes.base_ff import base_ff
+from fitness.cython.interface import your_fitness_function
 class problem_name(base_ff):
 
     def __init__(self):
@@ -68,6 +70,10 @@ class problem_name(base_ff):
 To run your own problem in SGE system,you need to write a scirpt python file for each problem you are going to test.
 Following code is a good template to start with.
 ```python
+import sys,os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/../')
+from util.cython.interface import your_fitness_function
+
 class PROBLEM_NAME:
     def evaluate(self, individual):
         error=your_fitness_function(**kwargs)
@@ -82,7 +88,7 @@ if __name__ == "__main__":
     evaluation_function = PROBLEM_NAME()
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
 ```
-
+In the case of you are adding a supervised_learning problem, please refer to 
 
 ##Appelndix. (TODO)
 

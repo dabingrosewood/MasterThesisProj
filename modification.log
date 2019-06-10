@@ -7,6 +7,7 @@ HIGH LEVEL WORK:
 --------------------------------------------------spilt line------------------------------------------------------------
 --------------------------------------------------spilt line------------------------------------------------------------
 
+todo: eval counter for SGE system to limit the maximize calling of fitness function.
 todo:
     ~BUG in interface_f1_score! How to deal with not regular prediction values??(such as 1.14123423e-12)
     ~SGE need eval_counter
@@ -161,3 +162,6 @@ modification_log:
 07-06-2019:
     Benchmark:
         Each problem will have one dir, which includes the bnf file, eval_fun name and training data/test data in  one sub-dir if that's a supervised learning problem.
+
+10-06-2019：
+    todo:log-analyzer(for output*, build a compairson between different system. For out_, build csv to accumulate all hyper-parameter settings.)

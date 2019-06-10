@@ -82,4 +82,3 @@ def test_only(input):
     return np.random.randn()+1
 
 
-def eval_quartic(individual):
