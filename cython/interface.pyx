@@ -23,7 +23,7 @@ cdef extern from "fitness.h" :
 
 
 cdef bytes _bstring(s):
-    # functino to convert string to bytes, which is only acceptabel for cython(py3).
+    # function to convert string to bytes, which is only acceptable for cython.
     if type(s) is bytes:
         return <bytes>s
     elif isinstance(s, unicode):
