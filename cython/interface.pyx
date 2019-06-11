@@ -5,7 +5,6 @@ import warnings
 from sklearn.metrics.classification import f1_score as sklearn_f1_score
 cimport numpy as np
 
-# from libcpp.string cimport string
 
 np.import_array()
 
