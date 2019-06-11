@@ -128,6 +128,9 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
     root_dir=os.getcwd()
     os.chdir("PonyGE2/src/")
 
+    if not os.path.exists('../log'):
+        os.mkdir('../log')
+
     for problem in problem_set:
         # test problems one by one.
         minimize_problem = True

@@ -133,7 +133,7 @@ if __name__ == "__main__":
     base=os.getcwd()
 
     # clean previous test result
-    global_log_cleaner
+    global_log_cleaner()
 
 
     #here to define the problem for the comparison

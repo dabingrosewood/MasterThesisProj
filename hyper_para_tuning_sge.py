@@ -117,6 +117,9 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
     root_dir=os.getcwd()
     os.chdir("SGE/src/")
 
+    if not os.path.exists('../log'):
+        os.mkdir('../log')
+
     for problem in problem_set:
         minimize_problem=True
         # by default, it will be a minimize problem.

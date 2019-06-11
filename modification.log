@@ -173,3 +173,5 @@ modification_log:
         result_analyzer--extractor
 
         !change the order of parameters to PROBLEM,[Tuning Parameters],[Static Parameters]
+
+        solve /log not exist in test
