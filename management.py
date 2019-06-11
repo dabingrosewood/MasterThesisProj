@@ -27,7 +27,7 @@ def global_log_cleaner(log_dir='log/'):
         rmtree(log_dir)
     except (FileNotFoundError,NotADirectoryError):
         print("no log need to be cleaned")
-    if not os.path.exists('log/')
+    if not os.path.exists('log/'):
         os.mkdir('log/')
 
 class Tester_PONYGE2:
