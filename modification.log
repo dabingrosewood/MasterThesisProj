@@ -171,3 +171,5 @@ modification_log:
     Global:
         change the name of sge to SGE
         result_analyzer--extractor
+
+        !change the order of parameters to PROBLEM,[Tuning Parameters],[Static Parameters]

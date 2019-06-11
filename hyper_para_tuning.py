@@ -23,6 +23,11 @@ import json
 from util.para_list_reader import get_space
 
 def runGE(cmd):
+    '''
+    buiild the command to feed hyper-parameter by using command line methods.
+    :param cmd:
+    :return fitness: fitness value corresponding to feeded parameters.
+    '''
     # run PonyGE2 system
     try:
         p = os.popen(cmd)
@@ -33,26 +38,28 @@ def runGE(cmd):
         fitness=np.nan
         print("error, fitness got value='NAN' ")
 
-    # try:
-    #     used_eval=re.search(r'Eval_count\s+=\s+(\d+)', std_out).group(1)
-    #     print("used eval_num=",used_eval)
-    # except:
-    #     print("didnt get eval num, will used the estimation value to replace this.")
-    #     used_eval = 50 * re.search(r'(--POPULATION_SIZE)\s*(\d+)',cmd).group(1)
-
-        # 50 is the default number of iteration in Ponyge2 system.
-        # in the case of the system cannot got the eval_num, this value will be set to the iteration_num*pop_size
-
 
     return fitness
 
 def build_cmd(x,parameter_name,cmd):
+    '''
+    only used for build command for PonyGE2 system
+    :param x:
+    :param parameter_name:
+    :param cmd:
+    :return:
+    '''
     # used in obj_func()
     if x.get(parameter_name):
         cmd=cmd+('  --'+parameter_name+' ').lower()+str(x[parameter_name])
     return cmd
 
 def obj_func(x):
+    '''
+
+    :param x: SearchSpace
+    :return f:Fitness value
+    '''
 
     # print("currently dealing with probelm ",problem,'\n')
 
@@ -70,7 +77,6 @@ def obj_func(x):
     # cmd = cmd + '  --MAX_TREE_DEPTH  '.lower() + str(x['MAX_TREE_DEPTH'])
     cmd = cmd + '  --TOURNAMENT_SIZE  '.lower() + str(x['TOURNAMENT_SIZE'])
     cmd = cmd + '  --POPULATION_SIZE  '.lower() + str(x['POPULATION_SIZE'])
-    # cmd = cmd + '  --random_seed  '.lower() + str('666')
     cmd = cmd + '  --codon_size  '.lower() + str(x['CODON_SIZE'])
     if str(x['CROSSOVER'])=='subtree':
         cmd = cmd + '  --MUTATION_EVENT  '.lower() + str(x['MUTATION_EVENT_SUBTREE'])
@@ -120,23 +126,21 @@ def obj_func(x):
 def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each=100000, problem_set=['string_match'],para_list='/util/hyper_para_list_PonyGE2.json'):
     np.random.seed(67)
     root_dir=os.getcwd()
-
     os.chdir("PonyGE2/src/")
 
-    # the problem you are going to test
-
     for problem in problem_set:
+        # test problems one by one.
         minimize_problem = True
         # by default, it will be a minimize problem.
 
         if problem in ['classification', 'pymax']:
             minimize_problem = False
 
-
-
-        #replacement
         filename = root_dir + para_list
         system_name='PonyGE2'
+
+
+        #Tunable hyper-parameters
 
         INITIALISATION = get_space('INITIALISATION',filename=filename,system_name=system_name)
         CROSSOVER = get_space('CROSSOVER',filename=filename,system_name=system_name)
@@ -157,18 +161,18 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         MAX_TREE_DEPTH = get_space('MAX_TREE_DEPTH',filename=filename,system_name=system_name)
         POPULATION_SIZE = get_space('POPULATION_SIZE',filename=filename,system_name=system_name)
 
-        # Others
-        # GENERATIONS = OrdinalSpace([1, 100], 'GENERATIONS')
+        # Others/Static parameters
 
         PROBLEM=NominalSpace([problem],'PROBLEM')
         EVAL_BUDGET = OrdinalSpace([max_eval_each,max_eval_each+1],'EVAL_BUDGET')
 
-
+        #todo: By default, the following line should be 'if minimize_problem == True:', since the 'MAX_INIT_TREE_DEPTH' and 'MAX_TREE_DEPTH' can easily causes problem by generating too big search space.
+        #But we found it also prodeces this problem for mux11 problem. so these two parameters are temporarily disbaled.
         if minimize_problem == False:
-            search_space = PROBLEM + EVAL_BUDGET +INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE + EVAL_BUDGET
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE + EVAL_BUDGET
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
-            search_space = PROBLEM + EVAL_BUDGET + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 
@@ -196,11 +200,10 @@ if __name__ == "__main__":
     np.random.seed(67)
 
     n_step = 100 # iteration number
-    n_init_sample = 5
+    n_init_sample = 5 # number of sample point.
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
     max_eval_each=1000
-    # os.chdir("PonyGE2/src/")
     problem_set = ['classification', 'regression', 'string_match', 'pymax']
 
     # the problem you are going to test

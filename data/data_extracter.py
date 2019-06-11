@@ -31,7 +31,7 @@ def line_praser_fitness(line):
 
 
 
-wd_dir=os.getcwd()+'/data/15-04'
+wd_dir=os.getcwd()+'15-04'
 files = os.listdir(path=wd_dir)
 
 print("addd=",files)

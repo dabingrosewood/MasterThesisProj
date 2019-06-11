@@ -2,7 +2,8 @@ import sys, os, re
 import numpy as np
 import json
 import csv
-
+import matplotlib.pyplot as plt
+import pandas as pd
 
 class PARAMETERS_EXTRACTOR:
     '''
@@ -126,7 +127,7 @@ class PARAMETERS_EXTRACTOR:
 
     def csv_writer(self, data):
         '''
-        This function is used to write data into csv file for futher usage.
+        This function is used to write data into csv file for further usage.
         :param data:
         :return:
         '''
@@ -139,7 +140,7 @@ class PARAMETERS_EXTRACTOR:
                 for element in problem[1]:
                     data_to_write.append(element[1])
 
-                with open(system[0] + '_' + problem[0] + '.csv', 'a') as csv_file:
+                with open('tmp/'+system[0] + '_' + problem[0] + '.csv', 'a') as csv_file:
                     writer = csv.writer(csv_file, dialect='excel')
                     writer.writerow(data_to_write)
 
@@ -166,6 +167,40 @@ class PARAMETERS_EXTRACTOR:
                     # todo: every out_file is a dict now. to be continued.
 
 
+def system_analyzer(target_dir):
+    '''
+    draw comparison graph for each problem. but No std_dev is included.
+    :param target_dir:
+    :return:
+    '''
+    problem_set=[]
+    system_set=[]
+
+    files = os.listdir(target_dir)
+    #first analyze the system and problem
+    for file in files:
+        tmp_sys=re.search(r'([A-Za-z0-9]*)_([A-Za-z0-9_]*).csv',file).group(1)
+        tmp_pro = re.search(r'([A-Za-z0-9]*)_([A-Za-z0-9_]*).csv',file).group(2)
+
+        if not tmp_sys in system_set:
+            system_set.append(tmp_sys)
+
+        if not tmp_pro in problem_set:
+            problem_set.append(tmp_pro)
+
+
+    for problem_tested in problem_set:
+        plt.title(problem_tested)
+        for system_tested in system_set:
+            filename=system_tested+'_'+problem_tested+'.csv'
+            cur_data=pd.read_csv(target_dir+filename,header=None,delimiter=',')
+            cur_data.mean(0).plot(label=system_tested)
+        plt.legend()
+        plt.xlabel('Iteration number')
+        plt.ylabel('Fitness')
+        plt.show()
+    return
+
 if __name__ == "__main__":
     defaultz_log_dir = "../log/"
     problem_set = ['mux11', 'ant', 'string_match']
@@ -173,3 +208,4 @@ if __name__ == "__main__":
 
     extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
     extractor.run()
+    system_analyzer(target_dir='tmp/')

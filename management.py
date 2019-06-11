@@ -2,7 +2,6 @@ import sys,os
 from shutil import copytree, ignore_patterns,rmtree
 import hyper_para_tuning,hyper_para_tuning_sge
 import numpy as np
-
 from util.exec_cmd import exec_cmd
 
 
@@ -31,6 +30,9 @@ def global_log_cleaner(log_dir='log/'):
         os.system('mkdir'+log_dir)
 
 class Tester_PONYGE2:
+    '''
+
+    '''
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_PonyGE2.json'):
         self.n_step = n_step
         self.n_init_sample = n_init_sample

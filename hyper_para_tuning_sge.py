@@ -34,6 +34,12 @@ def run_sge(cmd):
     return fitness
 
 def obj_func(x):
+    '''
+    This fucntion calls SGE and feed hyper-parameters by modifying it's default configure file.
+    Warning: Previous character could possibly causes problem in multi-processing. It's safer to call this solely.
+    :param x:
+    :return:
+    '''
     sge_dir = os.getcwd()
     # print("sge_dir=", sge_dir)
 
@@ -125,12 +131,12 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         PROB_CROSSOVER = get_space('PROB_CROSSOVER', filename=paralist_filename, system_name=system_name)
         PROB_MUTATION = get_space('PROB_MUTATION', filename=paralist_filename, system_name=system_name)
 
-        #others
+        #others/Static parameters
         EVAL_BUDGET = OrdinalSpace([max_eval_each, max_eval_each + 1], 'EVAL_BUDGET')
         PROBLEM = NominalSpace([problem], 'PROBLEM')
         NUMBER_OF_ITERATIONS=OrdinalSpace([20, 20 + 1], 'NUMBER_OF_ITERATIONS')
 
-        search_space = POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + EVAL_BUDGET + PROBLEM + NUMBER_OF_ITERATIONS
+        search_space = PROBLEM + POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + NUMBER_OF_ITERATIONS + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 
