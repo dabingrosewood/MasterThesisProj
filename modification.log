@@ -175,3 +175,8 @@ modification_log:
         !change the order of parameters to PROBLEM,[Tuning Parameters],[Static Parameters]
 
         solve /log not exist in test
+
+12-06-2019:
+    add GGES:
+        GGES can use Hyper-parameter tuning now.
+        todo: Bug on run_gges(cmd): When try to extract fitness value from std_out of c program, sometimes cannot get the result since the std_out is not complete in os.popen().read()

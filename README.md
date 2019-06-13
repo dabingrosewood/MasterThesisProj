@@ -19,7 +19,7 @@ The variable `full_problem_set` represents what problem you are going to test wi
 ## prerequisite
 ```
     numpy
-    sklearn
+    scikit-learn
     pathos
     cython
     (to be continued...)

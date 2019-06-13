@@ -83,8 +83,6 @@ class Tester_PONYGE2:
         pass
 
 
-
-
 class Tester_SGE:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_SGE.json'):
         self.n_step = n_step

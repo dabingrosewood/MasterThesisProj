@@ -167,7 +167,7 @@ class PARAMETERS_EXTRACTOR:
                     # todo: every out_file is a dict now. to be continued.
 
 
-def system_analyzer(target_dir):
+def system_analyzer(target_dir='tmp/',show = False):
     '''
     draw comparison graph for each problem. but No std_dev is included.
     :param target_dir:
@@ -198,8 +198,9 @@ def system_analyzer(target_dir):
         plt.legend()
         plt.xlabel('Iteration number')
         plt.ylabel('Fitness')
-        plt.show()
-    return
+        plt.savefig(problem_tested+".jpg")
+        if show:
+            plt.show()
 
 if __name__ == "__main__":
     defaultz_log_dir = "../log/"
@@ -208,4 +209,4 @@ if __name__ == "__main__":
 
     extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
     extractor.run()
-    system_analyzer(target_dir='tmp/')
+    system_analyzer(target_dir='tmp/',show=True)
