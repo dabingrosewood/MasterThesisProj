@@ -72,7 +72,7 @@ def obj_func(x):
     f_new.close()
 
     # test part
-    os.system("make clean")
+    os.system("make")
     cmd='./dist/suite_'+x['PROBLEM']+' ./bnf/suite/'+x['PROBLEM']+'.bnf'
     print("command inputed is ", cmd)
     # check the command inputed here

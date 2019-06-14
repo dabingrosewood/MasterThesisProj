@@ -565,7 +565,7 @@ struct gges_parameters *gges_default_parameters()
 
     def = ALLOC(1, sizeof(struct gges_parameters), false);
 
-    def->population_size = 498;
+    def->population_size = 413;
     def->generation_count = 10;
 
     def->model = CONTEXT_FREE_GP;
@@ -574,10 +574,10 @@ struct gges_parameters *gges_default_parameters()
 
     def->cache_fitness = true;
 
-    def->tournament_size = 48;
+    def->tournament_size = 36;
 
-    def->crossover_rate = 0.36604790924502195;
-    def->mutation_rate = 0.5938164961060634;
+    def->crossover_rate = 0.9329706398376123;
+    def->mutation_rate = 0.34888425302564;
 
     def->sensible_initialisation = true;
 

@@ -31,6 +31,8 @@ class PARAMETERS_EXTRACTOR:
             llist.append('EVAL_BUDGET')
         elif system_name == 'SGE':
             para_file = '../util/hyper_para_list_SGE.json'
+        elif system_name == 'GGES':
+            para_file = '../util/hyper_para_list_GGES.json'
 
         with open(para_file, 'r') as load_f:
             data = json.load(load_f)
