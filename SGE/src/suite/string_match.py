@@ -58,6 +58,6 @@ if __name__ == "__main__":
     from configs.standard import RUN
 
     experience_name = "string_match/"
-    grammar = grammar.Grammar("../grammars/letter.bnf", 15)
+    grammar = grammar.Grammar("../grammars/string_match.bnf", 15)
     evaluation_function = String_match(RUN)
     core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)

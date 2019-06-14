@@ -8,6 +8,8 @@ HIGH LEVEL WORK:
 --------------------------------------------------spilt line------------------------------------------------------------
 
 Warning : please modify the the sequence of hyper-paramter before next test
+Warning : GGSE's core is doing maximasization , please return a minimize valued for eval func.
+
 todo: eval counter for SGE system to limit the maximize calling of fitness function.
 todo: document all fucntions.
     ~BUG in interface_f1_score! How to deal with not regular prediction values??(such as 1.14123423e-12)
@@ -180,3 +182,10 @@ modification_log:
     add GGES:
         GGES can use Hyper-parameter tuning now.
         todo: Bug on run_gges(cmd): When try to extract fitness value from std_out of c program, sometimes cannot get the result since the std_out is not complete in os.popen().read()
+
+
+14-06-2019:
+    Global:
+        add tester for GGES system.
+        ant.c->ant.h
+

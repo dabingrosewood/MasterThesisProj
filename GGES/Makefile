@@ -17,11 +17,12 @@ LFLAGS:=-L$(LIBDIR) -lgges -lm
 
 INC:=$(SRCDIR)/gges.h $(SRCDIR)/individual.h \
 	$(SRCDIR)/grammar.h $(SRCDIR)/mapping.h $(SRCDIR)/derivation.h \
-	$(SRCDIR)/cfggp.h $(SRCDIR)/ge.h $(SRCDIR)/sge.h
+	$(SRCDIR)/cfggp.h $(SRCDIR)/ge.h $(SRCDIR)/sge.h\
+	$(SRCDIR)/interface/fitness.h $(SRCDIR)/interface/ant.h $(SRCDIR)/interface/multiplexer.h
 
 LIB:=$(LIBDIR)/libgges.a
 BIN:=$(BINDIR)/ant $(BINDIR)/mux11 $(BINDIR)/parity $(BINDIR)/regression $(BINDIR)/packing \
-	$(BINDIR)/template
+	$(BINDIR)/template $(BINDIR)/suite_mux11 $(BINDIR)/suite_ant $(BINDIR)/suite_string_match
 
 all: $(LIB) $(BIN)
 
@@ -56,6 +57,18 @@ $(BINDIR)/packing: $(DEMO_OBJS) $(OBJDIR)/pack.o $(OBJDIR)/packmain.o $(LIB)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 
 $(BINDIR)/template: $(DEMO_OBJS) $(OBJDIR)/templatemain.o $(LIB)
+	@echo linking $@ from $^
+	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+$(BINDIR)/suite_mux11: $(DEMO_OBJS) $(OBJDIR)/suite_mux11.o $(LIB)
+	@echo linking $@ from $^
+	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+$(BINDIR)/suite_ant: $(DEMO_OBJS) $(OBJDIR)/suite_ant.o $(LIB)
+	@echo linking $@ from $^
+	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+$(BINDIR)/suite_string_match: $(DEMO_OBJS) $(OBJDIR)/suite_string_match.o $(LIB)
 	@echo linking $@ from $^
 	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 
