@@ -19,6 +19,18 @@ import time
 
 from util.para_list_reader import get_space
 
+def build_cmd(x,parameter_name,cmd):
+    '''
+    only used for build command for GGES system
+    :param x:
+    :param parameter_name:
+    :param cmd:
+    :return:
+    '''
+    # used in obj_func()
+    if x.get(parameter_name):
+        cmd=cmd+('  -p '+parameter_name+'=').lower()+str(x[parameter_name])
+    return cmd
 
 
 def run_gges(cmd):
@@ -47,33 +59,49 @@ def obj_func(x):
 
 
     # by modifying the config file to feed parameters.
-    f_old = open(GGES_dir + '/src/gges_backup.c', 'r')
-    f_new = open(GGES_dir + '/src/gges.c', 'w+')
-
-    for line in f_old:
-        newline = line
-        if re.search('def->population_size', line):
-            newline = line.replace(re.findall(r'\d+', line)[0], str(x['POPULATION_SIZE']))
-
-        if re.search('def->generation_count', line):
-            newline = line.replace(re.findall(r'\d+', line)[0], str(x['NUMBER_OF_ITERATIONS']))
-
-        if re.search('def->tournament_size', line):
-            newline = line.replace(re.findall(r'\d+', line)[0], str(x['TOURNAMENT_SIZE']))
-
-        if re.search('def->crossover_rate', line):
-            newline = line.replace(re.findall(r'\d\.\d+', line)[0], str(x['PROB_CROSSOVER']))
-
-        if re.search('def->mutation_rate', line):
-            newline = line.replace(re.findall(r'\d\.\d+', line)[0], str(x['PROB_MUTATION']))
-
-        f_new.write(newline)
-    f_old.close()
-    f_new.close()
+    # f_old = open(GGES_dir + '/src/gges_backup.c', 'r')
+    # f_new = open(GGES_dir + '/src/gges.c', 'w+')
+    #
+    # for line in f_old:
+    #     newline = line
+    #     if re.search('def->population_size', line):
+    #         newline = line.replace(re.findall(r'\d+', line)[0], str(x['POPULATION_SIZE']))
+    #
+    #     if re.search('def->generation_count', line):
+    #         newline = line.replace(re.findall(r'\d+', line)[0], str(x['NUMBER_OF_ITERATIONS']))
+    #
+    #     if re.search('def->tournament_size', line):
+    #         newline = line.replace(re.findall(r'\d+', line)[0], str(x['TOURNAMENT_SIZE']))
+    #
+    #     if re.search('def->crossover_rate', line):
+    #         newline = line.replace(re.findall(r'\d\.\d+', line)[0], str(x['PROB_CROSSOVER']))
+    #
+    #     if re.search('def->mutation_rate', line):
+    #         newline = line.replace(re.findall(r'\d\.\d+', line)[0], str(x['PROB_MUTATION']))
+    #
+    #     f_new.write(newline)
+    # f_old.close()
+    # f_new.close()
+    # os.system("make & clean")
 
     # test part
-    os.system("make")
-    cmd='./dist/suite_'+x['PROBLEM']+' ./bnf/suite/'+x['PROBLEM']+'.bnf'
+
+    # cmd='./dist/suite_'+x['PROBLEM']+' ./bnf/suite/'+x['PROBLEM']+'.bnf'
+
+
+    # by modifying the command to feed parameters.
+    cmd='./dist/suite_'+x['PROBLEM']+' ./bnf/suite/'+x['PROBLEM']+'.bnf' # basic command
+
+    cmd=build_cmd(x,'pop_size',cmd)
+    cmd=build_cmd(x,'tourn_size',cmd)
+    cmd=build_cmd(x,'crossover_rate',cmd)
+    cmd=build_cmd(x,'mutation_rate',cmd)
+    cmd=build_cmd(x,'init_codon_count',cmd)
+    cmd=build_cmd(x,'representation',cmd)
+    # cmd=build_cmd(x,'search_method',cmd)
+    cmd = build_cmd(x, 'GENERATIONS', cmd)
+
+
     print("command inputed is ", cmd)
     # check the command inputed here
 
@@ -115,6 +143,7 @@ def hyper_parameter_tuning_GGES(n_step,n_init_sample,eval_type='dict', max_eval_
 
     root_dir=os.getcwd()
     os.chdir("GGES")
+    os.system("make ")
 
     if not os.path.exists('log'):
         os.mkdir('log')
@@ -127,17 +156,20 @@ def hyper_parameter_tuning_GGES(n_step,n_init_sample,eval_type='dict', max_eval_
         system_name = 'GGES'
 
         #main parameter
-        POPULATION_SIZE = get_space('POPULATION_SIZE', filename=paralist_filename, system_name=system_name)
-        TOURNAMENT_SIZE = get_space('TOURNAMENT_SIZE', filename=paralist_filename, system_name=system_name)
-        PROB_CROSSOVER = get_space('PROB_CROSSOVER', filename=paralist_filename, system_name=system_name)
-        PROB_MUTATION = get_space('PROB_MUTATION', filename=paralist_filename, system_name=system_name)
+        POPULATION_SIZE = get_space('pop_size', filename=paralist_filename, system_name=system_name)
+        TOURNAMENT_SIZE = get_space('tourn_size', filename=paralist_filename, system_name=system_name)
+        PROB_CROSSOVER = get_space('crossover_rate', filename=paralist_filename, system_name=system_name)
+        PROB_MUTATION = get_space('mutation_rate', filename=paralist_filename, system_name=system_name)
+        INIT_CODON_COUNT = get_space('init_codon_count',filename=paralist_filename, system_name=system_name)
+        REPRESENTATION = get_space('representation',filename=paralist_filename, system_name=system_name)
+        # SEARCH_METHOD = get_space('search_method',filename=paralist_filename, system_name=system_name)
 
         #others/Static parameters
         EVAL_BUDGET = OrdinalSpace([max_eval_each, max_eval_each + 1], 'EVAL_BUDGET')
         PROBLEM = NominalSpace([problem], 'PROBLEM')
-        NUMBER_OF_ITERATIONS=OrdinalSpace([10, 10 + 1], 'NUMBER_OF_ITERATIONS')
+        GENERATIONS=OrdinalSpace([50, 50 + 1], 'GENERATIONS')
 
-        search_space = PROBLEM + POPULATION_SIZE + TOURNAMENT_SIZE + PROB_CROSSOVER + PROB_MUTATION + NUMBER_OF_ITERATIONS + EVAL_BUDGET
+        search_space = PROBLEM + POPULATION_SIZE + TOURNAMENT_SIZE + PROB_CROSSOVER + PROB_MUTATION + INIT_CODON_COUNT + REPRESENTATION + GENERATIONS + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 

@@ -1,18 +1,30 @@
 [{
-  "name": "POPULATION_SIZE",
+  "name": "pop_size",
   "type": "OrdinalSpace",
   "range": [100,1000]
 },{
-  "name": "TOURNAMENT_SIZE",
+  "name": "tourn_size",
   "type": "OrdinalSpace",
   "range": [5,50]
 },{
-  "name": "PROB_CROSSOVER",
+  "name": "crossover_rate",
   "type": "ContinuousSpace",
   "range": [0,1]
 },{
-  "name": "PROB_MUTATION",
+  "name": "mutation_rate",
   "type": "ContinuousSpace",
   "range": [0,1]
+},{
+  "name": "representation",
+  "type": "NominalSpace",
+  "options": ["CFG-GP", "GE", "SGE"]
+},{
+  "name": "search_method",
+  "type": "NominalSpace",
+  "options": ["RANDOM", "GENERATIONAL", "STEADY_STATE"]
+},{
+  "name": "init_codon_count",
+  "type": "OrdinalSpace",
+  "range": [100,500]
 }
 ]

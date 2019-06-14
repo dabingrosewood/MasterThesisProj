@@ -166,11 +166,11 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','Vladislavleva4']
-    full_problem_set=['string_match']
+    full_problem_set=['ant','string_match','mux11']
 
     #shared parameter
-    n_step=2
-    n_init_sample=2
+    n_step=100
+    n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
 
@@ -199,7 +199,7 @@ if __name__ == "__main__":
     tester2.give_problem(full_problem_set)
     # tester2.make_interface()
     # tester2.refresh_interface()
-    tester2.run_sge()
+    # tester2.run_sge()
 
     os.chdir(base)
     # *****Test GGES*****
