@@ -206,7 +206,10 @@ def system_analyzer(target_dir='tmp/',show = False):
 
 if __name__ == "__main__":
     defaultz_log_dir = "../log/"
-    problem_set = ['mux11', 'ant', 'string_match']
+
+    # Orders of given problems matters
+    problem_set = ['ant','string_match','mux11']
+
     para_list = '/util/hyper_para_list_PonyGE2.json'
 
     extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
