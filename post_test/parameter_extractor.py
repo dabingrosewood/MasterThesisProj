@@ -196,11 +196,13 @@ def system_analyzer(target_dir='tmp/',show = False):
         for system_tested in system_set:
             filename=system_tested+'_'+problem_tested+'.csv'
             cur_data=pd.read_csv(target_dir+filename,header=None,delimiter=',')
+            # cur_data is a DataSeries
             cur_data.mean(0).plot(label=system_tested)
+
         plt.legend()
         plt.xlabel('Iteration number')
         plt.ylabel('Fitness')
-        plt.savefig(problem_tested+".jpg")
+        # plt.savefig(problem_tested+".jpg")
         if show:
             plt.show()
 
@@ -212,6 +214,6 @@ if __name__ == "__main__":
 
     para_list = '/util/hyper_para_list_PonyGE2.json'
 
-    extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
-    extractor.run()
+    # extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
+    # extractor.run()
     system_analyzer(target_dir='tmp/',show=True)

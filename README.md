@@ -1,4 +1,6 @@
 # Benchmark for Grammatical Evolution(GE) system
+## Attention
+This project is still in construction, some parts may not synchronized with the latest version on my personal computer. Please contact me directly if you got any problem or comments.
 
 ## Introdution
 This project is the thesis project for my master degrees at Leiden University, which is supervised by Prof. Dr. Thomas bäck and Dr. H. Wang.
@@ -89,6 +91,22 @@ if __name__ == "__main__":
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
 ```
 In the case of you are adding a supervised_learning problem, please refer to 
+
+### 4. add new problemfor GGES system
+For the test in GGES system, you need to write a test program for your selected problem (in `/demo`),copy your bnf into `/bnf` directory and assign your fitness function's return value  to eval function respectively.
+For the reference of these work, please mimic the `/demo/template.c` file.
+
+ After finishing this part, you need to modify the `Makefile` by adding some info of your problem
+ ```diff
+ BIN:
+++  $(BINDIR)/YOUR_PROBLEM
+ 
+ 
+++  $(BINDIR)/YOUR_PROBLEM: $(DEMO_OBJS) $(OBJDIR)/YOUR_PROBLEM.o $(LIB)
+++	@echo linking $@ from $^
+++	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+``` 
+
 
 ##Appelndix. (TODO)
 
