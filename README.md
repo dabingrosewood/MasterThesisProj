@@ -42,7 +42,7 @@ Several variables in `management.py` are best to know before your test:
 
 
 ##How to add new problem and run the test
-### 1. write your own fitness function
+### 1. write your own fitness function and interface
 I. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#include_ your `problem.c` in `cython/fitness.h`.
 
 II. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :`
@@ -60,7 +60,8 @@ example:
 ```
 
 
-### 2. add new problem for PonyGE2 sys
+### 2. add new problem to test system
+#### for PonyGE2 system:
 To run your own problem in PonyGE2 system, you still need to
 1. add a fitness class under `PonyGE2/src/fitness`, following the schema of 
 ```python
@@ -78,8 +79,7 @@ class problem_name(base_ff):
 2. add a parameter text file under `PonyGE2/src/parameters`
 3. copy the BNF file of your problem into `PonyGE2/src/grammars`
 
-
-### 3. add new problemfor SGE system
+#### for SGE system:
 To run your own problem in SGE system,you need to write a scirpt python file for each problem you are going to test.
 Following code is a good template to start with.
 ```python
@@ -103,7 +103,8 @@ if __name__ == "__main__":
 ```
 In the case of you are adding a supervised_learning problem, please refer to 
 
-### 4. add new problemfor GGES system
+
+#### for GGES system:
 For the test in GGES system, you need to write a test program for your selected problem (in `/demo`),copy your bnf into `/bnf` directory and assign your fitness function's return value  to eval function respectively.
 For the reference of these work, please mimic the `/demo/template.c` file.
 
@@ -121,23 +122,10 @@ For the reference of these work, please mimic the `/demo/template.c` file.
 ##Cite us
 If you wants to use this project as your own purpose, please also cite these original works and refer to their original address.
 
+
 https://github.com/PonyGE/PonyGE2
+
 https://github.com/nunolourenco/sge
+
 https://github.com/grantdick/libgges#libgges-grammar-guided-evolutionary-search
 
-##Appelndix. (TODO)
-
-1.定义测试类,management.py
-
-    def init()                          初始化类属性，测试环境，将Cython内容覆盖到系统测fitness文件夹，并build
-    def prepare(problem_set)            读取参数List
-    def run()                           calling 针对不同系统的hyper_parameter_tuning, record 参数表和best_fitness
-    def analyze()                       数据分析
-
-
-2. log's information
-    under the `log/` directory, there are 2 kinds of different log files
-
-    The first type is like `summary_of_SYSTEM_PROBLEM_MACHINENAME.log`, which includes all tested command and corresponeding  average fitness value and std_dev.
-
-    The second type is like `out_SYSTEM_PROBLEM_UNIXTIME_MACHINE.txt`, every file follows this shape is the best_founded hyperparameter setting for one hyper-parameter tuning test.
