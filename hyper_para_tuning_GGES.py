@@ -36,11 +36,12 @@ def build_cmd(x,parameter_name,cmd):
 def run_gges(cmd):
     try:
         std_out = os.popen(cmd).read()
-        # print(std_out)
+        print(std_out)
+
         #todo: bug here
         fitness = re.search(r'(.*?)(\d+\.\d*)((.*?)\nend)', std_out).group(2)
-        # fitness = re.search(r'(.*?)(\d+\.\d*)', std_out).group(2)
-        print('current parameter has the fitness of ', fitness)
+
+        print('Current Fitness has the fitness of ', fitness)
     except:
         fitness=np.nan
         print("error, fitness got value='NAN' ")
@@ -84,7 +85,6 @@ def obj_func(x):
     # f_new.close()
     # os.system("make & clean")
 
-    # test part
 
     # cmd='./dist/suite_'+x['PROBLEM']+' ./bnf/suite/'+x['PROBLEM']+'.bnf'
 

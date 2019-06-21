@@ -1,13 +1,16 @@
 # Benchmark for Grammatical Evolution(GE) system
-## Attention
-This project is still in construction, some parts may not synchronized with the latest version on my personal computer. Please contact me directly if you got any problem or comments.
-
-## Introdution
 This project is the thesis project for my master degrees at Leiden University, which is supervised by Prof. Dr. Thomas bäck and Dr. H. Wang.
-The main aim of this project is to compare the performance over different GE and GE-variant system.
-Until now, systems include PonyGE2(py3) and SGE(py2). Most of the codes are based on the original code of these systems, and they are modified according to need of this program. For the detail of modifications, please refer to modification.log.  
 
+The general aim of this project is to provide a pipeline which can customize problems to build a benchmark to compare different GE and GE-variant systems. 
 Every GE system asks for several 'hyper-parameter' to manage the evolving process in the GE system. In order to compare the peak performance for different GE systems, here we use MIP-EGO method to do the hyper-parameter tuning. This module will find the best-suited hyper-parameter setting for each GE system.
+
+Until now, several GE systems has been included, covers PonyGE2(py3) ,SGE(py2) and GGES(c). 
+Most codes of these systems are forked from the master branch of these systems on github, and they are modified according to need of this project.
+
+
+On the other side, this project is still in construction, some parts may not synchronized with the latest version on my personal computer. Please contact me directly if you got any problem or comments.
+
+
 
 ## Structure
 ![image](http://assets.processon.com/chart_image/5c9b935be4b0630a45dc0ca5.png)
@@ -15,10 +18,18 @@ In this project, Every tested system will be seen as a independent module. Their
 On the other side, all fitness functions for every problem in this test is calling C-implemented Test Suite, with their corresponded interface to different coding languagess. Until now, interfaces of py3 to C and py2 to c are provided.
 
 ## Usage
-The main program of this project is `management.py` in the root directory. Run with `python3 management.py`
-The variable `full_problem_set` represents what problem you are going to test with.
+To run the test on your own computer/server, please use `git clone https://github.com/dabingrosewood/MasterThesisProj.git`.
 
-## prerequisite
+The main program of this project is `management.py` in the root directory. So please `cd MasterThesisProj`, and run it with `python3 management.py` with default settings.
+
+Several variables in `management.py` are best to know before your test:
+
++ `full_problem_set` : represents what problem you are going to test with.
++ `n_step` : The iteration number of hyper-parameter tuning process.
++ `n_init_sample` : The number of sample point in initialization of hyper-parameter tuning.
++ `max_eval_each` : The maximum number of evaluation function calling for each iteration.
+
+## Prerequisite(python)
 ```
     numpy
     scikit-learn
@@ -107,7 +118,12 @@ For the reference of these work, please mimic the `/demo/template.c` file.
 ++	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 ``` 
 
+##Cite us
+If you wants to use this project as your own purpose, please also cite these original works and refer to their original address.
 
+https://github.com/PonyGE/PonyGE2
+https://github.com/nunolourenco/sge
+https://github.com/grantdick/libgges#libgges-grammar-guided-evolutionary-search
 
 ##Appelndix. (TODO)
 
