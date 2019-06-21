@@ -166,10 +166,10 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','Vladislavleva4']
-    full_problem_set=['ant','string_match','mux11']
+    full_problem_set=['ant']
 
     #shared parameter
-    n_step=100
+    n_step=10
     n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
@@ -183,9 +183,9 @@ if __name__ == "__main__":
                      )
     tester.give_problem(full_problem_set)
     # tester.clear_log()
-    # tester.make_interface()
-    # tester.refresh_interface()
-    # tester.run_PonyGE2()
+    tester.make_interface()
+    tester.refresh_interface()
+    tester.run_PonyGE2()
 
 
     os.chdir(base)
@@ -197,9 +197,9 @@ if __name__ == "__main__":
                      max_eval_each=max_eval_each,
                      para_list='/util/hyper_para_list_SGE.json')
     tester2.give_problem(full_problem_set)
-    # tester2.make_interface()
-    # tester2.refresh_interface()
-    # tester2.run_sge()
+    tester2.make_interface()
+    tester2.refresh_interface()
+    tester2.run_sge()
 
     os.chdir(base)
     # *****Test GGES*****
@@ -210,5 +210,5 @@ if __name__ == "__main__":
                      para_list='/util/hyper_para_list_GGES.json')
     tester3.give_problem(full_problem_set)
     tester3.make_interface()
-    # tester3.refresh_interface()
+    tester3.refresh_interface()
     tester3.run_gges()

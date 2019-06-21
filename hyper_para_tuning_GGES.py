@@ -36,7 +36,7 @@ def build_cmd(x,parameter_name,cmd):
 def run_gges(cmd):
     try:
         std_out = os.popen(cmd).read()
-        print(std_out)
+        # print(std_out)
 
         #todo: bug here
         fitness = re.search(r'(.*?)(\d+\.\d*)((.*?)\nend)', std_out).group(2)

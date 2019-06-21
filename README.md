@@ -96,7 +96,7 @@ class PROBLEM_NAME:
 if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
-    experience_name = "Mux11/"
+    experience_name = "WHATEVER/"
     grammar = grammar.Grammar("../grammars/BNF_NAME", 5)
     evaluation_function = PROBLEM_NAME()
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
