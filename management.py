@@ -74,6 +74,7 @@ class Tester_PONYGE2:
 
 
     def run_PonyGE2(self):
+        # self.clear_log()
         print('\n')
         print("***" * 20 + "now testing PonyGE2 system" + "***" * 20)
         hyper_para_tuning.hyper_parameter_tuning_ponyge2(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
@@ -155,6 +156,72 @@ class Tester_GGES:
     def make_problem(self):
         pass
 
+class TesterManager:
+    def __init__(self,test_systems,test_problems,n_step,n_init_sample,eval_type,max_eval_each,para_dict):
+        self.test_systems = test_systems
+        self.test_problems = test_problems
+
+        self.n_step = n_step
+        self.n_init_sample = n_init_sample
+        self.eval_type = eval_type
+        self.max_eval_each = max_eval_each
+
+        self.para_dict = para_dict
+
+    def run(self):
+
+        base = os.getcwd()
+
+        # clean previous test result
+        global_log_cleaner()
+
+        if 'PonyGE2' in self.test_systems:
+            # ****Test PonyGE2*****
+            tester = Tester_PONYGE2(n_step = n_step,
+                                    n_init_sample = n_init_sample,
+                                    eval_type=eval_type,
+                                    max_eval_each=max_eval_each,
+                                    para_list=self.para_dict+'/hyper_para_list_PonyGE2.json'
+                                    )
+            tester.give_problem(full_problem_set)
+            tester.make_interface()
+            tester.refresh_interface()
+            tester.run_PonyGE2()
+            os.chdir(base)
+
+        if 'SGE' in self.test_systems:
+            # ****Test SGE*****
+            tester2 = Tester_SGE(n_step=n_step,
+                                 n_init_sample=n_init_sample,
+                                 eval_type=eval_type,
+                                 max_eval_each=max_eval_each,
+                                 para_list=self.para_dict+'/hyper_para_list_SGE.json')
+            tester2.give_problem(full_problem_set)
+            tester2.make_interface()
+            tester2.refresh_interface()
+            tester2.run_sge()
+            os.chdir(base)
+
+        if 'GGES' in self.test_systems:
+            # *****Test GGES*****
+
+            tester3 = Tester_GGES(n_step=n_step,
+                                  n_init_sample=n_init_sample,
+                                  eval_type=eval_type,
+                                  max_eval_each=max_eval_each,
+                                  para_list=self.para_dict+'/hyper_para_list_GGES.json')
+            tester3.give_problem(full_problem_set)
+            tester3.make_interface()
+            tester3.refresh_interface()
+            tester3.run_gges()
+            os.chdir(base)
+
+        print("All test finished, now quitting...")
+
+
+
+
+
 
 if __name__ == "__main__":
 
@@ -168,47 +235,13 @@ if __name__ == "__main__":
     full_problem_set=['mux11','ant','string_match','Vladislavleva4']
     full_problem_set=['ant']
 
+
     #shared parameter
-    n_step=10
-    n_init_sample=5
+    n_step=3
+    n_init_sample=2
     eval_type='dict'
     max_eval_each=50000
+    test_sys=['SGE','PonyGE2','GGES']
 
-    # ****Test PonyGE2*****
-    tester=Tester_PONYGE2(n_step = n_step,
-                     n_init_sample = n_init_sample,
-                     eval_type = eval_type,
-                     max_eval_each=max_eval_each,
-                     para_list='/util/hyper_para_list_PonyGE2.json'
-                     )
-    tester.give_problem(full_problem_set)
-    # tester.clear_log()
-    tester.make_interface()
-    tester.refresh_interface()
-    tester.run_PonyGE2()
-
-
-    os.chdir(base)
-
-    # *****Test SGE*****
-    tester2=Tester_SGE(n_step = n_step,
-                     n_init_sample = n_init_sample,
-                     eval_type = eval_type,
-                     max_eval_each=max_eval_each,
-                     para_list='/util/hyper_para_list_SGE.json')
-    tester2.give_problem(full_problem_set)
-    tester2.make_interface()
-    tester2.refresh_interface()
-    tester2.run_sge()
-
-    os.chdir(base)
-    # *****Test GGES*****
-    tester3=Tester_GGES(n_step = n_step,
-                     n_init_sample = n_init_sample,
-                     eval_type = eval_type,
-                     max_eval_each=max_eval_each,
-                     para_list='/util/hyper_para_list_GGES.json')
-    tester3.give_problem(full_problem_set)
-    tester3.make_interface()
-    tester3.refresh_interface()
-    tester3.run_gges()
+    test=TesterManager(test_sys,full_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
+    test.run()

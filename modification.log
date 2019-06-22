@@ -188,5 +188,7 @@ modification_log:
     Global:
         add tester for GGES system.
         ant.c->ant.h
-18-06-2019:
+23-06-2019:
+    Global:
+        add TestManager class in management.py
 
