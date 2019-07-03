@@ -7,7 +7,7 @@ from util.math_func import *
 import numpy as np
 from util.get_data import *
 
-# dataset_path = '../resources/Vladislavleva4/'
+# dataset_path = '../resources/vladislavleva4/'
 
 
 class String_match():

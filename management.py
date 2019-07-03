@@ -143,8 +143,52 @@ class Tester_GGES:
         rmtree(os.getcwd()+'/GGES/src/interface')
         cpy_interface('/GGES/src/interface')
 
+
+    def make_problem(self,problem_name):
+
+        # print('... MAKING PROBLEM')
+
+        if os.path.exists('Benchmark/'+problem_name+'/Supervised/'):
+            print(problem_name+"is being MAKED")
+
+            f_datafile = open('GGES/datasets/'+problem_name+'.data','w+')
+            f_soursefile_train = open('Benchmark/'+problem_name+'/Supervised/Train.txt','r')
+            f_soursefile_test = open('Benchmark/'+problem_name+'/Supervised/Test.txt','r')
+
+            count=0
+            for line in f_soursefile_train.readlines():
+                if not line.startswith('#'):
+                    f_datafile.write(line)
+                    count+=1
+            sep_flag=count
+
+            for line in f_soursefile_test.readlines():
+                if not line.startswith('#'):
+                    f_datafile.write(line)
+                    count+=1
+
+            with open('GGES/datasets/'+problem_name+'.folds','w+') as fold_file:
+                line=''
+                for number in range(sep_flag,count):
+
+                    fold_file.write(str(number))
+                    fold_file.write('\t')
+
+            f_datafile.close()
+            f_soursefile_train.close()
+            f_soursefile_test.close()
+
+
+        # print('... END OF MAKING PROBLEM')
+
+
     def give_problem(self,problem_set):
         self.problem_set=problem_set
+
+        #todo:for supervised learning problem, remake the dataset(1,merge train/test file. 2,make .fold file.
+        for problem in problem_set:
+            self.make_problem(problem)
+
 
     def run_gges(self):
         print('\n')
@@ -153,8 +197,6 @@ class Tester_GGES:
         hyper_para_tuning_GGES.hyper_parameter_tuning_GGES(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
                                                       self.para_list)
 
-    def make_problem(self):
-        pass
 
 class TesterManager:
     def __init__(self,test_systems,test_problems,n_step,n_init_sample,eval_type,max_eval_each,para_dict):
@@ -232,8 +274,8 @@ if __name__ == "__main__":
 
 
     #here to define the problem for the comparison
-    full_problem_set=['mux11','ant','string_match','Vladislavleva4']
-    full_problem_set=['ant']
+    full_problem_set=['mux11','ant','string_match','vladislavleva4']
+    full_problem_set=['vladislavleva4']
 
 
     #shared parameter
@@ -241,7 +283,7 @@ if __name__ == "__main__":
     n_init_sample=2
     eval_type='dict'
     max_eval_each=50000
-    test_sys=['SGE','PonyGE2','GGES']
+    test_sys=['GGES']
 
     test=TesterManager(test_sys,full_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
     test.run()

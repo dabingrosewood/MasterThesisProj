@@ -22,7 +22,8 @@ INC:=$(SRCDIR)/gges.h $(SRCDIR)/individual.h \
 
 LIB:=$(LIBDIR)/libgges.a
 BIN:=$(BINDIR)/ant $(BINDIR)/mux11 $(BINDIR)/parity $(BINDIR)/regression $(BINDIR)/packing \
-	$(BINDIR)/template $(BINDIR)/suite_mux11 $(BINDIR)/suite_ant $(BINDIR)/suite_string_match
+	$(BINDIR)/template $(BINDIR)/suite_mux11 $(BINDIR)/suite_ant $(BINDIR)/suite_string_match \
+	$(BINDIR)/suite_vladislavleva4
 
 all: $(LIB) $(BIN)
 
@@ -69,6 +70,10 @@ $(BINDIR)/suite_ant: $(DEMO_OBJS) $(OBJDIR)/suite_ant.o $(LIB)
 	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 
 $(BINDIR)/suite_string_match: $(DEMO_OBJS) $(OBJDIR)/suite_string_match.o $(LIB)
+	@echo linking $@ from $^
+	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
+
+$(BINDIR)/suite_vladislavleva4: $(DEMO_OBJS) $(OBJDIR)/data.o $(OBJDIR)/suite_vladislavleva4.o $(LIB)
 	@echo linking $@ from $^
 	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 

@@ -20,7 +20,7 @@ print(y,yhat)
 # # # test case for  multiplexer problem
 
 multiplexer_sample = "(  i0 and ( not i11 ) and ( not i10 ) and ( not i9 ) ) or ( i1 and ( not i11 ) and ( not i10 ) and ( i9 ) ) or ( i2 and ( not i11 ) and ( i10 ) and ( not i9 ) ) or ( i3 and ( not i11 ) and ( i10 ) and ( i9 ) ) or ( i4 and i11 and not ( i10 ) and not ( i9 ) ) or ( i5 and i11 and ( not i10 ) and i9 ) or ( i6 and i11 and i10 and ( not i9 ) ) or ( i7 and i11 and i10 and i9 )";
-multiplexer_sample='not ( i5 )'
+# multiplexer_sample='not ( i5 )'
 multiplexer_sample_size=3
 res_mul=interface.eval_multiplexer(multiplexer_sample,multiplexer_sample_size)
 print("res_mul=",res_mul)

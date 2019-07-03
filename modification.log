@@ -192,3 +192,7 @@ modification_log:
     Global:
         add TestManager class in management.py
 
+
+02-07-2019:
+    GGES:
+        dataset preprocessing for supervised learning problem.

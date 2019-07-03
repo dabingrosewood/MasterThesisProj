@@ -20,7 +20,7 @@ On the other side, all fitness functions for every problem in this test is calli
 ## Usage
 To run the test on your own computer/server, please use `git clone https://github.com/dabingrosewood/MasterThesisProj.git`.
 
-The main program of this project is `management.py` in the root directory. So please `cd MasterThesisProj`, and run it with `python3 management.py` with default settings.
+The main program of this project is `management.py` in the root directory. So please `cd MasterThesisProj\`, and run it with `python3 management.py` with default settings.
 
 Several variables in `management.py` are best to know before your test:
 

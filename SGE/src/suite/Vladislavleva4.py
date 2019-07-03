@@ -7,7 +7,7 @@ from util.math_func import *
 import numpy as np
 from util.get_data import *
 
-# dataset_path = '../resources/Vladislavleva4/'
+# dataset_path = '../resources/vladislavleva4/'
 
 
 class Vladislavleva4():
@@ -19,7 +19,7 @@ class Vladislavleva4():
         self.__run = run
         self.test_set_size = len(self.__test_set)
         self.training_in, self.training_exp, self.test_in, self.test_exp = \
-            get_data('Vladislavleva4/Train.txt', 'Vladislavleva4/Test.txt')
+            get_data('vladislavleva4/Train.txt', 'vladislavleva4/Test.txt')
 
         # Find number of variables.
         self.n_vars = np.shape(self.training_in)[0]
@@ -99,6 +99,6 @@ if __name__ == "__main__":
     from configs.standard import RUN
 
     experience_name = "Supervised_learning_test/"
-    grammar = grammar.Grammar("../grammars/Vladislavleva4.bnf", 5)
+    grammar = grammar.Grammar("../grammars/vladislavleva4.bnf", 5)
     evaluation_function = Vladislavleva4(RUN)
     core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)

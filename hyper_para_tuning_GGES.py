@@ -8,7 +8,7 @@
 """
 import numpy as np
 import datetime
-import re,os,traceback
+import re,os,traceback,subprocess
 from datetime import datetime
 from BayesOpt import BO
 from BayesOpt.Surrogate import RandomForest
@@ -36,7 +36,9 @@ def build_cmd(x,parameter_name,cmd):
 def run_gges(cmd):
     try:
         std_out = os.popen(cmd).read()
-        # print(std_out)
+        # std_out,std_err = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE).communicate()
+
+        print('std_out is :',std_out)
 
         #todo: bug here
         fitness = re.search(r'(.*?)(\d+\.\d*)((.*?)\nend)', std_out).group(2)
@@ -155,7 +157,7 @@ def hyper_parameter_tuning_GGES(n_step,n_init_sample,eval_type='dict', max_eval_
         paralist_filename = root_dir + para_list
         system_name = 'GGES'
 
-        #main parameter
+        #main parameters
         POPULATION_SIZE = get_space('pop_size', filename=paralist_filename, system_name=system_name)
         TOURNAMENT_SIZE = get_space('tourn_size', filename=paralist_filename, system_name=system_name)
         PROB_CROSSOVER = get_space('crossover_rate', filename=paralist_filename, system_name=system_name)
