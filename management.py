@@ -83,7 +83,6 @@ class Tester_PONYGE2:
     def make_problem(self):
         pass
 
-
 class Tester_SGE:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_SGE.json'):
         self.n_step = n_step
@@ -122,7 +121,8 @@ class Tester_SGE:
         hyper_para_tuning_sge.hyper_parameter_tuning_sge(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
                                                          self.para_list)
 
-    def make_problem(self):
+    def make_problem(self,problem_name):
+        # used to copy necessary bnf, dataset in to target place.
         pass
 
 class Tester_GGES:
@@ -246,7 +246,6 @@ class TesterManager:
 
         if 'GGES' in self.test_systems:
             # *****Test GGES*****
-
             tester3 = Tester_GGES(n_step=n_step,
                                   n_init_sample=n_init_sample,
                                   eval_type=eval_type,
@@ -275,15 +274,16 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','vladislavleva4']
-    full_problem_set=['vladislavleva4']
+    full_problem_set=['string_match','vladislavleva4']
 
-
-    #shared parameter
-    n_step=3
-    n_init_sample=2
+    #shared parameters
+    n_step=2
+    n_init_sample=3
     eval_type='dict'
     max_eval_each=50000
-    test_sys=['GGES']
+    test_sys=['PonyGE2','SGE']
 
     test=TesterManager(test_sys,full_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
     test.run()
+
+

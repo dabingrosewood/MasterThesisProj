@@ -26,6 +26,7 @@ for i in range(PARITY_SIZE_M):
 
 class Parity5():
     def evaluate(self, individual):
+        print(individual)
         error = PARITY_SIZE_M
         for i, inpt in enumerate(inputs):
             res = eval(individual, dict(zip(input_names, inpt)))
@@ -37,6 +38,6 @@ if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
     experience_name = "5Parity/"
-    grammar = grammar.Grammar("grammars/5_bit_parity_grammar.txt", 5)
+    grammar = grammar.Grammar("../grammars/5_bit_parity_grammar.txt", 5)
     evaluation_function = Parity5() 
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)

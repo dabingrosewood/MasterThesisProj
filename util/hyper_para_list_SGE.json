@@ -5,11 +5,11 @@
 },{
   "name": "ELITISM",
   "type": "OrdinalSpace",
-  "range": [50,200]
+  "range": [50,500]
 },{
   "name": "TOURNAMENT",
   "type": "OrdinalSpace",
-  "range": [5,50]
+  "range": [1,50]
 },{
   "name": "PROB_CROSSOVER",
   "type": "ContinuousSpace",

@@ -19,12 +19,12 @@ print(y,yhat)
 #
 # # # test case for  multiplexer problem
 
-multiplexer_sample = "(  i0 and ( not i11 ) and ( not i10 ) and ( not i9 ) ) or ( i1 and ( not i11 ) and ( not i10 ) and ( i9 ) ) or ( i2 and ( not i11 ) and ( i10 ) and ( not i9 ) ) or ( i3 and ( not i11 ) and ( i10 ) and ( i9 ) ) or ( i4 and i11 and not ( i10 ) and not ( i9 ) ) or ( i5 and i11 and ( not i10 ) and i9 ) or ( i6 and i11 and i10 and ( not i9 ) ) or ( i7 and i11 and i10 and i9 )";
-multiplexer_sample='not ( i5 )'
-multiplexer_sample_size=3
-res_mul=interface.eval_multiplexer(multiplexer_sample,multiplexer_sample_size)
-print("res_mul=",res_mul)
-#
+# multiplexer_sample = "(  i0 and ( not i11 ) and ( not i10 ) and ( not i9 ) ) or ( i1 and ( not i11 ) and ( not i10 ) and ( i9 ) ) or ( i2 and ( not i11 ) and ( i10 ) and ( not i9 ) ) or ( i3 and ( not i11 ) and ( i10 ) and ( i9 ) ) or ( i4 and i11 and not ( i10 ) and not ( i9 ) ) or ( i5 and i11 and ( not i10 ) and i9 ) or ( i6 and i11 and i10 and ( not i9 ) ) or ( i7 and i11 and i10 and i9 )";
+# # multiplexer_sample='not ( i5 )'
+# multiplexer_sample_size=3
+# res_mul=interface.eval_multiplexer(multiplexer_sample,multiplexer_sample_size)
+# print("res_mul=",res_mul)
+
 #
 #
 # # test casse for artificial ant problem
@@ -39,3 +39,8 @@ print("res_ant=",res_ant)
 # yhat=np.array([0.1,1.,1.,-1.,-1.],dtype=np.double)
 # f1_score=interface.fit_f1_score(y,yhat)
 # print(f1_score)
+
+parity_sample='not(not(b2 and not(b3 or b3 or b3) or not(b3 and b4) and b2 and b4 or not(b0 and b2 and not(b3 or b1) and not(b0 and b4 or b0 or b4)) or not(b3 and b1 or b1) and not(b1 and b2) and b2 or b0 or not(b4 and b2 and b1) or not(b4 and b0 and b3 or b0) or not(not(b2 and b4) and b0 and b1 and b0 and b2) or b1) or not(not(b0 or not(b1 and b3 and b1 or b1 and b3 or not(b1 or b3))) or not(not(b4 and b1 and not(b4 and b1)) or b2 and not(b3 or b2 or b1 and b2))) and not(not(b1 and b4) and not(b2 and b2) and not(b1 or not(b3 and b0))) and not(not(b0 or b1 or b3 and b4) and not(not(b2 or b2) or not(b2 and b3))) and not(not(b0 or b3 or b1 or b2 or not(b4 or b2 or b1 and b4)) and not(b4 and b4) and b3 and b3 and b0 or b4 and not(b2 or b4)))'
+parity_sample='not b0 or b1'
+res_par=interface.eval_parity(parity_sample,5)
+print("res_par=",res_par)

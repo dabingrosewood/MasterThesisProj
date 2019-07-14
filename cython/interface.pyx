@@ -18,6 +18,7 @@ cdef extern from "fitness.h" :
 
     int evaluate_multiplexer(char *solution, int input_size);
     int evaluate_ant(char *cmd_line);
+    int evaluate_parity(char *solution, int input_size);
 
 
 cdef bytes _bstring(s):
@@ -53,6 +54,9 @@ def edit_dis(string1,string2):
 
 def eval_multiplexer(phenotype,problem_size):
     return evaluate_multiplexer(_bstring(phenotype),problem_size)
+
+# def eval_parity(phenotype,problem_size):
+#     return evaluate_parity(_bstring(phenotype),problem_size)
 
 def eval_ant(phenotype):
     return evaluate_ant(_bstring(phenotype))

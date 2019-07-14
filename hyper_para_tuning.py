@@ -172,7 +172,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         #todo: By default, the following line should be 'if minimize_problem == True:', since the 'MAX_INIT_TREE_DEPTH' and 'MAX_TREE_DEPTH' can easily causes problem by generating too big search space.
         #But we found it also prodeces this problem for mux11 problem. so these two parameters are temporarily disbaled.
         if minimize_problem == False:
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH  + POPULATION_SIZE + EVAL_BUDGET
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + POPULATION_SIZE + EVAL_BUDGET
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
             search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
@@ -210,4 +210,4 @@ if __name__ == "__main__":
     problem_set = ['classification', 'regression', 'string_match', 'pymax']
 
     # the problem you are going to test
-    hyper_parameter_tuning_ponyge2(n_step, n_init_sample, eval_type, max_eval_each, problem_set,M)
+    hyper_parameter_tuning_ponyge2(n_step, n_init_sample, eval_type, max_eval_each, problem_set)
