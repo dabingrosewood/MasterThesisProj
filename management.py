@@ -274,11 +274,11 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','vladislavleva4']
-    full_problem_set=['string_match','vladislavleva4']
+    full_problem_set=['string_match','ant','mux11']
 
     #shared parameters
-    n_step=2
-    n_init_sample=3
+    n_step=100
+    n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
     test_sys=['PonyGE2','SGE']
