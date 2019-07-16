@@ -13,7 +13,7 @@ On the other side, this project is still in construction, some parts may not syn
 
 
 ## Structure
-![image](http://assets.processon.com/chart_image/5c9b935be4b0630a45dc0ca5.png)
+![image](http://assets.processon.com/chart_image/5d2c90f9e4b065dc42a56c41.png)
 In this project, Every tested system will be seen as a independent module. Their hyper-parameter(such like evolutionary settings) are managed  by `management.py` and tuned by calling `MIP-EGO` module. All tuned hyper-parameters are automatically feed into testing systems.
 On the other side, all fitness functions for every problem in this test is calling C-implemented Test Suite, with their corresponded interface to different coding languagess. Until now, interfaces of py3 to C and py2 to c are provided.
 

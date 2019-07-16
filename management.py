@@ -227,7 +227,7 @@ class TesterManager:
                                     )
             tester.give_problem(full_problem_set)
             tester.make_interface()
-            tester.refresh_interface()
+            # tester.refresh_interface()
             tester.run_PonyGE2()
             os.chdir(base)
 
@@ -240,7 +240,7 @@ class TesterManager:
                                  para_list=self.para_dict+'/hyper_para_list_SGE.json')
             tester2.give_problem(full_problem_set)
             tester2.make_interface()
-            tester2.refresh_interface()
+            # tester2.refresh_interface()
             tester2.run_sge()
             os.chdir(base)
 
@@ -269,7 +269,7 @@ if __name__ == "__main__":
     base=os.getcwd()
 
     # clean previous test result
-    global_log_cleaner()
+    # global_log_cleaner()
 
 
     #here to define the problem for the comparison
