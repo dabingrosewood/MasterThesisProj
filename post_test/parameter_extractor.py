@@ -63,6 +63,7 @@ class PARAMETERS_EXTRACTOR:
         tuning_data_for_one_system = ()  # lv2
         data_for_one_problem = []  # lv3
         problem_index = 0
+        buffer_flat_space=''
         for line in f.readlines():
 
             # find the system name to categorized all log.
@@ -102,8 +103,18 @@ class PARAMETERS_EXTRACTOR:
                         problem_index = 0
                     data_for_one_problem[1].append([cur_iteration_num, cur_fitness_value])
 
+            if re.search(r'flat objective value after taking 2 samples', line):
+                #to handle the case of No
+                print('flat initial space for problem ','in',f.name,'for system', system_name, 'This part of data  will be ignored')
+
+                if buffer_flat_space!=line:
+                    problem_index+=1
+                    buffer_flat_space = line
+
+
         tuning_data_for_one_system[1].append(data_for_one_problem)
         recorder.append(tuning_data_for_one_system)
+        # print(f.name,recorder)
         return recorder
 
     def out_analyzer(self, system_name, f):
@@ -153,18 +164,20 @@ class PARAMETERS_EXTRACTOR:
         '''
         files = os.listdir(self.target_dir)
         for file in files:
-            with open(os.path.join(os.getcwd(), self.target_dir, file)) as f:
+            with open(os.path.join(os.getcwd(), self.target_dir, file), encoding='utf-8') as f:
 
                 if file.startswith('output'):
                     # This file is standard output of test (nohup command), extract all data and store them in global_data.
                     data_of_one_output = self.output_analyzer(f)
                     self.csv_writer(data_of_one_output)
                 else:
-                    # print('current file is ',file)
-                    system_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9]*)_', file).group(1)
-                    problem_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9_]*)_', file).group(2)
+                    print('current file is ',file)
+                    pass
+                    # system_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9]*)_', file).group(1)
+                    # problem_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9_]*)_', file).group(2)
 
                     # print(type(self.out_analyzer(system_name,f)))
+
                     # todo: every out_file is a dict now. to be continued.
 
 
@@ -180,6 +193,9 @@ def system_analyzer(target_dir='tmp/',show = False):
     files = os.listdir(target_dir)
     #first analyze the system and problem
     for file in files:
+        if file.startswith('.'):
+            continue
+
         tmp_sys=re.search(r'([A-Za-z0-9]*)_([A-Za-z0-9_]*).csv',file).group(1)
         tmp_pro = re.search(r'([A-Za-z0-9]*)_([A-Za-z0-9_]*).csv',file).group(2)
 
@@ -201,7 +217,7 @@ def system_analyzer(target_dir='tmp/',show = False):
         plt.legend()
         plt.xlabel('Iteration number')
         plt.ylabel('Fitness')
-        # plt.savefig(problem_tested+".jpg")
+        plt.savefig(problem_tested+".jpg")
         if show:
             plt.show()
 
@@ -209,10 +225,10 @@ if __name__ == "__main__":
     defaultz_log_dir = "../log/"
 
     # Orders of given problems matters
-    problem_set = ['ant','string_match','mux11']
+    dealing_problem_set = ['string_match','ant','mux11']
 
     para_list = '/util/hyper_para_list_PonyGE2.json'
 
-    # extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, problem_set)
-    # extractor.run()
+    extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
+    extractor.run()
     system_analyzer(target_dir='tmp/',show=True)
