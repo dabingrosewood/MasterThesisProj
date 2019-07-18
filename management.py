@@ -274,7 +274,7 @@ if __name__ == "__main__":
 
     #here to define the problem for the comparison
     full_problem_set=['mux11','ant','string_match','vladislavleva4']
-    full_problem_set=['string_match','ant','mux11']
+    full_problem_set=['vladislavleva4']
 
     #shared parameters
     n_step=100
