@@ -198,3 +198,6 @@ modification_log:
         dataset preprocessing for supervised learning problem.
     cython:
         +parity.h Caution: redefinition of some functions
+
+19-07-2019:
+    Global:
