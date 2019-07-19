@@ -189,7 +189,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
                  optimizer='MIES')
 
         xopt, fitness, stop_dict = opt.run()
-        f = open(r"../../log/out_PonyGE2_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
+        f = open(r"../../logs/out_PonyGE2_"+problem+'_'+str(int(time.time()))+platform.uname()[1]+".txt", 'w+')
         print('parameters: {}'.format(search_space.name), file=f)
         print('xopt: {}'.format(xopt), file=f)
         print('fopt: {}'.format(fitness), file=f)
