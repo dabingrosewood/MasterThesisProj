@@ -25,7 +25,7 @@ class PARAMETERS_EXTRACTOR:
         '''
         llist = []
 
-        # todo: this part need modicication (systemname need to be uniformed)
+        # todo: this part need modicication (system name need to be uniformed)
         if system_name == 'ponyge2':
             para_file = '../util/hyper_para_list_PonyGE2.json'
             llist.append('PROBLEM')
@@ -74,9 +74,10 @@ class PARAMETERS_EXTRACTOR:
 
                 if len(tuning_data_for_one_system) != 0:
                     # in the case of it already have data, which mean we encounter another system.
-                    # inish the data from previous one and rebuild new data list.
+                    # finish the data from previous one and rebuild new data list.
                     tuning_data_for_one_system[1].append(data_for_one_problem)
                     data_for_one_problem = []  # need to clear all used data
+                    problem_index = 0
                     recorder.append(tuning_data_for_one_system)
                     tuning_data_for_one_system = (system_name, [])
                 else:
@@ -96,13 +97,14 @@ class PARAMETERS_EXTRACTOR:
                     data_for_one_problem[1].append([cur_iteration_num, cur_fitness_value])
 
                 elif data_for_one_problem[1][-1][0] < cur_iteration_num:
-                    # for most
                     data_for_one_problem[1].append([cur_iteration_num, cur_fitness_value])
+
                 elif data_for_one_problem[1][-1][0] > cur_iteration_num:
+                    #the case of met a new iteration
                     tuning_data_for_one_system[1].append(data_for_one_problem)  # end the previous problem
                     data_for_one_problem = [self.problem_set[problem_index], []]
                     problem_index += 1
-                    if problem_index == len(self.problem_set):
+                    if problem_index >= len(self.problem_set):
                         problem_index = 0
                     data_for_one_problem[1].append([cur_iteration_num, cur_fitness_value])
 
@@ -228,10 +230,10 @@ if __name__ == "__main__":
     defaultz_log_dir = "../log/"
 
     # Orders of given problems matters
-    dealing_problem_set = ['string_match', 'ant', 'mux11']
+    dealing_problem_set = ['vla4']
 
     para_list = '/util/hyper_para_list_PonyGE2.json'
 
-    extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
-    extractor.run()
+    # extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
+    # extractor.run()
     system_analyzer(target_dir='tmp/', show=True)

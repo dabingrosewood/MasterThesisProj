@@ -97,7 +97,7 @@ class Tester_SGE:
         #problem here  and add __init__.py
         if not os.path.exists(os.getcwd() + "/SGE/src/util/cython"):
             cpy_interface('/SGE/src/util/cython')
-            build_cmd = "python setup.py build_ext --inplace"
+            build_cmd = "python2 setup.py build_ext --inplace"
             cd_cmd = 'cd ' + os.getcwd() + "/SGE/src/util/cython"
             exec_cmd(cd_cmd, build_cmd,)
             open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py", 'a').close()
@@ -107,7 +107,7 @@ class Tester_SGE:
     def refresh_interface(self):
         rmtree(os.getcwd()+"/SGE/src/util/cython")
         cpy_interface('/SGE/src/util/cython')
-        build_cmd = "python setup.py build_ext --inplace"
+        build_cmd = "python2 setup.py build_ext --inplace"
         cd_cmd='cd '+os.getcwd()+"/SGE/src/util/cython"
         exec_cmd(cd_cmd, build_cmd)
         open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py",'a').close()
