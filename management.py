@@ -44,7 +44,7 @@ class Tester_PONYGE2:
 
     def make_interface(self):
         # copy the interface into src/fitness
-        if not os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython"):
+        if not os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython/build/"):
             cpy_interface()
             build_cmd = "python3 setup.py build_ext --inplace"
             cd_cmd = 'cd ' + os.getcwd() + "/PonyGE2/src/fitness/cython"
@@ -54,7 +54,7 @@ class Tester_PONYGE2:
 
 
     def refresh_interface(self):
-        if not os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython/build/"):
+        if os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython"):
             rmtree(os.getcwd() + "/PonyGE2/src/fitness/cython")
             cpy_interface()
             build_cmd = "python3 setup.py build_ext --inplace"
