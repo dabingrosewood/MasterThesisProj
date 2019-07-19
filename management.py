@@ -54,11 +54,13 @@ class Tester_PONYGE2:
 
 
     def refresh_interface(self):
-        rmtree(os.getcwd()+"/PonyGE2/src/fitness/cython")
-        cpy_interface()
-        build_cmd = "python3 setup.py build_ext --inplace"
-        cd_cmd='cd '+os.getcwd()+"/PonyGE2/src/fitness/cython"
-        exec_cmd(cd_cmd, build_cmd)
+        if not os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython/build/"):
+            rmtree(os.getcwd() + "/PonyGE2/src/fitness/cython")
+            cpy_interface()
+            build_cmd = "python3 setup.py build_ext --inplace"
+            cd_cmd = 'cd ' + os.getcwd() + "/PonyGE2/src/fitness/cython"
+            exec_cmd(cd_cmd, build_cmd)
+
 
 
     def clear_log(self):
