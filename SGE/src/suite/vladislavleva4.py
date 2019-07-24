@@ -96,7 +96,8 @@ class Vladislavleva4():
 if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
-    from configs.standard import RUN
+    from configs.standard import RUN,MAX_REC_LEVEL
+
 
     experience_name = "Supervised_learning_test/"
     grammar = grammar.Grammar("../grammars/vladislavleva4.bnf", 5)

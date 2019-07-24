@@ -203,3 +203,13 @@ modification_log:
     Global:
         The problem about building the interface solved.
         The extractor for one problem solved.
+
+22-07-2019:
+    Global:
+        Switch the order of test systems
+        Add one more hyper-parameters of SGE.
+        +ELITE_SIZE in PonyGE2
+        ~Disabled hyper-parameter:
+            TREE-related in PONYGE2
+            MAX_RECURSION_LEVEL in SGE
+

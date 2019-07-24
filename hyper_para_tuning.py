@@ -76,6 +76,7 @@ def obj_func(x):
     # cmd = cmd + '  --MAX_INIT_TREE_DEPTH  '.lower() + str(x['MAX_INIT_TREE_DEPTH'])
     # cmd = cmd + '  --MAX_TREE_DEPTH  '.lower() + str(x['MAX_TREE_DEPTH'])
     cmd = cmd + '  --TOURNAMENT_SIZE  '.lower() + str(x['TOURNAMENT_SIZE'])
+    cmd = cmd + '  --ELITE_SIZE  '.lower() + str(x['ELITE_SIZE'])
     cmd = cmd + '  --POPULATION_SIZE  '.lower() + str(x['POPULATION_SIZE'])
     cmd = cmd + '  --codon_size  '.lower() + str(x['CODON_SIZE'])
     if str(x['CROSSOVER'])=='subtree':
@@ -157,6 +158,8 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         SELECTION_PROPORTION = get_space('SELECTION_PROPORTION',filename=filename,system_name=system_name)
         SELECTION = get_space('SELECTION',filename=filename,system_name=system_name)
         TOURNAMENT_SIZE = get_space('TOURNAMENT_SIZE',filename=filename,system_name=system_name)
+        ELITE_SIZE = get_space('ELITE_SIZE',filename=filename,system_name=system_name)
+
 
         CODON_SIZE = get_space('CODON_SIZE',filename=filename,system_name=system_name)
         MAX_GENOME_LENGTH = get_space('MAX_GENOME_LENGTH',filename=filename,system_name=system_name)
@@ -172,10 +175,10 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         #todo: By default, the following line should be 'if minimize_problem == True:', since the 'MAX_INIT_TREE_DEPTH' and 'MAX_TREE_DEPTH' can easily causes problem by generating too big search space.
         #But we found it also prodeces this problem for mux11 problem. so these two parameters are temporarily disbaled.
         if minimize_problem == False:
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + POPULATION_SIZE + EVAL_BUDGET
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + ELITE_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + MAX_INIT_TREE_DEPTH + MAX_TREE_DEPTH + POPULATION_SIZE + EVAL_BUDGET
         else:
             # for maximize problem, Max_init_tree_depth and Max_tree_depth is not going to be tuned.
-            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
+            search_space = PROBLEM + INITIALISATION + CROSSOVER_PROBABILITY + CROSSOVER + MUTATION + MUTATION_PROBABILITY + MUTATION_EVENT_SUBTREE + MUTATION_EVENT_FlIP + SELECTION_PROPORTION + SELECTION + TOURNAMENT_SIZE + ELITE_SIZE + CODON_SIZE + MAX_GENOME_LENGTH + POPULATION_SIZE + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 

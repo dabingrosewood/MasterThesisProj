@@ -234,6 +234,6 @@ if __name__ == "__main__":
 
     para_list = '/util/hyper_para_list_PonyGE2.json'
 
-    # extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
-    # extractor.run()
+    extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
+    extractor.run()
     system_analyzer(target_dir='tmp/', show=True)

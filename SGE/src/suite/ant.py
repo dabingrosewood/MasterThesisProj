@@ -19,6 +19,7 @@ if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
     import os
+    from configs.standard import MAX_REC_LEVEL
 
     experience_name = "ant/"
     grammar = grammar.Grammar("../grammars/ant.bnf", 5)

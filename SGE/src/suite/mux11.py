@@ -20,7 +20,6 @@ from util.cython.interface import eval_multiplexer
 class Multiplexer_11:
     def evaluate(self, individual):
         """
-
         SOLUTION="( i3 and ( not i2 ) and ( not i1 ) and ( not i0 ) ) or ( i4 and ( not i2 ) and ( not i1 ) and ( i0 ) ) or ( i5 and ( not i2 ) and ( i1 ) and ( not i0 )) or ( i6 and ( not i2 ) and ( i1 ) and ( i0 ) ) or ( i7 and i2 and not( i1 ) and not ( i0 ) ) or ( i8 and i2 and ( not i1 ) and i0 ) or ( i9 and i2 and i1 and ( not i0 ) ) or ( i10 and i2 and i1 and i0 )"
         """
         error=eval_multiplexer(individual,3)
@@ -31,6 +30,10 @@ class Multiplexer_11:
 if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
+    from configs.standard import MAX_REC_LEVEL
+
+
+
     experience_name = "Mux11/"
     grammar = grammar.Grammar("../grammars/mux11.bnf", 5)
     evaluation_function = Multiplexer_11()

@@ -68,6 +68,9 @@ def obj_func(x):
         if re.search('PROB_MUTATION', line):
             newline = line.replace(re.findall(r'\d\.\d+', line)[0], str(x['PROB_MUTATION']))
 
+        # if re.search('MAX_REC_LEVEL', line):
+        #     newline = line.replace(re.findall(r'\d+', line)[0], str(x['MAX_REC_LEVEL']))
+
         f_new.write(newline)
     f_old.close()
     f_new.close()
@@ -133,6 +136,7 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         TOURNAMENT = get_space('TOURNAMENT', filename=paralist_filename, system_name=system_name)
         PROB_CROSSOVER = get_space('PROB_CROSSOVER', filename=paralist_filename, system_name=system_name)
         PROB_MUTATION = get_space('PROB_MUTATION', filename=paralist_filename, system_name=system_name)
+        # MAX_REC_LEVEL = get_space('MAX_REC_LEVEL', filename=paralist_filename, system_name=system_name)
 
         #others/Static parameters
         EVAL_BUDGET = OrdinalSpace([max_eval_each, max_eval_each + 1], 'EVAL_BUDGET')
@@ -140,6 +144,7 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         NUMBER_OF_ITERATIONS=OrdinalSpace([50, 50 + 1], 'NUMBER_OF_ITERATIONS')
 
         search_space = PROBLEM + POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + NUMBER_OF_ITERATIONS + EVAL_BUDGET
+        # search_space = PROBLEM + POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + MAX_REC_LEVEL + NUMBER_OF_ITERATIONS + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 

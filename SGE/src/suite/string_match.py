@@ -55,9 +55,11 @@ class String_match():
 if __name__ == "__main__":
     import core.grammar as grammar
     import core.sge
-    from configs.standard import RUN
+    from configs.standard import RUN , MAX_REC_LEVEL
+
+
 
     experience_name = "string_match/"
-    grammar = grammar.Grammar("../grammars/string_match.bnf", 15)
+    grammar = grammar.Grammar("../grammars/string_match.bnf", 35)
     evaluation_function = String_match(RUN)
     core.sge.evolutionary_algorithm(grammar=grammar, eval_func=evaluation_function, exp_name=experience_name)

@@ -53,5 +53,13 @@
   "name": "POPULATION_SIZE",
   "type": "OrdinalSpace",
   "range": [100,1000]
+},{
+  "name": "POPULATION_SIZE",
+  "type": "OrdinalSpace",
+  "range": [100,1000]
+},{
+  "name": "ELITE_SIZE",
+  "type": "OrdinalSpace",
+  "range": [1,100]
 }
 ]

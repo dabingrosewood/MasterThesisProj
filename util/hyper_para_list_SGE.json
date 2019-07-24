@@ -18,5 +18,9 @@
   "name": "PROB_MUTATION",
   "type": "ContinuousSpace",
   "range": [0,1]
+},{
+  "name": "MAX_REC_LEVEL",
+  "type": "OrdinalSpace",
+  "range": [3,9]
 }
 ]

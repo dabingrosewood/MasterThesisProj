@@ -219,6 +219,20 @@ class TesterManager:
         # clean previous test result
         global_log_cleaner()
 
+        if 'SGE' in self.test_systems:
+            # ****Test SGE*****
+            tester2 = Tester_SGE(n_step=n_step,
+                                 n_init_sample=n_init_sample,
+                                 eval_type=eval_type,
+                                 max_eval_each=max_eval_each,
+                                 para_list=self.para_dict+'/hyper_para_list_SGE.json')
+            tester2.give_problem(full_problem_set)
+            tester2.make_interface()
+            # tester2.refresh_interface()
+            tester2.run_sge()
+            os.chdir(base)
+
+
         if 'PonyGE2' in self.test_systems:
             # ****Test PonyGE2*****
             tester = Tester_PONYGE2(n_step = n_step,
@@ -231,19 +245,6 @@ class TesterManager:
             tester.make_interface()
             # tester.refresh_interface()
             tester.run_PonyGE2()
-            os.chdir(base)
-
-        if 'SGE' in self.test_systems:
-            # ****Test SGE*****
-            tester2 = Tester_SGE(n_step=n_step,
-                                 n_init_sample=n_init_sample,
-                                 eval_type=eval_type,
-                                 max_eval_each=max_eval_each,
-                                 para_list=self.para_dict+'/hyper_para_list_SGE.json')
-            tester2.give_problem(full_problem_set)
-            tester2.make_interface()
-            # tester2.refresh_interface()
-            tester2.run_sge()
             os.chdir(base)
 
         if 'GGES' in self.test_systems:
@@ -275,8 +276,8 @@ if __name__ == "__main__":
 
 
     #here to define the problem for the comparison
-    full_problem_set=['mux11','ant','string_match','vladislavleva4']
-    full_problem_set=['vladislavleva4']
+    full_problem_set=['ant','string_match','vladislavleva4','mux11']
+    # full_problem_set=['ant','string_match','vladislavleva4']
 
     #shared parameters
     n_step=100
