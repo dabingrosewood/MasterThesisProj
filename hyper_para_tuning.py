@@ -32,7 +32,7 @@ def runGE(cmd):
     try:
         p = os.popen(cmd)
         std_out = p.read()
-        fitness = re.search(r'(\d+(\.\d+)?)([\n\s]*Phenotype)', std_out).group(1)
+        fitness = re.search(r'(\d+(\.\d+)(e-\d+)?)([\n\s]*Phenotype)', std_out).group(1)
         print('current parameter has the fitness of ', fitness)
     except:
         fitness=np.nan

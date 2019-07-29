@@ -20,4 +20,4 @@ class classification(supervised_learning):
             params['ERROR_METRIC'] = eval_f1_score
 
         # self.maximise = params['ERROR_METRIC'].maximise
-        self.maximise = True
+        self.maximise = False

@@ -227,10 +227,10 @@ def system_analyzer(target_dir='tmp/', show=False):
 
 
 if __name__ == "__main__":
-    defaultz_log_dir = "../log/"
+    defaultz_log_dir = "../logs/"
 
     # Orders of given problems matters
-    dealing_problem_set = ['vla4']
+    dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
 
     para_list = '/util/hyper_para_list_PonyGE2.json'
 

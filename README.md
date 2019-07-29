@@ -119,6 +119,11 @@ For the reference of these work, please mimic the `/demo/template.c` file.
 ++	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 ``` 
 
+
+##CAUTION:
+For some supervised learning prblem(especially those problem use `eval` function), please confirm that all component in the individual can be recognized by your system.
+For instance, when we are using `eval(math_funtion)` to calculate a prediction value, every mathematical characters must be specified in your problem or in system(e.g sin(),cos(),tanh()...).
+
 ##Cite us
 If you wants to use this project as your own purpose, please also cite these original works and refer to their original address.
 

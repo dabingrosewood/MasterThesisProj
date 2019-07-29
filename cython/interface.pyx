@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 # import sys
 import numpy as np
 import warnings
-# from sklearn.metrics.classification import f1_score as sklearn_f1_score
+from sklearn.metrics.classification import f1_score as sklearn_f1_score
 cimport numpy as np
 np.import_array()
 
@@ -48,8 +48,9 @@ def edit_dis(string1,string2):
     return editDistance(s1,s2)
 
 # def eval_f1_score(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None):
-#     print("in cython",y,yhat,"there is")
+#     # print("in cython",y,yhat,"there is")
 #     result=f1_score(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
+#     print('returned result is ',result)
 #     return result
 
 def eval_multiplexer(phenotype,problem_size):
@@ -62,26 +63,26 @@ def eval_ant(phenotype):
     return evaluate_ant(_bstring(phenotype))
 
 # not work on das5
-# def eval_f1_score(y, yhat):
-#     #this is for temporary usage of f1-score, on which previous one got some problem.
-#
-#     # if phen is a constant, eg 0.001 (doesn't refer to x), then yhat
-#     # will be a constant. that will break f1_score. so convert to a
-#     # constant array.
-#     if not isinstance(yhat, np.ndarray) or len(yhat.shape) < 1:
-#         yhat = np.ones_like(y) * yhat
-#
-#     # convert real values to boolean with a zero threshold
-#     yhat = (yhat > 0)
-#     with warnings.catch_warnings():
-#         # if we predict the same value for all samples (trivial
-#         # individuals will do so as described above) then f-score is
-#         # undefined, and sklearn will give a runtime warning and
-#         # return 0. We can ignore that warning and happily return 0.
-#         warnings.simplefilter("ignore")
-#         return sklearn_f1_score(y, yhat, average="weighted")
+def eval_f1_score(y, yhat):
+    #this is for temporary usage of f1-score, on which previous one got some problem.
 
-def test_only(input):
-    return np.random.randn()+1
+    # if phen is a constant, eg 0.001 (doesn't refer to x), then yhat
+    # will be a constant. that will break f1_score. so convert to a
+    # constant array.
+    if not isinstance(yhat, np.ndarray) or len(yhat.shape) < 1:
+        yhat = np.ones_like(y) * yhat
+
+    # convert real values to boolean with a zero threshold
+    yhat = (yhat > 0)
+    with warnings.catch_warnings():
+        # if we predict the same value for all samples (trivial
+        # individuals will do so as described above) then f-score is
+        # undefined, and sklearn will give a runtime warning and
+        # return 0. We can ignore that warning and happily return 0.
+        warnings.simplefilter("ignore")
+        # print('return',sklearn_f1_score(y, yhat, average="weighted"))
+        return 1-sklearn_f1_score(y, yhat, average="weighted")
+
+
 
 

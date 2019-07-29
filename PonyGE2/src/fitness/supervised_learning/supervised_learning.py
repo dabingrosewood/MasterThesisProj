@@ -4,6 +4,7 @@ np.seterr(all="raise")
 from algorithm.parameters import params
 from utilities.fitness.get_data import get_data
 from utilities.fitness.math_functions import *
+from utilities.fitness.added_math import *
 from utilities.fitness.optimize_constants import optimize_constants
 
 from fitness.base_ff_classes.base_ff import base_ff
