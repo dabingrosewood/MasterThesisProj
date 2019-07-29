@@ -229,9 +229,9 @@ class TesterManager:
                                     max_eval_each=max_eval_each,
                                     para_list=self.para_dict+'/hyper_para_list_PonyGE2.json'
                                     )
-            tester.give_problem(full_problem_set)
+            tester.give_problem(self.test_problems)
             tester.make_interface()
-            tester.refresh_interface()
+            # tester.refresh_interface()
             tester.run_PonyGE2()
             os.chdir(base)
 
@@ -242,9 +242,9 @@ class TesterManager:
                                  eval_type=eval_type,
                                  max_eval_each=max_eval_each,
                                  para_list=self.para_dict+'/hyper_para_list_SGE.json')
-            tester2.give_problem(full_problem_set)
+            tester2.give_problem(self.test_problems)
             tester2.make_interface()
-            tester2.refresh_interface()
+            # tester2.refresh_interface()
             tester2.run_sge()
             os.chdir(base)
 
@@ -255,7 +255,7 @@ class TesterManager:
                                   eval_type=eval_type,
                                   max_eval_each=max_eval_each,
                                   para_list=self.para_dict+'/hyper_para_list_GGES.json')
-            tester3.give_problem(full_problem_set)
+            tester3.give_problem(self.test_problems)
             tester3.make_interface()
             tester3.refresh_interface()
             tester3.run_gges()
