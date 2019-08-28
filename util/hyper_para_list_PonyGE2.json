@@ -4,14 +4,14 @@
   "options": ["PI_grow", "rhh", "uniform_tree"]
 
 },{
-  "name": "CROSSOVER",
-  "type": "NominalSpace",
-  "options": ["variable_onepoint", "variable_twopoint", "fixed_twopoint", "fixed_onepoint"]
-
-},{
   "name": "CROSSOVER_PROBABILITY",
   "type": "ContinuousSpace",
   "range": [0,1]
+
+},{
+  "name": "CROSSOVER",
+  "type": "NominalSpace",
+  "options": ["variable_onepoint", "variable_twopoint", "fixed_twopoint", "fixed_onepoint"]
 
 },{
   "name": "MUTATION",
@@ -42,6 +42,10 @@
   "type": "OrdinalSpace",
   "range": [1,50]
 },{
+  "name": "ELITE_SIZE",
+  "type": "OrdinalSpace",
+  "range": [1,100]
+},{
   "name": "CODON_SIZE",
   "type": "OrdinalSpace",
   "range": [200,1000]
@@ -57,9 +61,5 @@
   "name": "POPULATION_SIZE",
   "type": "OrdinalSpace",
   "range": [100,1000]
-},{
-  "name": "ELITE_SIZE",
-  "type": "OrdinalSpace",
-  "range": [1,100]
 }
 ]

@@ -25,15 +25,16 @@ class PARAMETERS_EXTRACTOR:
         '''
         llist = []
 
-        # todo: this part need modicication (system name need to be uniformed)
-        if system_name == 'ponyge2':
+        # other parameter before the main group
+        if system_name == 'ponyge2' or system_name == 'PonyGE2':
             para_file = '../util/hyper_para_list_PonyGE2.json'
             llist.append('PROBLEM')
-            llist.append('EVAL_BUDGET')
         elif system_name == 'SGE':
             para_file = '../util/hyper_para_list_SGE.json'
+            llist.append('PROBLEM')
         elif system_name == 'GGES':
             para_file = '../util/hyper_para_list_GGES.json'
+            llist.append('PROBLEM')
 
         with open(para_file, 'r') as load_f:
             data = json.load(load_f)
@@ -41,10 +42,15 @@ class PARAMETERS_EXTRACTOR:
                 if parameter['name']:
                     llist.append(parameter['name'])
 
+        # other parameter before the main group
+        if system_name == 'SGE':
+            llist.append('NUMBER_OF_ITERATIONS')
+            llist.append('EVAL_BUDGET')
+
+            llist.remove('MAX_REC_LEVEL')
+
         if system_name == 'SGE':
             llist.append('EVAL_BUDGET')
-            llist.append('PROBLEM')
-            # llist.append('NUMBER_OF_ITERATIONS')
 
         return llist
 
@@ -122,7 +128,7 @@ class PARAMETERS_EXTRACTOR:
         # print(f.name,recorder)
         return recorder
 
-    def out_analyzer(self, system_name, f):
+    def out_analyzer(self, system_name, f,type):
         '''
         In the benchmark test, for every problem the system will store its best-founded hyper-parameters settings, under
         the name of out_SYSTEMNAME_PROBLEM_TIME_MACHINENAME.txt
@@ -130,6 +136,7 @@ class PARAMETERS_EXTRACTOR:
         A dict includes the parameter_name and it's value will be returned.
         :param system_name:
         :param f:
+        :param type: returned type
         :return:
         '''
         while 1:
@@ -140,7 +147,11 @@ class PARAMETERS_EXTRACTOR:
                 tmp = line.strip("xopt: [").replace(']\n', '\n').replace("'", "").replace(" ", "")
                 parameter_dict = dict(zip(self.getpara(system_name), tmp.split(',')))
 
-        return parameter_dict
+        if type=='list':
+            return tmp.split(',')
+        elif type=='dict':
+            return parameter_dict
+
 
     def csv_writer(self, data):
         '''
@@ -173,17 +184,25 @@ class PARAMETERS_EXTRACTOR:
 
                 if file.startswith('output'):
                     # This file is standard output of test (nohup command), extract all data and store them in global_data.
+                    # pass
                     data_of_one_output = self.output_analyzer(f)
                     self.csv_writer(data_of_one_output)
-                else:
-                    print('current file is ', file)
-                    pass
-                    # system_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9]*)_', file).group(1)
-                    # problem_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9_]*)_', file).group(2)
+                elif file.startswith('out_'):
+                    # print('current file is ', file)
 
-                    # print(type(self.out_analyzer(system_name,f)))
+                    system_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9]*)_', file).group(1)
+                    problem_name = re.search(r'out_([A-Za-z0-9]*)_([A-Za-z0-9_]*)_', file).group(2)
 
-                    # todo: every out_file is a dict now. to be continued.
+                    data_of_out_log=self.out_analyzer(system_name,f,'list')
+
+                    if not os.path.exists('tmp_para'):
+                        os.mkdir('tmp_para/')
+                    with open('tmp_para/configurations_'+system_name+'_'+problem_name+'.csv','a') as record_file:
+                        # print(data_of_out_log)
+                        writer = csv.writer(record_file)
+                        writer.writerow(data_of_out_log[0:-1])
+
+
 
 
 def system_analyzer(target_dir='tmp/', show=False):
@@ -215,8 +234,45 @@ def system_analyzer(target_dir='tmp/', show=False):
         for system_tested in system_set:
             filename = system_tested + '_' + problem_tested + '.csv'
             cur_data = pd.read_csv(target_dir + filename, header=None, delimiter=',')
-            # cur_data is a DataSeries
-            cur_data.mean(0).plot(label=system_tested)
+            # cur_data is a DataFrame
+
+            # -----------------no deviation version-----------------------
+            # cur_data.mean(0).plot(label=system_tested)
+            # -----------------no deviation version-----------------------
+
+            # -----------------with std_dev version-----------------------
+
+
+            mean_value = cur_data.mean(0)
+            std_value = cur_data.std(0)
+
+            x = np.arange(0,100,1)
+            y = mean_value
+            y1 = mean_value+std_value
+            y2 = mean_value-std_value
+
+
+            if system_tested == 'PonyGE2':
+                plt.plot(x, y, color='orange', label='PonyGE2')
+                plt.plot(x, y1, color='orange', alpha=0.4, linestyle='dotted')
+                plt.plot(x, y2, color='orange', alpha=0.4, linestyle='dotted')
+            elif system_tested=='SGE':
+                plt.plot(x, y, color='blue', label='SGE')
+                plt.plot(x, y1, color='blue', alpha=0.4, linestyle='dotted')
+                plt.plot(x, y2, color='blue', alpha=0.4, linestyle='dotted')
+            else:
+                pass
+                # in the case new system added, please modify this part.
+            # -----------------with std_dev version-----------------------
+
+
+            # -----------------For thesis data-----------------------
+            # print('final result for problem',problem_tested,' in ',system_tested, 'is ',pd.Series.as_matrix(y)[-1])
+            # print(problem_tested,' in ',system_tested,'fitst result=',pd.Series.as_matrix(y)[0],
+            #       'final result=',pd.Series.as_matrix(y)[-1],
+            #       'improvement=',(pd.Series.as_matrix(y)[0]-pd.Series.as_matrix(y)[-1])/pd.Series.as_matrix(y)[-1])
+            # -----------------For thesis data-----------------------
+
 
         plt.legend()
         plt.xlabel('Iteration number')
@@ -226,14 +282,126 @@ def system_analyzer(target_dir='tmp/', show=False):
             plt.show()
 
 
+
+
+def csv_conveger_for_sys(target_dir='tmp_para/'):
+    '''
+    Used to converge all .csv files in target directory into one file by by systems.
+    :param target_dir:
+    :return:
+    '''
+
+    system_list=['PonyGE2','SGE']
+
+    for sys_name in system_list:
+        files=os.listdir(target_dir)
+        # print(files)
+        for file in files:
+            if re.search(sys_name,file):
+                fr = open(os.path.join(target_dir,file), 'rb').read()
+                with open(target_dir+'/result_'+sys_name+'.csv', 'ab') as f:
+                    f.write(fr)
+
+    for file in files:
+        if file.startswith('result'):
+
+            print('dealing ', file)
+            sys_name = re.search(r'result_([A-Za-z0-9]*)', file).group(1)
+
+            if sys_name == 'SGE':
+                schema = ['problem', 'population_size', 'elitism', 'tournament_size', 'crossover_rate',
+                          'mutation_rate', 'iteration_num']
+
+            elif sys_name == 'PonyGE2':
+                schema = ['problem', 'initialization', 'crossover_rate', 'crossover_type', 'mutation',
+                          'mutation_probability',
+                          'mutation_event_subtree', 'mutation_event_flip', 'selection_proportion', 'selection',
+                          'tournament_size', 'elite_size', 'codon_size', 'max_genome_size', 'population_size']
+
+            data = pd.read_csv(os.path.join(target_dir, file), header=None)
+            data.columns = schema
+
+            if sys_name == 'PonyGE2':
+
+                initialization_mapping = {'rhh': 1, 'PI_grow': 2, 'uniform_tree': 3}
+                data['initialization'] = data['initialization'].map(initialization_mapping)
+
+                crossover_type_mapping = {'variable_onepoint': 1, 'variable_twopoint': 2, 'fixed_twopoint': 3,
+                                          'fixed_onepoint': 4}
+                data['crossover_type'] = data['crossover_type'].map(crossover_type_mapping)
+
+                mutation_mapping = {'int_flip_per_codon': 1, 'subtree': 2, 'int_flip_per_ind': 3}
+                data['mutation'] = data['mutation'].map(mutation_mapping)
+
+                selection_mapping = {'tournament': 1, 'truncation': 2, }
+                data['selection'] = data['selection'].map(selection_mapping)
+
+            data.to_csv(os.path.join(target_dir, file), sep=',', header=True, index=False)
+
+
+
+
+
+def conf_analyzer(target_dir='tmp_para/', show=False):
+    '''
+    This function is not useable right now since the generated parallel coordinates looks bad.
+    Currently use https://app.rawgraphs.io/ to draw the graph
+    :param target_dir:
+    :param show:
+    :return:
+    '''
+
+    import pandas as pd
+    from pandas.tools.plotting import parallel_coordinates
+
+    files = os.listdir(target_dir)
+    for file in files:
+        if file.startswith('.'):
+            continue
+
+        if file.startswith('result'):
+            sys_name = re.search(r'result_([A-Za-z0-9]*)',file).group(1)
+
+
+            if sys_name=='SGE':
+                schema=['problem','population_size','elitism','tournament_size','crossover_rate','mutation_rate']
+
+            elif sys_name=='PonyGE2':
+                schema=['problem','initialization','crossover_rate','crossover_type','mutation','mutation_probability',
+                        'mutation_event_subtree','mutation_event_flip','selection_proportion','seletion',
+                        'tournament_size','elite_size','codon_size','max_genome_size',]
+
+            data = pd.read_csv(os.path.join(target_dir,file),header=0)
+            # data.columns = schema
+
+
+
+            print(data)
+            parallel_coordinates(data,0)
+            plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3, fancybox=True, shadow=False)
+            plt.show()
+
+
+
 if __name__ == "__main__":
     defaultz_log_dir = "../logs/"
 
     # Orders of given problems matters
-    dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
+    dealing_problem_set = ['banknote','keijzer6']
+    # dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
 
-    para_list = '/util/hyper_para_list_PonyGE2.json'
+    # para_list = '/util/hyper_para_list_PonyGE2.json'
 
+
+    # extract information for original log files.
     extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
     extractor.run()
-    system_analyzer(target_dir='tmp/', show=True)
+
+    # comparison between different GE systems on different benchmakr problems.
+    # system_analyzer(target_dir='tmp/', show=True)
+
+    # used to converge all .csv based on the tested systems' name.
+    # csv_conveger_for_sys('tmp_para')
+    #
+    # coordinate parallel
+    # conf_analyzer('tmp_para',True)
