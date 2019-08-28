@@ -47,9 +47,9 @@ I. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#inclu
 
 II. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :`
 
-III. Add the interface function for python program, following the shape of `eval_[problem](argv[])`
+III. Add the interface function for your test system language,  following the scheme of `eval_[problem](argv[])`
 
-example:
+example(cython for python2 and python3):
 ```diff
 + cdef extern from "fitness.h" :
 +     double rmse(double *prediction_value, double *actual_value,int length);
@@ -79,7 +79,7 @@ class problem_name(base_ff):
 2. add a parameter text file under `PonyGE2/src/parameters`
 3. copy the BNF file of your problem into `PonyGE2/src/grammars`
 
-#### for SGE system:
+#### For SGE system:
 To run your own problem in SGE system,you need to write a scirpt python file for each problem you are going to test.
 Following code is a good template to start with.
 ```python
@@ -104,7 +104,7 @@ if __name__ == "__main__":
 In the case of you are adding a supervised_learning problem, please refer to 
 
 
-#### for GGES system:
+#### For GGES system:
 For the test in GGES system, you need to write a test program for your selected problem (in `/demo`),copy your bnf into `/bnf` directory and assign your fitness function's return value  to eval function respectively.
 For the reference of these work, please mimic the `/demo/template.c` file.
 
@@ -118,6 +118,8 @@ For the reference of these work, please mimic the `/demo/template.c` file.
 ++	@echo linking $@ from $^
 ++	@$(CC) $(CFLAGS) $^ -o $@ $(LFLAGS)
 ``` 
+
+*Since the GGES system has some problem to pass its standard output to python3, this part is not used in the thesis project.*
 
 
 ##CAUTION:
