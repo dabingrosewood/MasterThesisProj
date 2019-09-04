@@ -3,7 +3,7 @@ import random
 import numpy as np
 from core.protectedmath import _log_, _div_, _exp_, _inv_, _sqrt_, protdiv
 from math import cos,sin
-
+from util.math_func import *
 dataset_path = '../resources/housing.txt'
 folds_path = '../resources/housing.folds'
 

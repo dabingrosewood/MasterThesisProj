@@ -1,4 +1,4 @@
-# Benchmark for Grammatical Evolution(GE) system
+# Thesis Project/ Benchmark for Grammatical Evolution(GE) system
 This project is the thesis project for my master degrees at Leiden University, which is supervised by Prof. Dr. Thomas bäck and Dr. H. Wang @Leiden University. 
 
 The general aim of this project is to provide a pipeline which can customize problems to build a benchmark to compare different GE and GE-variant systems. 

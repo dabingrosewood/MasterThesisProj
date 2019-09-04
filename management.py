@@ -97,7 +97,7 @@ class Tester_SGE:
         #problem here  and add __init__.py
         if not os.path.exists(os.getcwd() + "/SGE/src/util/cython"):
             cpy_interface('/SGE/src/util/cython')
-            build_cmd = "python2 setup.py build_ext --inplace"
+            build_cmd = "python setup.py build_ext --inplace"
             cd_cmd = 'cd ' + os.getcwd() + "/SGE/src/util/cython"
             exec_cmd(cd_cmd, build_cmd,)
             open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py", 'a').close()
@@ -107,7 +107,7 @@ class Tester_SGE:
     def refresh_interface(self):
         rmtree(os.getcwd()+"/SGE/src/util/cython")
         cpy_interface('/SGE/src/util/cython')
-        build_cmd = "python2 setup.py build_ext --inplace"
+        build_cmd = "python setup.py build_ext --inplace"
         cd_cmd='cd '+os.getcwd()+"/SGE/src/util/cython"
         exec_cmd(cd_cmd, build_cmd)
         open(os.getcwd() + "/SGE/src/util/cython/" + "__init__.py",'a').close()
@@ -279,15 +279,15 @@ if __name__ == "__main__":
     #here to define the problem for the comparison
     full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6']
 
-    part_problem_set=['banknote','keijzer6']
+    part_problem_set=['housing']
 
     #shared parameters
-    n_step=100
-    n_init_sample=5
+    n_step=5
+    n_init_sample=3
     eval_type='dict'
     max_eval_each=50000
     test_sys=['PonyGE2','SGE']
-    # test_sys=['SGE']
+    test_sys=['SGE']
 
     test=TesterManager(test_sys,part_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
     test.run()

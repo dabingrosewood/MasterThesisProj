@@ -1,9 +1,9 @@
 from fitness.supervised_learning.supervised_learning import supervised_learning
 
 from algorithm.parameters import params
-from utilities.fitness.error_metric import f1_score
+from utilities.fitness.error_metric import f1_score,rmse
 
-from fitness.cython.interface import eval_f1_score
+from fitness.cython.interface import eval_f1_score,fitness_rmse
 
 
 class classification(supervised_learning):

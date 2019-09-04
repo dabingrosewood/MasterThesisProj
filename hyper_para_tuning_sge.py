@@ -77,7 +77,7 @@ def obj_func(x):
 
     # test part
     os.chdir('suite')
-    cmd='python2 '+x['PROBLEM']+'.py'
+    cmd='python '+x['PROBLEM']+'.py'
     print("command inputed is ", cmd)
     # check the command inputed here
 
@@ -115,7 +115,7 @@ def obj_func(x):
     return f
 
 
-def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_each=100000, problem_set=['supervised_learning'],para_list='/util/hyper_para_list_SGE.json'):
+def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_each=100000, problem_set=['housing'],para_list='/util/hyper_para_list_SGE.json'):
 
     root_dir=os.getcwd()
     os.chdir("SGE/src/")
