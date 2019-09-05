@@ -1,0 +1,14 @@
+
+<start>::= <defp>{::}<callp>
+<defp> ::= def p():{:x = 0.0{::}<code>{::}return x:}
+<callp> ::= XXX_output_XXX = p()
+
+
+<code> ::= x = <expr> | for i in <seq>:{:<code>:} | x = <expr> {::}<code>| for i in <seq>:{:<code>:}{::}<code>
+<expr> ::= <const> | x | (x + <const>) | (x * <const>)
+<const> ::= 0.5
+
+<seq> ::= [<csitems>] | range(<i>+1)
+<i> ::= 0 | 1 | 2 | 3 | 4 | 5 | 6
+<csitems> ::= <item> | <item>, <csitems>
+<item> ::= <i>

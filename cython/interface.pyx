@@ -83,6 +83,18 @@ def eval_f1_score(y, yhat):
         # print('return',sklearn_f1_score(y, yhat, average="weighted"))
         return 1-sklearn_f1_score(y, yhat, average="weighted")
 
+#max_py is only for py. C-implemented version is in future work.
+def eval_max_py(phenotype):
+    try:
+        p, d = phenotype, {}
 
+        # Exec the phenotype.
+        exec(p, d)
 
+        # Get the output
+        fitness = d['XXX_output_XXX']  # this is the program's output: a number.
 
+        return 1000000/(fitness+1)
+
+    except RuntimeError:
+        return None

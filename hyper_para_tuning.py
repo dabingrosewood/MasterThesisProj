@@ -138,7 +138,7 @@ def hyper_parameter_tuning_ponyge2(n_step,n_init_sample,eval_type, max_eval_each
         # by default, it will be a minimize problem.
 
         if problem in ['classification', 'pymax']:
-            minimize_problem = False
+            minimize_problem = True
 
         filename = root_dir + para_list
         system_name='PonyGE2'

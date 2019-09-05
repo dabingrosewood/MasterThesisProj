@@ -77,7 +77,7 @@ def obj_func(x):
 
     # test part
     os.chdir('suite')
-    cmd='python '+x['PROBLEM']+'.py'
+    cmd='python2 '+x['PROBLEM']+'.py'
     print("command inputed is ", cmd)
     # check the command inputed here
 

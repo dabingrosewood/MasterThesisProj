@@ -1,6 +1,5 @@
 from fitness.base_ff_classes.base_ff import base_ff
 
-
 class pymax(base_ff):
     """
     Py-max is a max-style problem where the goal is to generate a function
@@ -25,13 +24,13 @@ class pymax(base_ff):
         # ind.phenotype will be a string, including function definitions etc.
         # When we exec it, it will create a value XXX_output_XXX, but we exec
         # inside an empty dict for safety.
-        
+
         p, d = ind.phenotype, {}
-        
+
         # Exec the phenotype.
         exec(p, d)
-        
+
         # Get the output
         s = d['XXX_output_XXX']  # this is the program's output: a number.
-        
+
         return s
