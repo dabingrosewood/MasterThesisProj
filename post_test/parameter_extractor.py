@@ -387,7 +387,7 @@ if __name__ == "__main__":
     defaultz_log_dir = "../logs/"
 
     # Orders of given problems matters
-    dealing_problem_set = ['banknote','keijzer6']
+    dealing_problem_set = ['housing']
     # dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
 
     # para_list = '/util/hyper_para_list_PonyGE2.json'
@@ -398,7 +398,7 @@ if __name__ == "__main__":
     extractor.run()
 
     # comparison between different GE systems on different benchmakr problems.
-    # system_analyzer(target_dir='tmp/', show=True)
+    system_analyzer(target_dir='tmp/', show=True)
 
     # used to converge all .csv based on the tested systems' name.
     # csv_conveger_for_sys('tmp_para')

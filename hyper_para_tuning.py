@@ -32,7 +32,7 @@ def runGE(cmd):
     try:
         p = os.popen(cmd)
         std_out = p.read()
-        fitness = re.search(r'(\d+(\.\d+)(e-\d+)?)([\n\s]*Phenotype)', std_out).group(1)
+        fitness = re.search(r'(\d+(\.\d+)?(e-\d+)?)([\n\s]*Phenotype)', std_out).group(1)
         print('current parameter has the fitness of ', fitness)
     except:
         fitness=np.nan
@@ -210,7 +210,7 @@ if __name__ == "__main__":
     eval_type = 'dict'  # control the type of parameters for evaluation: dict | list
     M = 21  # maximal length of grammar, to make the problem more linear
     max_eval_each=1000
-    problem_set = ['regression', 'string_match', 'pymax','classification']
+    problem_set = ['parity5']
 
     # the problem you are going to test
     hyper_parameter_tuning_ponyge2(n_step, n_init_sample, eval_type, max_eval_each, problem_set)

@@ -26,7 +26,6 @@ for i in range(PARITY_SIZE_M):
 
 class Parity5():
     def evaluate(self, individual):
-        print(individual)
         error = PARITY_SIZE_M
         for i, inpt in enumerate(inputs):
             res = eval(individual, dict(zip(input_names, inpt)))

@@ -11,28 +11,25 @@
 #include <string.h>
 
 #include <sys/time.h>
-
 //#include "share_func.h"
 
 
-static bool **generate_data(int bits)
+
+static bool **generate_data_parity(int bits)
 {
-    unsigned int i, j, n, n_addr, addr;
+    unsigned int i, j, n, sum;
     bool **data;
 
     n = 1 << bits;
-    n_addr = floor(log(bits) / log(2));
 
     data = malloc(n * sizeof(bool *));
     data[0] = malloc((bits + 1) * n * sizeof(bool));
     for (i = 0; i < n; ++i) data[i] = data[0] + i * (bits + 1);
 
     for (i = 0; i < n; ++i) {
-        for (j = 0; j < bits; ++j) data[i][j] = (i & (1 << j)) != 0;
-
-        addr = 0;
-        for (j = 0; j < n_addr; ++j) addr += (1 << j) * data[i][j];
-        data[i][bits] = data[i][addr + n_addr];
+        sum = 0;
+        for (j = 0; j < bits; ++j) if ((data[i][j] = (i & (1 << j)) != 0)) sum++;
+        data[i][bits] = (sum % 2) == 0;
     }
 
     return data;
@@ -43,9 +40,9 @@ static bool **generate_data(int bits)
 
 
 
-static bool function(char *token, bool *output, int *n_o)
-{
 
+static bool function_parity(char *token, bool *output, int *n_o)
+{
     bool q, t, f;
     if (strncmp(token, "if", 2) == 0) {
         q = pop_bit(output, n_o);
@@ -53,7 +50,6 @@ static bool function(char *token, bool *output, int *n_o)
         f = pop_bit(output, n_o);
         return q ? t : f;
     }
-
     if (strncmp(token, "not", 3) == 0) return !(pop_bit(output, n_o));
 
     fprintf(stderr, "ERROR: unknown function %s\n", token);
@@ -61,31 +57,48 @@ static bool function(char *token, bool *output, int *n_o)
     return false;
 }
 
-static bool is_operater(char *token)
+static bool is_operator_parity(char *token)
 {
     if (strncmp(token, "and", 3) == 0) return true;
     if (strncmp(token, "or", 2) == 0) return true;
+
+    if (strncmp(token, "nand", 4) == 0) return true;
+    if (strncmp(token, "nor", 3) == 0) return true;
+
+    if (strncmp(token, "xor", 3) == 0) return true;
+    if (strncmp(token, "nxor", 4) == 0) return true;
+
     return false;
 }
 
-static int operater_precedence(char *token)
+static int operator_parity_precedence(char *token)
 {
     if (strncmp(token, "or", 2) == 0) return 1;
-    if (strncmp(token, "and", 3) == 0) return 2;
+    if (strncmp(token, "nor", 2) == 0) return 1;
+    if (strncmp(token, "xor", 3) == 0) return 2;
+    if (strncmp(token, "nxor", 4) == 0) return 2;
+    if (strncmp(token, "and", 3) == 0) return 3;
+    if (strncmp(token, "nand", 3) == 0) return 3;
     return 0;
 }
 
-static bool operater(char *token, bool a, bool b)
+static bool operator_parity(char *token, bool a, bool b)
 {
-if (strncmp(token, "and", 3) == 0) return a && b;
-if (strncmp(token, "or", 2) == 0) return a || b;
+    if (strncmp(token, "and", 3) == 0) return a && b;
+    if (strncmp(token, "or", 2) == 0) return a || b;
 
-fprintf(stderr, "ERROR: unknown function %s\n", token);
-exit(0);
-return false;
+    if (strncmp(token, "nand", 4) == 0) return !(a && b);
+    if (strncmp(token, "nor", 3) == 0) return !(a || b);
+
+    if (strncmp(token, "xor", 3) == 0) return !(a && b) && (a || b);
+    if (strncmp(token, "nxor", 4) == 0) return (a && b) || !(a || b);
+
+    fprintf(stderr, "ERROR: unknown function %s\n", token);
+    exit(0);
+    return false;
 }
 
-static bool execute_mul(char *buffer, bool *data)
+static bool execute_parity(char *buffer, bool *data)
 {
     char *token, **ops, *o1, *o2;
     bool *output, res;
@@ -99,58 +112,46 @@ static bool execute_mul(char *buffer, bool *data)
 
 
     for (token = strtok(buffer, " "); token; token = strtok(NULL, " ")) {
-
-        // printf("current dealing with token  --%s-- \n",token );
-        // if ((strncmp(token, "s", 1) == 0) ||(strncmp(token, "i", 1) == 0)){
-        if (strncmp(token, "i", 1)  == 0){
-
-            // printf("token dealed 1 --%s--\n",token );
+        if (strncmp(token, "b", 1) == 0) {
             push_bit(data[atoi(token + 1)], &output, &n_o, &sz_o);
         } else if (is_function(token)) {
-            // printf("token dealed 2  --%s--\n",token );
             push_op(token, &ops, &n_q, &sz_q);
         } else if (strncmp(token, ",", 1) == 0) {
-
-            // printf("token dealed 3 --%s--\n",token );
             while (strncmp(peek_op(ops, n_q), "(", 1) != 0) {
                 token = pop_op(ops, &n_q);
-                if (is_operater(token)) {
-                    push_bit(operater(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
+                if (is_operator_parity(token)) {
+                    push_bit(operator_parity(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
                 } else {
-                    push_bit(function(token, output, &n_o), &output, &n_o, &sz_o);
+                    push_bit(function_parity(token, output, &n_o), &output, &n_o, &sz_o);
                 }
             }
-        } else if (is_operater(token)) {
-
-            // printf("token dealed 4 --%s--\n",token );
+        } else if (is_operator_parity(token)) {
             o1 = token;
-            while (peek_op(ops, n_q) && is_operater(peek_op(ops, n_q))) {
+            while (peek_op(ops, n_q) && is_operator_parity(peek_op(ops, n_q))) {
                 o2 = peek_op(ops, n_q);
-                if (operater_precedence(o1) <= operater_precedence(o2)) {
-                    push_bit(operater(pop_op(ops, &n_q), pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
+                if (operator_parity_precedence(o1) <= operator_parity_precedence(o2)) {
+                    push_bit(operator_parity(pop_op(ops, &n_q), pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
                 } else {
                     break;
                 }
             }
             push_op(o1, &ops, &n_q, &sz_q);
         } else if (strncmp(token, "(", 1) == 0) {
-
-            // printf("token dealed  5 --%s--\n",token );
             push_op(token, &ops, &n_q, &sz_q);
         } else if (strncmp(token, ")", 1) == 0) {
             while (strncmp(peek_op(ops, n_q), "(", 1) != 0) {
                 token = pop_op(ops, &n_q);
-                if (is_operater(token)) {
-                    push_bit(operater(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
+                if (is_operator_parity(token)) {
+                    push_bit(operator_parity(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
                 } else {
-                    push_bit(function(token, output, &n_o), &output, &n_o, &sz_o);
+                    push_bit(function_parity(token, output, &n_o), &output, &n_o, &sz_o);
                 }
             }
 
             token = pop_op(ops, &n_q); /* pop the left bracket */
 
             if (peek_op(ops, n_q) && is_function(peek_op(ops, n_q))) {
-                push_bit(function(pop_op(ops, &n_q), output, &n_o), &output, &n_o, &sz_o);
+                push_bit(function_parity(pop_op(ops, &n_q), output, &n_o), &output, &n_o, &sz_o);
             }
         } else {
             fprintf(stderr, "ERROR: unknown symbol: %s\n", token);
@@ -159,10 +160,10 @@ static bool execute_mul(char *buffer, bool *data)
     }
 
     while ((token = pop_op(ops, &n_q))) {
-        if (is_operater(token)) {
-            push_bit(operater(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
+        if (is_operator_parity(token)) {
+            push_bit(operator_parity(token, pop_bit(output, &n_o), pop_bit(output, &n_o)), &output, &n_o, &sz_o);
         } else {
-            push_bit(function(token, output, &n_o), &output, &n_o, &sz_o);
+            push_bit(function_parity(token, output, &n_o), &output, &n_o, &sz_o);
         }
     }
 
@@ -171,11 +172,10 @@ static bool execute_mul(char *buffer, bool *data)
     free(output);
     free(ops);
 
-//    printf("%s\n",btoa(res) );
     return res;
 }
 
-static int measure(char *ind, bool **X, int n, int b)
+static int measure_parity(char *ind, bool **X, int n, int b)
 {
     int i;
     bool q, r;
@@ -190,7 +190,7 @@ static int measure(char *ind, bool **X, int n, int b)
         strcpy(buffer, ind);
 
         q = X[i][b];
-        r = execute_mul(buffer, X[i]);
+        r = execute_parity(buffer, X[i]);
         // q is real, r is prediction, if prediction is correct, get one score.
 
         score += (q == r) ? 1 : 0;
@@ -204,13 +204,13 @@ static int measure(char *ind, bool **X, int n, int b)
 
 
 
-int evaluate_multiplexer(char *solution, int input_size){
+int evaluate_parity(char *solution, int input_size){
     int i;
     struct details details;
 
-    details.b = input_size + (1<<input_size);
+    details.b = input_size ;
     details.n = 1 << details.b;
-    details.data = generate_data(details.b);
+    details.data = generate_data_parity(details.b);
 
-    return measure(solution,details.data, details.n, details.b);
+    return measure_parity(solution,details.data, details.n, details.b);
 }

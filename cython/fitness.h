@@ -1,9 +1,12 @@
 
 #include <stdio.h>
 #include <string.h>
-#include "multiplexer.h"
+#include "share_func.h"
+
 #include "ant.h"
-//#include "parity.h"
+#include "multiplexer.h"
+#include "parity.h"
+
 //#include <malloc.h>
 #ifndef GESUITE_UTIL_H
 #define GESUITE_UTIL_H

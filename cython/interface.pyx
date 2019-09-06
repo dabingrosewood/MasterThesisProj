@@ -35,8 +35,6 @@ def testf(data1,data2):
     return average_value(data1,data2)
 
 
-
-
 def fitness_rmse(np.ndarray[double, ndim=1, mode="c"] y not None, np.ndarray[double, ndim=1, mode="c"] yhat not None):
     result = rmse(<double*> np.PyArray_DATA(y),<double*> np.PyArray_DATA(yhat),y.shape[0])
     return result
@@ -56,8 +54,8 @@ def edit_dis(string1,string2):
 def eval_multiplexer(phenotype,problem_size):
     return evaluate_multiplexer(_bstring(phenotype),problem_size)
 
-# def eval_parity(phenotype,problem_size):
-#     return evaluate_parity(_bstring(phenotype),problem_size)
+def eval_parity(phenotype,problem_size):
+    return evaluate_parity(_bstring(phenotype),problem_size)
 
 def eval_ant(phenotype):
     return evaluate_ant(_bstring(phenotype))

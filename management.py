@@ -244,7 +244,7 @@ class TesterManager:
                                  para_list=self.para_dict+'/hyper_para_list_SGE.json')
             tester2.give_problem(self.test_problems)
             tester2.make_interface()
-            # tester2.refresh_interface()
+            tester2.refresh_interface()
             tester2.run_sge()
             os.chdir(base)
 
@@ -277,16 +277,16 @@ if __name__ == "__main__":
 
 
     #here to define the problem for the comparison
-    full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','max_py']
+    full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','max_py','parity5']
 
-    part_problem_set=['max_py','housing']
+    part_problem_set=['parity5']
 
     #shared parameters
-    n_step=5
-    n_init_sample=3
+    n_step=10
+    n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
-    test_sys=['SGE','PonyGE2']
+    test_sys=['SGE']
 
     test=TesterManager(test_sys,part_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
     test.run()
