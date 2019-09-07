@@ -15,6 +15,6 @@ if __name__ == "__main__":
     from configs.standard import MAX_REC_LEVEL
 
     experience_name = "Parity5/"
-    grammar = grammar.Grammar("../grammars/parity5.txt", 5)
+    grammar = grammar.Grammar("../grammars/parity5.bnf", 5)
     evaluation_function = Parity_5()
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)

@@ -5,7 +5,7 @@ CROSSOVER_PROBABILITY:  0.7
 DEBUG:                  False
 GENERATIONS:            50
 MAX_GENOME_LENGTH:      100
-GRAMMAR_FILE:           parity5.txt
+GRAMMAR_FILE:           parity5.bnf
 INITIALISATION:         rhh
 INVALID_SELECTION:      False
 MAX_INIT_TREE_DEPTH:    10
