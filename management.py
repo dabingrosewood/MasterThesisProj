@@ -252,7 +252,7 @@ class TesterManager:
                                  para_list=self.para_dict+'/hyper_para_list_SGE.json')
             tester2.give_problem(self.test_problems)
             tester2.make_interface()
-            tester2.refresh_interface()
+            # tester2.refresh_interface()
             tester2.run_sge()
             os.chdir(base)
 
