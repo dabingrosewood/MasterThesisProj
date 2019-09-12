@@ -1,0 +1,6 @@
+<start> ::= <expr>
+<expr>  ::= <expr><op><expr> | (<expr>) | <pre-op>(<expr>) | <var>
+<op>    ::= + | - | * | /
+<pre-op>::= sin | cos | exp | plog
+<var>   ::= x[<idx>]
+<idx>   ::= 0 | 1

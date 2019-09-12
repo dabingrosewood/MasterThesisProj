@@ -2,12 +2,13 @@ CACHE:                  True
 CODON_SIZE:             100000
 CROSSOVER:              variable_onepoint
 CROSSOVER_PROBABILITY:  0.75
-DATASET_TRAIN:          Keijzer6/Train.txt
-DATASET_TEST:           Keijzer6/Test.txt
+DATASET_TRAIN:          Paige1/Train.txt
+DATASET_TEST:           Paige1/Test.txt
 DEBUG:                  False
+ERROR_METRIC:           rmse
 GENERATIONS:            50
 MAX_GENOME_LENGTH:      500
-GRAMMAR_FILE:           supervised_learning/Keijzer6.bnf
+GRAMMAR_FILE:           pagie.bnf
 INITIALISATION:         PI_grow
 INVALID_SELECTION:      False
 MAX_INIT_TREE_DEPTH:    10

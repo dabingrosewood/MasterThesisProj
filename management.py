@@ -31,10 +31,15 @@ def global_log_cleaner(log_dir='log/'):
         os.mkdir('log/')
 
 class Tester_PONYGE2:
-    '''
-
-    '''
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_PonyGE2.json'):
+        '''
+
+        :param n_step: Iteration number of hyper-parameter tuning.
+        :param n_init_sample: Initialization point number for hyper-parameter tuning.
+        :param eval_type: Evaluation type.
+        :param max_eval_each: Maximal allowed evaluation function calling number.
+        :param para_list: Location of tuned hyper-parameter list in json.
+        '''
         self.n_step = n_step
         self.n_init_sample = n_init_sample
         self.eval_type = eval_type
@@ -43,7 +48,7 @@ class Tester_PONYGE2:
 
 
     def make_interface(self):
-        # copy the interface into src/fitness
+        # copy the interface into src/fitness and build
         if not os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython/build/"):
             cpy_interface()
             build_cmd = "python3 setup.py build_ext --inplace"
@@ -54,6 +59,7 @@ class Tester_PONYGE2:
 
 
     def refresh_interface(self):
+        # refresh the interface for system
         if os.path.exists(os.getcwd() + "/PonyGE2/src/fitness/cython"):
             rmtree(os.getcwd() + "/PonyGE2/src/fitness/cython")
             cpy_interface()
@@ -64,7 +70,7 @@ class Tester_PONYGE2:
 
 
     def clear_log(self):
-        # clear previous Ponyge result
+        # clear previous result and log files
         result_dir = os.getcwd() + "/PonyGE2/results"
         if os.path.exists(result_dir):
             rmtree(result_dir)
@@ -72,17 +78,19 @@ class Tester_PONYGE2:
 
 
     def give_problem(self,problem_set):
+        # assign problem to this test, para 'problem_set' in list.
         self.problem_set=problem_set
 
 
     def run_PonyGE2(self):
-        # self.clear_log()
+        # run the test(including hyper-parameter tuning)
         print('\n')
         print("***" * 20 + "now testing PonyGE2 system" + "***" * 20)
         hyper_para_tuning.hyper_parameter_tuning_ponyge2(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
                                                          self.para_list)
 
     def make_problem(self):
+        # copy necessary files for test problem
         pass
 
 class Tester_SGE:
@@ -277,16 +285,16 @@ if __name__ == "__main__":
 
 
     #here to define the problem for the comparison
-    full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','max_py','parity5']
+    full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','max_py','parity5','pagie']
 
-    part_problem_set=['parity5']
+    part_problem_set=['pagie']
 
     #shared parameters
     n_step=10
     n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
-    test_sys=['SGE']
+    test_sys=['SGE','PonyGE2']
 
     test=TesterManager(test_sys,part_problem_set,n_step,n_init_sample,eval_type,max_eval_each,'/util')
     test.run()

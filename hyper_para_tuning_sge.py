@@ -22,6 +22,10 @@ from util.para_list_reader import get_space
 
 
 def run_sge(cmd):
+    '''
+    :param cmd: command to run SGE system
+    :return: extracted final fitness value
+    '''
     try:
         p = os.popen(cmd)
         std_out = p.read()
@@ -117,6 +121,7 @@ def obj_func(x):
 
 def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_each=100000, problem_set=['housing'],para_list='/util/hyper_para_list_SGE.json'):
 
+
     root_dir=os.getcwd()
     os.chdir("SGE/src/")
 
@@ -144,7 +149,6 @@ def hyper_parameter_tuning_sge(n_step,n_init_sample,eval_type='dict', max_eval_e
         NUMBER_OF_ITERATIONS=OrdinalSpace([50, 50 + 1], 'NUMBER_OF_ITERATIONS')
 
         search_space = PROBLEM + POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + NUMBER_OF_ITERATIONS + EVAL_BUDGET
-        # search_space = PROBLEM + POPULATION_SIZE + ELITISM + TOURNAMENT + PROB_CROSSOVER + PROB_MUTATION + MAX_REC_LEVEL + NUMBER_OF_ITERATIONS + EVAL_BUDGET
 
         model = RandomForest(levels=search_space.levels)
 
