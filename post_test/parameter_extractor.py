@@ -387,7 +387,7 @@ if __name__ == "__main__":
     defaultz_log_dir = "../logs/"
 
     # Orders of given problems matters
-    # dealing_problem_set = ['parity5']
+    dealing_problem_set = ['pagie']
     # dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
 
     # extract information for original log files.
