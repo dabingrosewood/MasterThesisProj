@@ -45,7 +45,7 @@ Several variables in `management.py` are best to know before your test:
 ### 1. write your own fitness function and interface
 I. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#include_ your `problem.c` in `cython/fitness.h`.
 
-II. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :`
+II. Add the declaration of your evaluate function under `cdef extern from "fitness.h" :` in interface.pyc.
 
 III. Add the interface function for your test system language,  following the scheme of `eval_[problem](argv[])`
 

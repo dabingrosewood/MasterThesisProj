@@ -287,10 +287,10 @@ if __name__ == "__main__":
     #here to define the problem for the comparison
     full_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','max_py','parity5','pagie']
 
-    part_problem_set=['pagie']
+    part_problem_set=['ant','string_match','vladislavleva4','mux11','banknote','keijzer6','housing','parity5','pagie']
 
     #shared parameters
-    n_step=10
+    n_step=100
     n_init_sample=5
     eval_type='dict'
     max_eval_each=50000
