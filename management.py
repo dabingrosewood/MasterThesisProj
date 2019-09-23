@@ -1,7 +1,7 @@
 import os
 from shutil import copytree, ignore_patterns,rmtree
 from src import hyper_para_tuning, hyper_para_tuning_GGES, hyper_para_tuning_sge
-from util.exec_cmd import exec_cmd
+from src.exec_cmd import exec_cmd
 
 
 
@@ -26,8 +26,8 @@ def global_log_cleaner(log_dir='log/'):
         rmtree(log_dir)
     except (FileNotFoundError,NotADirectoryError):
         print("no log need to be cleaned")
-    if not os.path.exists('log/'):
-        os.mkdir('log/')
+    if not os.path.exists('logs/'):
+        os.mkdir('logs/')
 
 class Tester_PONYGE2:
     def __init__(self,n_step,n_init_sample,eval_type,max_eval_each,para_list='/util/hyper_para_list_PonyGE2.json'):

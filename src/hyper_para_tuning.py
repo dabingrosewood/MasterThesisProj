@@ -7,20 +7,15 @@
         y.lou@liacs.leidenuniv.nl
 """
 
-from pdb import set_trace
-
 import numpy as np
-import datetime
-import re,os,traceback
-from datetime import datetime
+import re,os
 from BayesOpt import BO
 from BayesOpt.Surrogate import RandomForest
-from BayesOpt.SearchSpace import ContinuousSpace, NominalSpace, OrdinalSpace
+from BayesOpt.SearchSpace import NominalSpace, OrdinalSpace
 from multiprocessing import Pool
 import platform
 import time
-import json
-from util.para_list_reader import get_space
+from src.para_list_reader import get_space
 
 def runGE(cmd):
     '''

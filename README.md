@@ -12,10 +12,41 @@ On the other side, this project is still in construction, some parts may not syn
 
 
 
-## Structure
+##Basic Structure
 ![image](http://assets.processon.com/chart_image/5d2c90f9e4b065dc42a56c41.png)
 In this project, Every tested system will be seen as a independent module. Their hyper-parameter(such like evolutionary settings) are managed  by `management.py` and tuned by calling `MIP-EGO` module. All tuned hyper-parameters are automatically feed into testing systems.
 On the other side, all fitness functions for every problem in this test is calling C-implemented Test Suite, with their corresponded interface to different coding languagess. Until now, interfaces of py3 to C and py2 to c are provided.
+
+##File structure
+```text
+├── BayesOpt/                       // The MIP-EGO module
+├── Benchmark/                      // Files for benchmark problems
+│   └── Ant
+│       └── ant.bnf         
+│   └── Banknote
+│       └── Supervised              // For supervised learning problem, a Dir 'Supervised' is used to store the dataset.
+│       └── banknote.bnf    
+│   └── ...     
+├── cython/                         // interface for python (includes py2 and py3)
+├── GGES/                           // <GGES system>
+├── logs/                           // log files
+├── PonyGE2/                        // <PonyGE2 system>
+├── post_test/                      // analyzing work and related temperate files
+│       └── distr_conf/             // Distribution of hyper-parameter after hyper-parameter tuning in parallel-coordinate.
+│       └── tmp/                    // Formatted, best-founded fitness values over hyper-parameter tuning process.
+│       └── tmp_para/               // Formatted, best-founded hyper-parameter configurations.
+│       └──*parameter_extractor.py  // The interface of test part
+├── SGE/                            // <SGE system>
+├── src/                            
+├── util/
+├── .gitignore
+├── LICENSE
+├──*management.py                   // main function of this project. The interface of test part.
+├── modificaiton.log
+└── README.md 
+
+File with * has specific description. 
+```
 
 ## Usage
 To run the test on your own computer/server, please use `git clone https://github.com/dabingrosewood/MasterThesisProj.git`.
@@ -138,4 +169,7 @@ https://github.com/PonyGE/PonyGE2
 https://github.com/nunolourenco/sge
 
 https://github.com/grantdick/libgges#libgges-grammar-guided-evolutionary-search
+
+
+
 
