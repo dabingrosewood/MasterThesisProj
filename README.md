@@ -35,7 +35,10 @@ Several variables in `management.py` are best to know before your test:
     scikit-learn
     pathos
     cython
-    (to be continued...)
+    plotly
+    psutil 
+    requests
+    orca
 
 ```
 

@@ -1,7 +1,6 @@
-import sys,os
+import os
 from shutil import copytree, ignore_patterns,rmtree
-import hyper_para_tuning,hyper_para_tuning_sge,hyper_para_tuning_GGES
-import numpy as np
+from src import hyper_para_tuning, hyper_para_tuning_GGES, hyper_para_tuning_sge
 from util.exec_cmd import exec_cmd
 
 
@@ -205,7 +204,7 @@ class Tester_GGES:
         print("***"*20+"now testing GGES system"+"***"*20)
 
         hyper_para_tuning_GGES.hyper_parameter_tuning_GGES(self.n_step, self.n_init_sample, self.eval_type, self.max_eval_each, self.problem_set,
-                                                      self.para_list)
+                                                           self.para_list)
 
 
 class TesterManager:

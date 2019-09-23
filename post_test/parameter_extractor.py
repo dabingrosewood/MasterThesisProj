@@ -244,8 +244,6 @@ def system_analyzer(target_dir='tmp/', show=False):
             # -----------------no deviation version-----------------------
 
             # -----------------with std_dev version-----------------------
-
-
             mean_value = cur_data.mean(0)
             std_value = cur_data.std(0)
 
@@ -270,9 +268,10 @@ def system_analyzer(target_dir='tmp/', show=False):
 
 
             # -----------------For thesis data-----------------------
-            print('final result for problem',problem_tested,' in ',system_tested, 'is ',pd.Series.as_matrix(y)[-1])
+            print('final result for **',problem_tested,'** in @@',system_tested, '@@ is ',pd.Series.as_matrix(y)[-1])
             print(problem_tested,' in ',system_tested,'fitst result=',pd.Series.as_matrix(y)[0],
                   'final result=',pd.Series.as_matrix(y)[-1],
+                  'std_dev=', pd.Series.as_matrix(std_value)[-1],
                   'improvement=',(pd.Series.as_matrix(y)[0]-pd.Series.as_matrix(y)[-1])/pd.Series.as_matrix(y)[-1])
             # -----------------For thesis data-----------------------
 
@@ -292,6 +291,11 @@ def csv_conveger_for_sys(target_dir='tmp_para/'):
     :return:
     '''
 
+    files = os.listdir(target_dir)
+    for file in files:
+        if file.startswith('result'):
+            os.remove(os.path.join(target_dir,file))
+
     system_list=['PonyGE2','SGE']
 
     for sys_name in system_list:
@@ -305,7 +309,6 @@ def csv_conveger_for_sys(target_dir='tmp_para/'):
                 f.close()
 
     files = os.listdir(target_dir)
-    print(files)
     for file in files:
         if file.startswith('result'):
 
@@ -324,6 +327,9 @@ def csv_conveger_for_sys(target_dir='tmp_para/'):
 
             data = pd.read_csv(os.path.join(target_dir, file), header=None)
             data.columns = schema
+
+            problem_mapping = {'ant': 1, 'banknote': 2, 'housing': 3, 'keijzer6': 4, 'mux11': 5, 'pagie': 6, 'parity5': 7, 'string_match': 8, 'vladislavleva4': 9}
+            data['problem'] = data['problem'].map(problem_mapping)
 
             if sys_name == 'PonyGE2':
 
@@ -344,63 +350,75 @@ def csv_conveger_for_sys(target_dir='tmp_para/'):
 
 
 def conf_analyzer(target_dir='tmp_para/', show=False):
-    '''
-    This function is not useable right now since the generated parallel coordinates looks bad.
-    Currently use https://app.rawgraphs.io/ to draw the graph
-    :param target_dir:
-    :param show:
-    :return:
-    '''
 
+    import plotly.express as px
     import pandas as pd
-    from pandas.tools.plotting import parallel_coordinates
+    import os
 
-    files = os.listdir(target_dir)
+    # used to converge all .csv based on the tested systems' name.
+    csv_conveger_for_sys(target_dir)
+
+    if os.path.exists('distr_conf'):
+        pass
+    else:
+        os.mkdir('distr_conf')
+
+    files=os.listdir(target_dir)
     for file in files:
-        if file.startswith('.'):
-            continue
-
         if file.startswith('result'):
-            sys_name = re.search(r'result_([A-Za-z0-9]*)',file).group(1)
+            sys_name = re.search(r'result_([A-Za-z0-9]*)', file).group(1)
+            if sys_name == 'SGE':
+                data = pd.read_csv(os.path.join(target_dir,file)).drop(columns='iteration_num')
+            if sys_name == 'PonyGE2':
+                data = pd.read_csv(os.path.join(target_dir,file)).drop(columns=[ 'mutation_probability',
+                          'mutation_event_subtree', 'mutation_event_flip', 'selection_proportion','tournament_size','max_genome_size','codon_size'])
+                #reshape helps it look better
+                data = data[['problem', 'population_size','initialization',  'crossover_type','crossover_rate', 'mutation',
+                            'elite_size', 'selection']]
 
+            fig = px.parallel_coordinates(data, color="problem", labels={"problem": "problem"},
+                                              color_continuous_scale=px.colors.carto.Prism,
+                                              color_continuous_midpoint=5,range_color=[1,9])
+            fig.layout.title = 'Distribution of hyper-parameter of '+sys_name
+            fig.layout.title.x = 0.5
+            fig.layout.title.y = 0.02
+            if show:
+                fig.show()
+            fig.write_image("distr_conf/configuration_"+sys_name+".png",width=1200, height=600, scale=3)
 
-            if sys_name=='SGE':
-                schema=['problem','population_size','elitism','tournament_size','crossover_rate','mutation_rate']
+            #################only for thesis project#######################
+            problem_mapping = {'ant': 1, 'banknote': 2, 'housing': 3, 'keijzer6': 4, 'mux11': 5, 'pagie': 6,
+                               'parity5': 7, 'string_match': 8, 'vladislavleva4': 9}
+            for element in problem_mapping:
+                fig = px.parallel_coordinates(data.loc[data['problem']==problem_mapping[element]], color="problem", labels={"problem": "problem"},
+                                              color_continuous_scale=px.colors.carto.Prism,
+                                              color_continuous_midpoint=5,range_color=[1,9])
+                fig.layout.title=element+' for '+sys_name
+                fig.layout.title.x=0.5
+                fig.layout.title.y=0.02
+                fig.update_layout(showlegend=False)
+                fig.write_image("distr_conf/configuration_" +sys_name +'_'+ element + ".png", width=700, height=400, scale=3)
 
-            elif sys_name=='PonyGE2':
-                schema=['problem','initialization','crossover_rate','crossover_type','mutation','mutation_probability',
-                        'mutation_event_subtree','mutation_event_flip','selection_proportion','seletion',
-                        'tournament_size','elite_size','codon_size','max_genome_size',]
-
-            data = pd.read_csv(os.path.join(target_dir,file),header=0)
-            # data.columns = schema
-
-
-
-            print(data)
-            parallel_coordinates(data,0)
-            plt.legend(loc='upper center', bbox_to_anchor=(0.5, -0.1), ncol=3, fancybox=True, shadow=False)
-            plt.show()
+            #################only for thesis project#######################
 
 
 if __name__ == "__main__":
-    defaultz_log_dir = "../logs/"
+    default_log_dir = "../logs/"
 
     # Orders of given problems matters
-    dealing_problem_set = ['pagie']
+
     # dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
+    dealing_problem_set = ['banknote','keijzer6']
+    # dealing_problem_set = ['housing']
+    # dealing_problem_set = ['parity5']
+    # dealing_problem_set = ['pagie']
 
     # extract information for original log files.
-    # extractor = PARAMETERS_EXTRACTOR(defaultz_log_dir, dealing_problem_set)
+    # extractor = PARAMETERS_EXTRACTOR(default_log_dir, dealing_problem_set)
     # extractor.run()
 
     # comparison between different GE systems on different benchmark problems.
     system_analyzer(target_dir='tmp/', show=True)
 
-    # used to converge all .csv based on the tested systems' name.
-    # csv_conveger_for_sys('tmp_para')
-
-
-    #
     # coordinate parallel
-    # conf_analyzer('tmp_para',True)
+    # conf_analyzer('tmp_para',show=False)
