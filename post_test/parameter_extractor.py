@@ -210,8 +210,8 @@ class PARAMETERS_EXTRACTOR:
 
 def system_analyzer(target_dir='tmp/', show=False):
     '''
-    draw comparison graph for each problem. but No std_dev is included.
-    :param target_dir:
+    Draw comparison graph between different systems for each problem.
+    :param target_dir: The target directory stores formatted  fitness data over the configuration tuning.
     :return:
     '''
     problem_set = []
@@ -268,11 +268,14 @@ def system_analyzer(target_dir='tmp/', show=False):
 
 
             # -----------------For thesis data-----------------------
+            from scipy.stats import ttest_ind
             print('final result for **',problem_tested,'** in @@',system_tested, '@@ is ',pd.Series.as_matrix(y)[-1])
             print(problem_tested,' in ',system_tested,'fitst result=',pd.Series.as_matrix(y)[0],
-                  'final result=',pd.Series.as_matrix(y)[-1],
-                  'std_dev=', pd.Series.as_matrix(std_value)[-1],
+                  'std_dev_0=', pd.Series.as_matrix(std_value)[0],
+                  'final result=',pd.Series.as_matrix(y)[-1],'\n',
+                  'std_dev_-1=', pd.Series.as_matrix(std_value)[-1],
                   'improvement=',(pd.Series.as_matrix(y)[0]-pd.Series.as_matrix(y)[-1])/pd.Series.as_matrix(y)[-1])
+            print(ttest_ind(cur_data[cur_data.columns[0]].values, cur_data[cur_data.columns[-1]].values, equal_var=False),'\n')
             # -----------------For thesis data-----------------------
 
 
@@ -350,6 +353,13 @@ def csv_conveger_for_sys(target_dir='tmp_para/'):
 
 
 def conf_analyzer(target_dir='tmp_para/', show=False):
+    '''
+    Draw the distribution of hyper-parameter after hyper-parameter tuning.
+    Used to find some patterns on hyper-parameter tuning.
+    :param target_dir: The target directory stores formatted best-found configurations over the configuration tuning.
+    :param show:
+    :return:
+    '''
 
     import plotly.express as px
     import pandas as pd
@@ -397,7 +407,7 @@ def conf_analyzer(target_dir='tmp_para/', show=False):
                 fig.layout.title.x=0.5
                 fig.layout.title.y=0.02
                 fig.update_layout(showlegend=False)
-                fig.write_image("distr_conf/configuration_" +sys_name +'_'+ element + ".png", width=700, height=400, scale=3)
+                fig.write_image("distr_conf/configuration_" +sys_name +'_'+ element + ".png", width=700, height=400, scale=2)
 
             #################only for thesis project#######################
 
@@ -408,9 +418,9 @@ if __name__ == "__main__":
     # Orders of given problems matters
 
     # dealing_problem_set = ['ant','string_match','vladislavleva4','mux11']
-    dealing_problem_set = ['banknote','keijzer6']
+    # dealing_problem_set = ['banknote','keijzer6']
     # dealing_problem_set = ['housing']
-    # dealing_problem_set = ['parity5']
+    dealing_problem_set = ['parity5']
     # dealing_problem_set = ['pagie']
 
     # extract information for original log files.
@@ -418,7 +428,7 @@ if __name__ == "__main__":
     # extractor.run()
 
     # comparison between different GE systems on different benchmark problems.
-    system_analyzer(target_dir='tmp/', show=True)
+    # system_analyzer(target_dir='tmp/', show=True)
 
     # coordinate parallel
-    # conf_analyzer('tmp_para',show=False)
+    conf_analyzer('tmp_para',show=False)

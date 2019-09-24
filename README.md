@@ -24,7 +24,7 @@ On the other side, all fitness functions for every problem in this test is calli
 │   └── Ant
 │       └── ant.bnf         
 │   └── Banknote
-│       └── Supervised              // For supervised learning problem, a Dir 'Supervised' is used to store the dataset.
+│       └── Supervised              // For supervised learning problem, a directory is used to store the data set.
 │       └── banknote.bnf    
 │   └── ...     
 ├── cython/                         // interface for python (includes py2 and py3)
@@ -32,7 +32,7 @@ On the other side, all fitness functions for every problem in this test is calli
 ├── logs/                           // log files
 ├── PonyGE2/                        // <PonyGE2 system>
 ├── post_test/                      // analyzing work and related temperate files
-│       └── distr_conf/             // Distribution of hyper-parameter after hyper-parameter tuning in parallel-coordinate.
+│       └── distr_conf/             // Distribution of hyper-parameter after hyper-parameter tuning.
 │       └── tmp/                    // Formatted, best-founded fitness values over hyper-parameter tuning process.
 │       └── tmp_para/               // Formatted, best-founded hyper-parameter configurations.
 │       └──*parameter_extractor.py  // The interface of test part
@@ -135,7 +135,6 @@ if __name__ == "__main__":
     evaluation_function = PROBLEM_NAME()
     core.sge.evolutionary_algorithm(grammar = grammar, eval_func=evaluation_function, exp_name=experience_name)
 ```
-In the case of you are adding a supervised_learning problem, please refer to 
 
 
 #### For GGES system:
