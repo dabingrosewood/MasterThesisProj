@@ -12,12 +12,12 @@ On the other side, this project is still in construction, some parts may not syn
 
 
 
-##Basic Structure
+## Basic Structure
 ![image](http://assets.processon.com/chart_image/5d2c90f9e4b065dc42a56c41.png)
 In this project, Every tested system will be seen as a independent module. Their hyper-parameter(such like evolutionary settings) are managed  by `management.py` and tuned by calling `MIP-EGO` module. All tuned hyper-parameters are automatically feed into testing systems.
 On the other side, all fitness functions for every problem in this test is calling C-implemented Test Suite, with their corresponded interface to different coding languagess. Until now, interfaces of py3 to C and py2 to c are provided.
 
-##File structure
+## File structure
 ```text
 ├── BayesOpt/                       // The MIP-EGO module
 ├── Benchmark/                      // Files for benchmark problems
@@ -75,7 +75,7 @@ Several variables in `management.py` are best to know before your test:
 
 
 
-##How to add new problem and run the test
+## How to add new problem and run the test
 ### 1. write your own fitness function and interface
 I. Write your fitness function  `int evaluate_[problem_name](argv[])` or _#include_ your `problem.c` in `cython/fitness.h`.
 

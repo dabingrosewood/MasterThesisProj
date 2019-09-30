@@ -390,8 +390,10 @@ def conf_analyzer(target_dir='tmp_para/', show=False):
                                               color_continuous_scale=px.colors.carto.Prism,
                                               color_continuous_midpoint=5,range_color=[1,9])
             fig.layout.title = 'Distribution of hyper-parameter of '+sys_name
+            fig.layout.title.font.size = 20
             fig.layout.title.x = 0.5
             fig.layout.title.y = 0.02
+            fig.layout.font.size = 18
             if show:
                 fig.show()
             fig.write_image("distr_conf/configuration_"+sys_name+".png",width=1200, height=600, scale=3)
@@ -404,6 +406,7 @@ def conf_analyzer(target_dir='tmp_para/', show=False):
                                               color_continuous_scale=px.colors.carto.Prism,
                                               color_continuous_midpoint=5,range_color=[1,9])
                 fig.layout.title=element+' for '+sys_name
+                fig.layout.title.font.size=20
                 fig.layout.title.x=0.5
                 fig.layout.title.y=0.02
                 fig.update_layout(showlegend=False)
